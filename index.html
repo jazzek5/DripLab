@@ -159,6 +159,7 @@
       --track: #342b25;
       --thumb: #f5efe9;
       --shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.65);
+      --noise-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.48' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 0.94  0 0 0 0 0.88  0 0 0 0.055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
       color-scheme: dark;
     }
 
@@ -205,6 +206,7 @@
       --track: #ddd0bf;
       --thumb: #fffdf9;
       --shadow: 0 10px 28px -10px rgba(42, 30, 22, 0.16);
+      --noise-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.48' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.22  0 0 0 0 0.13  0 0 0 0 0.06  0 0 0 0.115 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
       color-scheme: light;
     }
 
@@ -358,11 +360,8 @@
       background-color: var(--bg);
       background-repeat: repeat;
       background-size: 240px 240px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.48' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 0.94  0 0 0 0 0.88  0 0 0 0.055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-image: var(--noise-bg);
       overflow-x: hidden;
-    }
-    [data-theme="cappuccino"] .shell {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.48' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.22  0 0 0 0 0.13  0 0 0 0 0.06  0 0 0 0.115 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
     }
     @media (min-width: 540px) {
       .shell {
@@ -784,8 +783,36 @@
                   box-shadow var(--dur-fast) var(--ease-out);
     }
     .nav-item:active { transform: scale(0.95); }
-    .nav-item .icon-svg { width: 21px; height: 21px; transition: transform var(--dur-fast) var(--ease-spring); }
-    .nav-item.active .icon-svg { transform: translateY(-1px) scale(1.05); }
+    .nav-item .icon-svg {
+      display: block;
+      width: 21px;
+      height: 21px;
+      min-width: 21px;
+      min-height: 21px;
+      flex: 0 0 21px;
+      transform: none;
+      transform-box: fill-box;
+      transform-origin: center center;
+      transition: transform var(--dur-fast) var(--ease-spring);
+    }
+    .nav-item.active:not(.nav-brew) .icon-svg {
+      transform: translateY(-1px) scale(1.05);
+    }
+    .nav-item.nav-brew .icon-svg,
+    .nav-item.nav-brew.active .icon-svg,
+    .nav-item.nav-brew.is-running .icon-svg,
+    .nav-item.nav-brew.is-running.active .icon-svg {
+      width: 21px !important;
+      height: 21px !important;
+      min-width: 21px !important;
+      min-height: 21px !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .nav-item.nav-brew.is-running span {
+      transform: none !important;
+      animation: none !important;
+    }
     .nav-item.active { color: var(--accent); background: var(--accent-bg); }
     .shell.brew-dark-active .nav-item.nav-brew {
       background: linear-gradient(180deg, #2b221c, #1e1814);
@@ -817,20 +844,84 @@
       color: var(--on-accent);
       box-shadow: 0 4px 12px -4px var(--accent-bd);
     }
-    .nav-dot {
-      position: absolute;
-      top: 5px;
-      right: calc(50% - 17px);
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--ai);
-      box-shadow: 0 0 0 2px var(--surface);
-      animation: pulse 1.1s infinite;
+    .nav-item.nav-brew {
+      overflow: hidden;
+      transform: none !important;
+      box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0), 0 0 0 0 rgba(217, 155, 82, 0);
+      transition: background-color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out),
+                  color var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-slow) var(--ease-out);
     }
-    .nav-item.nav-brew.active .nav-dot {
-      background: var(--ai);
-      box-shadow: 0 0 0 2px var(--on-accent);
+    .nav-item.nav-brew::after {
+      content: "";
+      position: absolute;
+      top: -30%;
+      bottom: -30%;
+      left: -80%;
+      width: 55%;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 32%,
+        rgba(255, 255, 255, 0.42) 50%,
+        rgba(255, 255, 255, 0.08) 68%,
+        transparent 100%
+      );
+      transform: translateX(0) skewX(-18deg);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+    }
+    .nav-item.nav-brew.is-running {
+      transform: none !important;
+      animation: brewBtnPulse 2.8s var(--ease-out) 0.2s infinite;
+    }
+    @keyframes brewBtnPulse {
+      0%, 100% {
+        transform: none;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(217, 155, 82, 0);
+      }
+      50% {
+        transform: none;
+        box-shadow: 0 3px 10px -2px rgba(217, 155, 82, 0.32), 0 0 0 3px rgba(217, 155, 82, 0.16);
+      }
+    }
+    .nav-item.nav-brew:not(.is-running) {
+      transform: none !important;
+      box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0), 0 0 0 0 rgba(217, 155, 82, 0);
+    }
+    .nav-item.nav-brew.is-running:active,
+    .nav-item.nav-brew:not(.is-running):active {
+      animation: none;
+      transform: scale(0.96);
+      transition-duration: var(--dur-fast);
+    }
+    .nav-item.nav-brew.is-running::after {
+      opacity: 1;
+      animation: brewLightSheen 2.8s var(--ease-out) 0.15s infinite;
+    }
+    .nav-item.nav-brew:not(.is-running)::after {
+      animation: none;
+      opacity: 0;
+      transform: translateX(0) skewX(-18deg);
+      transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+    }
+    .nav-item.nav-brew.active.is-running::after {
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.14) 32%,
+        rgba(255, 255, 255, 0.56) 50%,
+        rgba(255, 255, 255, 0.14) 68%,
+        transparent 100%
+      );
+    }
+    @keyframes brewLightSheen {
+      0% { transform: translateX(0) skewX(-18deg); opacity: 0; }
+      20% { opacity: 0.9; }
+      72% { opacity: 0.9; }
+      100% { transform: translateX(340%) skewX(-18deg); opacity: 0; }
     }
 
     /* ========================================================================
@@ -1152,7 +1243,8 @@
       overflow: hidden;
     }
 
-    .brew-bottom-dock {
+    .brew-bottom-dock,
+    .journal-bottom-dock {
       position: fixed;
       bottom: var(--nav-h);
       left: 50%;
@@ -1167,6 +1259,7 @@
       align-items: stretch;
       gap: 8px;
     }
+    .journal-bottom-dock { gap: 0; }
     @media (min-width: 540px) {
       .brew-bottom-dock,
       .journal-bottom-dock {
@@ -1174,7 +1267,8 @@
         border-right: 1px solid var(--border);
       }
     }
-    .brew-bottom-dock .seg {
+    .brew-bottom-dock .seg,
+    .journal-bottom-dock .seg {
       width: 100%;
       min-width: 0;
       height: 44px;
@@ -1183,7 +1277,8 @@
       background: var(--surface);
       border-color: var(--border);
     }
-    .brew-bottom-dock .seg-btn {
+    .brew-bottom-dock .seg-btn,
+    .journal-bottom-dock .seg-btn {
       min-height: 34px;
       height: 34px;
       font-size: 13px;
@@ -1191,7 +1286,8 @@
       border-radius: 9px;
       color: var(--muted);
     }
-    .brew-bottom-dock .seg-btn.active {
+    .brew-bottom-dock .seg-btn.active,
+    .journal-bottom-dock .seg-btn.active {
       background: var(--accent);
       color: var(--on-accent);
       font-weight: 800;
@@ -1796,34 +1892,6 @@
       color: var(--dialed);
       box-shadow: 0 0 0 1px var(--dialed-bd);
     }
-    .journal-bottom-dock {
-      position: fixed;
-      bottom: var(--nav-h);
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 520px;
-      z-index: 35;
-      background: linear-gradient(to top, var(--bg) 64%, transparent);
-      padding: 16px 12px 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .journal-bottom-dock .seg {
-      width: 100%;
-      min-width: 0;
-      height: 44px;
-      padding: 4px;
-      border-radius: 13px;
-    }
-    .journal-bottom-dock .seg-btn {
-      min-height: 34px;
-      height: 34px;
-      font-size: 13px;
-      padding: 0 10px;
-      border-radius: 9px;
-    }
     #journalDiagView:not(.hidden),
     #journalHistView:not(.hidden) {
       animation: viewEnter var(--dur-med) var(--ease-out) both;
@@ -1925,34 +1993,40 @@
     .journal-fab-dock:not(.hidden) > .journal-fab-add:not(.hidden) {
       animation: popIn var(--dur-med) var(--ease-spring) both;
     }
-    .journal-fab-trigger {
+    /* Wspólny okrągły przycisk FAB (54x54) dla wszystkich zakładek */
+    .fab-circle {
       pointer-events: auto;
       width: 54px;
       height: 54px;
       padding: 0;
       border-radius: 50%;
-      background: var(--surface-2);
-      color: var(--accent);
-      border: 1.5px solid var(--accent-bd);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      font-weight: 800;
       line-height: 1;
       letter-spacing: 0;
+      text-align: center;
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       transition: transform var(--dur-fast) var(--ease-out),
                   background-color var(--dur-fast) var(--ease-out),
                   border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out);
+                  color var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out);
     }
-    .journal-fab-trigger:active {
-      transform: scale(0.94);
+    .fab-circle:active { transform: scale(0.94); }
+
+    .journal-fab-trigger,
+    .recipe-fab-trigger {
+      background: var(--surface-2);
+      color: var(--accent);
+      border: 1.5px solid var(--accent-bd);
+      font-size: 20px;
+      font-weight: 800;
     }
-    .journal-fab-trigger.open {
+    .journal-fab-trigger.open,
+    .recipe-fab-trigger.open {
       background: var(--accent);
       color: var(--on-accent);
       border-color: var(--accent);
@@ -1961,46 +2035,18 @@
       border-color: var(--accent);
       box-shadow: var(--shadow), 0 0 0 2px var(--accent-bg);
     }
-    .journal-fab-add {
-      pointer-events: auto;
-      width: 54px;
-      height: 54px;
-      padding: 0;
-      border-radius: 50%;
+    .journal-fab-add,
+    .shelf-fab-add {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: var(--on-accent);
       border: 1.5px solid var(--accent-bd);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow);
-      transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
-    }
-    .journal-fab-add:active {
-      transform: scale(0.94);
+      font-size: 28px;
+      font-weight: 800;
     }
     .journal-fab-btn {
-      pointer-events: auto;
-      width: 54px;
-      height: 54px;
-      padding: 0;
-      border-radius: 50%;
       background: var(--surface-2);
       color: var(--muted);
       border: 1.5px solid var(--border-2);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out);
-    }
-    .journal-fab-btn:active {
-      transform: scale(0.94);
     }
     .journal-fab-btn:hover {
       border-color: var(--accent-bd);
@@ -2342,84 +2388,9 @@
     .recipe-fab-menu:not(.is-collapsed) .recipe-fab:nth-child(3) { animation-delay: 0.04s; }
     .recipe-fab-menu:not(.is-collapsed) .recipe-fab:nth-child(2) { animation-delay: 0.08s; }
     .recipe-fab-menu:not(.is-collapsed) .recipe-fab:nth-child(1) { animation-delay: 0.12s; }
-    .recipe-fab-trigger {
-      pointer-events: auto;
-      width: 54px;
-      height: 54px;
-      padding: 0;
-      border-radius: 50%;
-      background: var(--surface-2);
-      color: var(--accent);
-      border: 1.5px solid var(--accent-bd);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: 0;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out);
-    }
-    .recipe-fab-trigger:active {
-      transform: scale(0.94);
-    }
-    .recipe-fab-trigger.open {
-      background: var(--accent);
-      color: var(--on-accent);
-      border-color: var(--accent);
-    }
-    .shelf-fab-add {
-      pointer-events: auto;
-      width: 54px;
-      height: 54px;
-      padding: 0;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: var(--on-accent);
-      border: 1.5px solid var(--accent-bd);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: 0;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
-    }
-    .shelf-fab-add:active {
-      transform: scale(0.94);
-    }
     .recipe-fab {
-      pointer-events: auto;
-      width: 54px;
-      height: 54px;
-      padding: 0;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       font-size: 21px;
       font-weight: 800;
-      line-height: 1;
-      letter-spacing: 0;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out),
-                  box-shadow var(--dur-fast) var(--ease-out);
-    }
-    .recipe-fab:active {
-      transform: scale(0.94);
     }
     /* Stan 2 (domyślny dla dostępnych): nieprzezroczysty pastel */
     .recipe-fab.ai {
@@ -2523,22 +2494,9 @@
       color: var(--on-ai);
     }
     .brew-fab-clear {
-      pointer-events: auto;
-      width: 54px;
-      height: 54px;
-      padding: 0;
-      border-radius: 50%;
       background: var(--surface);
       color: var(--muted);
       border: 1.5px solid var(--border);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-      letter-spacing: 0;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       overflow: hidden;
       flex-shrink: 0;
       transition: transform var(--dur-med) var(--ease-out),
@@ -2557,9 +2515,6 @@
       border-width: 0 !important;
       transform: scale(0.75);
       pointer-events: none;
-    }
-    .brew-fab-clear:active {
-      transform: scale(0.94);
     }
     .brew-fab-clear:hover {
       background: var(--surface-2);
@@ -3182,13 +3137,13 @@
 
     <div id="journalFabDock" class="journal-fab-dock hidden">
       <div id="journalFabMenu" class="journal-fab-menu is-collapsed" aria-hidden="true" role="group" aria-label="Akcje Historii">
-        <button id="btnAddLogModalMenu" type="button" class="journal-fab-add journal-fab-item" title="Dodaj wpis parzenia do historii" aria-label="Dodaj wpis parzenia do historii">
+        <button id="btnAddLogModalMenu" type="button" class="fab-circle journal-fab-add journal-fab-item" title="Dodaj wpis parzenia do historii" aria-label="Dodaj wpis parzenia do historii">
           <svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true">
             <line x1="12" y1="5" x2="12" y2="19"/>
             <line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
         </button>
-        <button id="btnHistActiveCoffee" type="button" class="journal-fab-btn journal-fab-item" title="Pokaż tylko aktywną kawę" aria-label="Pokaż tylko aktywną kawę" aria-pressed="false">
+        <button id="btnHistActiveCoffee" type="button" class="fab-circle journal-fab-btn journal-fab-item" title="Pokaż tylko aktywną kawę" aria-label="Pokaż tylko aktywną kawę" aria-pressed="false">
           <svg class="icon-svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
             <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
@@ -3198,7 +3153,7 @@
           </svg>
         </button>
       </div>
-      <button id="btnToggleJournalMenu" type="button" class="journal-fab-trigger hidden" title="Akcje Historii" aria-label="Akcje Historii" aria-expanded="false" aria-controls="journalFabMenu">
+      <button id="btnToggleJournalMenu" type="button" class="fab-circle journal-fab-trigger hidden" title="Akcje Historii" aria-label="Akcje Historii" aria-expanded="false" aria-controls="journalFabMenu">
         <svg id="journalMenuIcon" class="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="1.5"/>
           <circle cx="12" cy="5" r="1.5"/>
@@ -3245,7 +3200,7 @@
 
     <!-- Pływające przyciski akcji poza animowanymi sekcjami .tab (zero przeskakiwania przy zmianie kart) -->
     <div id="shelfFabDock" class="recipe-fab-dock">
-      <button id="btnAddCoffeeTop" type="button" class="shelf-fab-add" title="Dodaj nową kawę" aria-label="Dodaj nową kawę">
+      <button id="btnAddCoffeeTop" type="button" class="fab-circle shelf-fab-add" title="Dodaj nową kawę" aria-label="Dodaj nową kawę">
         <svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
@@ -3255,12 +3210,12 @@
 
     <div id="recipeFabDock" class="recipe-fab-dock hidden">
       <div id="recipePresetMenu" class="recipe-fab-menu is-collapsed" aria-hidden="true" role="group" aria-label="Wybierz preset parametrów">
-        <button id="btnMatchProfile" type="button" class="recipe-fab ai" title="Dopasuj do rekomendacji profilu" aria-label="Dopasuj do profilu">✦</button>
-        <button id="btnMatchDialed" type="button" class="recipe-fab dialed" title="Wczytaj mój wzorzec z historii" aria-label="Wczytaj mój wzorzec">🎯</button>
-        <button id="btnMatchFix" type="button" class="recipe-fab fix" title="Zastosuj sugerowaną korektę z ostatniego parzenia" aria-label="Zastosuj sugerowaną korektę">💡</button>
-        <button id="btnLockSliders" type="button" class="recipe-fab lock" title="Zablokuj suwaki" aria-label="Zablokuj suwaki">🔓</button>
+        <button id="btnMatchProfile" type="button" class="fab-circle recipe-fab ai" title="Dopasuj do rekomendacji profilu" aria-label="Dopasuj do profilu">✦</button>
+        <button id="btnMatchDialed" type="button" class="fab-circle recipe-fab dialed" title="Wczytaj mój wzorzec z historii" aria-label="Wczytaj mój wzorzec">🎯</button>
+        <button id="btnMatchFix" type="button" class="fab-circle recipe-fab fix" title="Zastosuj sugerowaną korektę z ostatniego parzenia" aria-label="Zastosuj sugerowaną korektę">💡</button>
+        <button id="btnLockSliders" type="button" class="fab-circle recipe-fab lock" title="Zablokuj suwaki" aria-label="Zablokuj suwaki">🔓</button>
       </div>
-      <button id="btnTogglePresetMenu" type="button" class="recipe-fab-trigger" title="Szybkie presety" aria-label="Szybkie presety" aria-expanded="false" aria-controls="recipePresetMenu">
+      <button id="btnTogglePresetMenu" type="button" class="fab-circle recipe-fab-trigger" title="Szybkie presety" aria-label="Szybkie presety" aria-expanded="false" aria-controls="recipePresetMenu">
         <svg id="presetMenuIcon" class="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
         </svg>
@@ -3268,12 +3223,12 @@
     </div>
 
     <div id="brewFabDock" class="recipe-fab-dock brew-fab-dock hidden">
-      <button id="btnChkCheckAll" type="button" class="brew-fab-clear" title="Zaznacz wszystkie punkty check-listy" aria-label="Zaznacz wszystkie punkty check-listy">
+      <button id="btnChkCheckAll" type="button" class="fab-circle brew-fab-clear" title="Zaznacz wszystkie punkty check-listy" aria-label="Zaznacz wszystkie punkty check-listy">
         <svg class="icon-svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
       </button>
-      <button id="btnChkReset" type="button" class="brew-fab-clear" title="Wyczyść check-listę" aria-label="Wyczyść check-listę">
+      <button id="btnChkReset" type="button" class="fab-circle brew-fab-clear" title="Wyczyść check-listę" aria-label="Wyczyść check-listę">
         <svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="3 6 5 6 21 6"/>
           <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
@@ -3302,8 +3257,7 @@
         </svg>
         <span>Receptura</span>
       </button>
-      <button type="button" data-nav="brew" class="nav-item nav-brew">
-        <span id="navBrewDot" class="nav-dot hidden"></span>
+      <button type="button" data-nav="brew" id="navBrewBtn" class="nav-item nav-brew">
         <svg class="icon-svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5"/><path d="M9 2h6"/><path d="M19 5l1.5 1.5"/>
         </svg>
@@ -3586,23 +3540,6 @@
 
       <div class="hr"></div>
 
-      <!-- 3. Synchronizacja w chmurze -->
-      <div class="col-xs">
-        <span class="lbl">Synchronizacja w chmurze</span>
-        <div class="row-item">
-          <div style="min-width:0; flex:1;">
-            <div class="wrap" style="gap:6px;">
-              <span id="setCloudDot" class="dot busy"></span>
-              <strong id="setCloudTxt" style="font-size:13px;">Łączenie</strong>
-            </div>
-            <p id="setCloudDetail" class="sub-xs trunc" style="margin-top:2px;">Łączenie z chmurą w tle...</p>
-          </div>
-          <button id="btnManualSync" type="button" class="btn btn-sec btn-sm">↻ Synchronizuj</button>
-        </div>
-      </div>
-
-      <div class="hr"></div>
-
       <!-- 4. Mobilna kopia zapasowa JSON -->
       <div class="col-xs">
         <span class="lbl">Kopia zapasowa (Półka + Dziennik + Wzorce)</span>
@@ -3725,7 +3662,7 @@
       const AI_WINDOWS = [
         {
           key: 'ratio', minK: 'ratioMin', maxK: 'ratioMax', recK: 'ratioRecommended', dKey: 'ratio',
-          label: 'Proporcja (1:X)', min: 13.5, max: 18.5, absMin: 8, absMax: 25, step: 0.1,
+          label: 'Proporcja/Ratio', min: 13.5, max: 18.5, absMin: 8, absMax: 25, step: 0.1,
           fmt: (v) => `1:${Number(v).toFixed(1)}`, lowMsg: 'Mocniejsza', highMsg: 'Lżejsza',
         },
         {
@@ -3835,56 +3772,74 @@
         $('btnClearSuggestedFix').classList.toggle('hidden', applied);
       }
 
+      function createFixBuilder(c, ctx) {
+        const p = c.params;
+        const curClicks = ctx.kgOn ? getActiveKg79Info(c).clicks : 0;
+        const changes = {};
+        const steps = [];
+        return {
+          changes,
+          steps,
+          curClicks,
+          temp(delta, lo = 84, hi = 99) {
+            const next = clamp(p.tempC + delta, lo, hi);
+            if (next === p.tempC) return false;
+            changes.tempC = next;
+            steps.push(`Temperatura: ${p.tempC}°C → ${next}°C`);
+            return true;
+          },
+          ratio(delta, lo = 8, hi = 25) {
+            const next = clamp(+(p.ratio + delta).toFixed(1), lo, hi);
+            if (Math.abs(next - p.ratio) < 0.05) return false;
+            changes.ratio = next;
+            steps.push(`Ratio: 1:${p.ratio.toFixed(1)} → 1:${next.toFixed(1)}`);
+            return true;
+          },
+          grind(clickDelta, umDelta, { minC = 0, maxC = 15, minUm = 450, maxUm = 1050, note = '' } = {}) {
+            if (ctx.kgOn) {
+              const next = clamp(curClicks + clickDelta, minC, maxC);
+              if (next === curClicks) return false;
+              changes.grinder = formatKg79Short(next);
+              changes.grindUm = kg79ClicksToUm(next, ctx.off);
+              steps.push(`KG79: ${formatKg79Short(curClicks)} → ${changes.grinder}${note ? ` (${note})` : ''}`);
+              return true;
+            }
+            const next = clamp(p.grindUm + umDelta, minUm, maxUm);
+            if (next === p.grindUm) return false;
+            changes.grindUm = next;
+            steps.push(`Mielenie: ${p.grindUm} → ${next} µm`);
+            return true;
+          },
+          profile(targetId, labelOverride = '') {
+            if (p.profile === targetId) return false;
+            const prevName = PROFILES.find((x) => x.id === p.profile)?.name || p.profile;
+            const nextName = PROFILES.find((x) => x.id === targetId)?.name || targetId;
+            changes.profile = targetId;
+            steps.push(labelOverride || `Profil: ${prevName} → ${nextName}`);
+            return true;
+          },
+        };
+      }
+
       const QUICK_FIXES = [
         {
           id: 'bitter',
           title: 'Gorzka / cierpka',
           sub: 'Przeparzenie',
           evaluate: (c, ctx) => {
-            const p = c.params;
-            const kgOn = ctx.kgOn;
-            const off = ctx.off;
-            const curClicks = kgOn ? getActiveKg79Info(c).clicks : 0;
-            const changes = {};
-            const steps = [];
+            const b = createFixBuilder(c, ctx);
             let reason = '';
-
             if (ctx.overSec >= 20) {
               reason = `Czas spływu był dłuższy o +${ctx.overSec}s od planu — gorycz pochodzi z zatkania filtra drobnym pyłem, a nie ze zbyt gorącej wody.`;
-              if (kgOn && curClicks > 0) {
-                const nextClicks = clamp(curClicks - 1, 0, 15);
-                changes.grinder = formatKg79Short(nextClicks);
-                changes.grindUm = kg79ClicksToUm(nextClicks, off);
-                steps.push(`KG79: ${formatKg79Short(curClicks)} → ${changes.grinder}`);
-              } else if (!kgOn && p.grindUm < 1050) {
-                changes.grindUm = clamp(p.grindUm + 50, 450, 1050);
-                steps.push(`Mielenie: ${p.grindUm} → ${changes.grindUm} µm`);
-              }
-              if (p.profile === 'three_pours' || p.profile === 'method_46') {
-                changes.profile = 'two_pours';
-                steps.push(`Profil: ${PROFILES.find((x) => x.id === p.profile)?.name} → 2 zalania`);
-              }
+              b.grind(-1, 50);
+              if (c.params.profile === 'three_pours' || c.params.profile === 'method_46') b.profile('two_pours');
             } else {
               reason = 'Przeparzenie — woda wyciągnęła zbyt dużo gorzkich i suchych związków. Obniżenie temperatury lub grubszy przemiał wygładzą finisz.';
-              if (p.tempC > 84) {
-                changes.tempC = clamp(p.tempC - 2, 84, 99);
-                steps.push(`Temperatura: ${p.tempC}°C → ${changes.tempC}°C`);
-              }
-              if (kgOn && curClicks > 0) {
-                const nextClicks = clamp(curClicks - 1, 0, 15);
-                changes.grinder = formatKg79Short(nextClicks);
-                changes.grindUm = kg79ClicksToUm(nextClicks, off);
-                steps.push(`KG79: ${formatKg79Short(curClicks)} → ${changes.grinder}`);
-              } else if (!kgOn && p.grindUm < 1050) {
-                changes.grindUm = clamp(p.grindUm + 40, 450, 1050);
-                steps.push(`Mielenie: ${p.grindUm} → ${changes.grindUm} µm`);
-              }
+              b.temp(-2);
+              b.grind(-1, 40);
             }
-            if (!steps.length && p.profile !== 'single_pour') {
-              changes.profile = 'single_pour';
-              steps.push('Profil → 1 ciągłe zalanie');
-            }
-            return { changes, steps, reason };
+            if (!b.steps.length) b.profile('single_pour', 'Profil → 1 ciągłe zalanie');
+            return { changes: b.changes, steps: b.steps, reason };
           },
         },
         {
@@ -3892,38 +3847,14 @@
           title: 'Kwaśna / ostra',
           sub: 'Niedoparzenie',
           evaluate: (c, ctx) => {
-            const p = c.params;
-            const kgOn = ctx.kgOn;
-            const off = ctx.off;
-            const curClicks = kgOn ? getActiveKg79Info(c).clicks : 0;
-            const changes = {};
-            const steps = [];
+            const b = createFixBuilder(c, ctx);
             let reason = 'Niedoparzenie — ekstrakcja zatrzymała się zbyt wcześnie na kwasowości. Gorętsza woda i większa energia parzenia podbiją słodycz.';
-
-            if (p.tempC < 99) {
-              const deltaT = (kgOn && curClicks >= 3) ? 3 : 2;
-              changes.tempC = clamp(p.tempC + deltaT, 84, 99);
-              steps.push(`Temperatura: ${p.tempC}°C → ${changes.tempC}°C`);
+            b.temp((ctx.kgOn && b.curClicks >= 3) ? 3 : 2);
+            if (!b.grind(1, -40, { maxC: 3 }) && ctx.kgOn) {
+              reason = `Jesteś już na bezpiecznej granicy pyłu KG79 (${formatKg79Short(b.curClicks)}). Zamiast mielić drobniej (co zatkałoby filtr), podbijamy temperaturę i dodajemy puls zalewania.`;
+              if (c.params.profile === 'single_pour' || c.params.profile === 'two_pours') b.profile('three_pours');
             }
-
-            if (kgOn) {
-              if (curClicks < 3) {
-                const nextClicks = clamp(curClicks + 1, 0, 3);
-                changes.grinder = formatKg79Short(nextClicks);
-                changes.grindUm = kg79ClicksToUm(nextClicks, off);
-                steps.push(`KG79: ${formatKg79Short(curClicks)} → ${changes.grinder}`);
-              } else {
-                reason = `Jesteś już na bezpiecznej granicy pyłu KG79 (${formatKg79Short(curClicks)}). Zamiast mielić drobniej (co zatkałoby filtr), podbijamy temperaturę i dodajemy puls zalewania.`;
-                if (p.profile === 'single_pour' || p.profile === 'two_pours') {
-                  changes.profile = 'three_pours';
-                  steps.push(`Profil: ${PROFILES.find((x) => x.id === p.profile)?.name} → 3 zalania`);
-                }
-              }
-            } else if (p.grindUm > 450) {
-              changes.grindUm = clamp(p.grindUm - 40, 450, 1050);
-              steps.push(`Mielenie: ${p.grindUm} → ${changes.grindUm} µm`);
-            }
-            return { changes, steps, reason };
+            return { changes: b.changes, steps: b.steps, reason };
           },
         },
         {
@@ -3931,31 +3862,14 @@
           title: 'Wodnista / płaska',
           sub: 'Za małe body',
           evaluate: (c, ctx) => {
-            const p = c.params;
-            const kgOn = ctx.kgOn;
-            const off = ctx.off;
-            const curClicks = kgOn ? getActiveKg79Info(c).clicks : 0;
-            const changes = {};
-            const steps = [];
-            const reason = 'Zbyt niskie stężenie naparu (TDS). Skrócenie proporcji wody do kawy i delikatne podbicie ekstrakcji zagęszczą body oraz teksturę.';
-
-            if (p.ratio > 12.0) {
-              changes.ratio = clamp(+(p.ratio - 0.6).toFixed(1), 8, 25);
-              steps.push(`Ratio: 1:${p.ratio.toFixed(1)} → 1:${changes.ratio.toFixed(1)}`);
-            }
-            if (kgOn && curClicks < 3) {
-              const nextClicks = clamp(curClicks + 1, 0, 3);
-              changes.grinder = formatKg79Short(nextClicks);
-              changes.grindUm = kg79ClicksToUm(nextClicks, off);
-              steps.push(`KG79: ${formatKg79Short(curClicks)} → ${changes.grinder}`);
-            } else if (!kgOn && p.grindUm > 450) {
-              changes.grindUm = clamp(p.grindUm - 30, 450, 1050);
-              steps.push(`Mielenie: ${p.grindUm} → ${changes.grindUm} µm`);
-            } else if (p.tempC < 98) {
-              changes.tempC = clamp(p.tempC + 1, 84, 99);
-              steps.push(`Temperatura: ${p.tempC}°C → ${changes.tempC}°C`);
-            }
-            return { changes, steps, reason };
+            const b = createFixBuilder(c, ctx);
+            if (c.params.ratio > 12.0) b.ratio(-0.6);
+            if (!b.grind(1, -30, { maxC: 3 })) b.temp(1, 84, 98);
+            return {
+              changes: b.changes,
+              steps: b.steps,
+              reason: 'Zbyt niskie stężenie naparu (TDS). Skrócenie proporcji wody do kawy i delikatne podbicie ekstrakcji zagęszczą body oraz teksturę.',
+            };
           },
         },
         {
@@ -3963,31 +3877,15 @@
           title: 'Gorzko-kwaśna',
           sub: 'Nierówna / kanałowanie',
           evaluate: (c, ctx) => {
-            const p = c.params;
-            const kgOn = ctx.kgOn;
-            const off = ctx.off;
-            const curClicks = kgOn ? getActiveKg79Info(c).clicks : 0;
-            const changes = {};
-            const steps = [];
-            const reason = 'Nierówna ekstrakcja (kanałowanie): woda znalazła szybkie ścieżki w złożu, przeparzając brzegi i niedoparzając środek. Uspokojenie zalewania wyrówna złoże.';
-
-            if (p.profile !== 'single_pour') {
-              changes.profile = 'single_pour';
-              steps.push(`Profil: ${PROFILES.find((x) => x.id === p.profile)?.name} → 1 ciągłe zalanie`);
-            }
-            if (kgOn && curClicks >= 3) {
-              const nextClicks = clamp(curClicks - 1, 0, 15);
-              changes.grinder = formatKg79Short(nextClicks);
-              changes.grindUm = kg79ClicksToUm(nextClicks, off);
-              steps.push(`KG79: ${formatKg79Short(curClicks)} → ${changes.grinder} (mniej pyłu)`);
-            } else if (!kgOn && p.grindUm < 950) {
-              changes.grindUm = clamp(p.grindUm + 30, 450, 1050);
-              steps.push(`Mielenie: ${p.grindUm} → ${changes.grindUm} µm`);
-            }
-            if (!steps.length) {
-              steps.push('Wskazówka: lej nisko w sam środek i nie kręć dripperem po zalaniu.');
-            }
-            return { changes, steps, reason };
+            const b = createFixBuilder(c, ctx);
+            b.profile('single_pour');
+            if (!ctx.kgOn || b.curClicks >= 3) b.grind(-1, 30, { maxUm: 950, note: 'mniej pyłu' });
+            if (!b.steps.length) b.steps.push('Wskazówka: lej nisko w sam środek i nie kręć dripperem po zalaniu.');
+            return {
+              changes: b.changes,
+              steps: b.steps,
+              reason: 'Nierówna ekstrakcja (kanałowanie): woda znalazła szybkie ścieżki w złożu, przeparzając brzegi i niedoparzając środek. Uspokojenie zalewania wyrówna złoże.',
+            };
           },
         },
         {
@@ -3995,44 +3893,18 @@
           title: 'Za długi spływ',
           sub: 'Czas > 3:15',
           evaluate: (c, ctx) => {
-            const p = c.params;
-            const kgOn = ctx.kgOn;
-            const off = ctx.off;
-            const curClicks = kgOn ? getActiveKg79Info(c).clicks : 0;
-            const changes = {};
-            const steps = [];
+            const b = createFixBuilder(c, ctx);
             let reason = 'Filtr V60 przytkał się drobnym pyłem (fines). Grubszy przemiał oraz ograniczenie liczby impulsów przyspieszą spływ bez utraty słodyczy.';
-
-            if (kgOn && curClicks > 0) {
-              const step = curClicks >= 4 ? 2 : 1;
-              const nextClicks = clamp(curClicks - step, 0, 15);
-              changes.grinder = formatKg79Short(nextClicks);
-              changes.grindUm = kg79ClicksToUm(nextClicks, off);
-              steps.push(`KG79: ${formatKg79Short(curClicks)} → ${changes.grinder}`);
-            } else if (!kgOn && p.grindUm < 1050) {
-              changes.grindUm = clamp(p.grindUm + 60, 450, 1050);
-              steps.push(`Mielenie: ${p.grindUm} → ${changes.grindUm} µm`);
-            }
-            if (p.profile === 'three_pours' || p.profile === 'method_46') {
-              changes.profile = 'two_pours';
-              steps.push(`Profil: ${PROFILES.find((x) => x.id === p.profile)?.name} → 2 zalania`);
-            } else if (p.profile === 'two_pours') {
-              changes.profile = 'single_pour';
-              steps.push('Profil: 2 zalania → 1 ciągłe zalanie');
-            }
-            if (!steps.length) {
+            b.grind(b.curClicks >= 4 ? -2 : -1, 60);
+            if (c.params.profile === 'three_pours' || c.params.profile === 'method_46') b.profile('two_pours');
+            else if (c.params.profile === 'two_pours') b.profile('single_pour', 'Profil: 2 zalania → 1 ciągłe zalanie');
+            if (!b.steps.length) {
               reason = 'Młynek jest już na najgrubszym ustawieniu i używasz 1 ciągłego zalania. Aby skrócić czas spływu i ograniczyć przeparzenie, obniż temperaturę wody oraz lekko zwiększ ratio (mniej kawy w złożu).';
-              if (p.tempC > 84) {
-                changes.tempC = clamp(p.tempC - 2, 84, 99);
-                steps.push(`Temperatura: ${p.tempC}°C → ${changes.tempC}°C`);
-              }
-              if (p.ratio < 18.0) {
-                changes.ratio = clamp(+(p.ratio + 0.5).toFixed(1), 8, 25);
-                steps.push(`Ratio: 1:${p.ratio.toFixed(1)} → 1:${changes.ratio.toFixed(1)}`);
-              }
-              steps.push('Technika: lej powoli w sam środek i nie kręć dripperem (bez Rao spina).');
+              b.temp(-2);
+              if (c.params.ratio < 18.0) b.ratio(0.5);
+              b.steps.push('Technika: lej powoli w sam środek i nie kręć dripperem (bez Rao spina).');
             }
-            return { changes, steps, reason };
+            return { changes: b.changes, steps: b.steps, reason };
           },
         },
         {
@@ -4040,31 +3912,15 @@
           title: 'Za szybki spływ',
           sub: 'Czas < 2:00',
           evaluate: (c, ctx) => {
-            const p = c.params;
-            const kgOn = ctx.kgOn;
-            const off = ctx.off;
-            const curClicks = kgOn ? getActiveKg79Info(c).clicks : 0;
-            const changes = {};
-            const steps = [];
-            const reason = 'Woda przeleciała przez złoże zbyt szybko, nie zdążając wyciągnąć pełni aromatu. Drobniejszy przemiał lub podział na więcej zalań wydłuży kontakt.';
-
-            if (kgOn && curClicks < 3) {
-              const nextClicks = clamp(curClicks + 1, 0, 3);
-              changes.grinder = formatKg79Short(nextClicks);
-              changes.grindUm = kg79ClicksToUm(nextClicks, off);
-              steps.push(`KG79: ${formatKg79Short(curClicks)} → ${changes.grinder}`);
-            } else if (!kgOn && p.grindUm > 450) {
-              changes.grindUm = clamp(p.grindUm - 50, 450, 1050);
-              steps.push(`Mielenie: ${p.grindUm} → ${changes.grindUm} µm`);
-            }
-            if (p.profile === 'single_pour') {
-              changes.profile = 'two_pours';
-              steps.push('Profil: 1 ciągłe → 2 zalania');
-            } else if (p.profile === 'two_pours') {
-              changes.profile = 'three_pours';
-              steps.push('Profil: 2 zalania → 3 zalania');
-            }
-            return { changes, steps, reason };
+            const b = createFixBuilder(c, ctx);
+            b.grind(1, -50, { maxC: 3 });
+            if (c.params.profile === 'single_pour') b.profile('two_pours');
+            else if (c.params.profile === 'two_pours') b.profile('three_pours');
+            return {
+              changes: b.changes,
+              steps: b.steps,
+              reason: 'Woda przeleciała przez złoże zbyt szybko, nie zdążając wyciągnąć pełni aromatu. Drobniejszy przemiał lub podział na więcej zalań wydłuży kontakt.',
+            };
           },
         },
       ];
@@ -4072,6 +3928,11 @@
       /* ----------------------------------------------------------------------
        * 2. STAN APLIKACJI I NORMALIZACJA DANYCH (SCHEMAT PROFILU V60)
        * ---------------------------------------------------------------------- */
+      const ICONS = {
+        edit: '<svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+        trash: '<svg class="icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>',
+      };
+
       const state = {
         tab: 'shelf',
         brewSub: 'chk',
@@ -4079,6 +3940,7 @@
         histFilter: 'all',
         theme: document.documentElement.getAttribute('data-theme') || 'espresso',
         updatedAt: 0,
+        dirty: { shelf: true, recipe: true, brew: true, journal: true },
 
         coffees: [],
         logs: [],
@@ -5073,15 +4935,15 @@
       }
 
       function snapshotPayload() {
-        return JSON.parse(JSON.stringify({
+        return {
           method: 'V60',
           theme: state.theme,
           activeCoffeeId: state.activeCoffeeId,
-          settings: state.settings,
+          settings: { ...state.settings },
           coffees: state.coffees,
-          logs: state.coffees ? state.logs.slice(0, 200) : [],
+          logs: Array.isArray(state.logs) ? state.logs.slice(0, 200) : [],
           updatedAt: state.updatedAt,
-        }));
+        };
       }
 
       function hydrateFromObject(d) {
@@ -5103,26 +4965,38 @@
         }
         if (d.theme && THEMES.some((x) => x.id === d.theme)) state.theme = d.theme;
         state.activeCoffeeId = state.coffees.some((c) => c.id === d.activeCoffeeId) ? d.activeCoffeeId : (state.coffees[0]?.id || null);
-        state.updatedAt = Number(d.updatedAt) || 0;
-        syncDraftFromCoffee(getActive(), state.capturedWater);
+        state.updatedAt = Number(d.updatedAt) || Date.now();
+        syncDraftFromCoffee(getActive(), state.capturedWater, state.capturedMilkMl);
       }
 
       function loadLocal() {
         try {
-          const raw = localStorage.getItem(LS_STATE) || localStorage.getItem('driplab_state_v3');
+          const raw = localStorage.getItem(LS_STATE);
           if (raw) hydrateFromObject(JSON.parse(raw));
+        } catch (e) {}
+      }
+
+      let localSaveTimer = null;
+      function flushLocalState() {
+        clearTimeout(localSaveTimer);
+        localSaveTimer = null;
+        try {
+          localStorage.setItem(LS_STATE, JSON.stringify(snapshotPayload()));
+          localStorage.setItem(LS_THEME, state.theme);
         } catch (e) {}
       }
 
       function persistState(immediateCloud = false) {
         state.updatedAt = Date.now();
-        const data = snapshotPayload();
-        try {
-          localStorage.setItem(LS_STATE, JSON.stringify(data));
-          localStorage.setItem(LS_THEME, state.theme);
-        } catch (e) {}
+        if (immediateCloud) {
+          flushLocalState();
+        } else {
+          clearTimeout(localSaveTimer);
+          localSaveTimer = setTimeout(flushLocalState, 180);
+        }
 
         if (isGhConfigured()) {
+          clearTimeout(syncTimer);
           clearTimeout(ghSyncTimer);
           if (immediateCloud) ghPushFile(false);
           else ghSyncTimer = setTimeout(() => ghPushFile(false), 1200);
@@ -5132,7 +5006,7 @@
         if (!cloudReady || !userUid || !fb) return;
         clearTimeout(syncTimer);
         const push = async () => {
-          if (!userUid) return;
+          if (!userUid || isGhConfigured()) return;
           setCloudBadge('busy');
           try {
             await fb.setDoc(fb.doc(db, 'artifacts', appId, 'users', userUid, 'driplab', 'state'), snapshotPayload());
@@ -5145,6 +5019,8 @@
 
       async function initCloudLazy() {
         if (isGhConfigured()) {
+          clearTimeout(syncTimer);
+          cloudReady = false;
           await ghPullNow(false);
           return;
         }
@@ -5158,6 +5034,7 @@
             import('https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js'),
             import('https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js'),
           ]);
+          if (isGhConfigured()) return;
           fb = { ...aMod, ...auMod, ...fsMod };
           const app = fb.initializeApp(typeof rawCfg === 'string' ? JSON.parse(rawCfg) : rawCfg);
           const auth = fb.getAuth(app);
@@ -5165,7 +5042,10 @@
 
           const tok = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
           const cred = tok ? await fb.signInWithCustomToken(auth, tok) : await fb.signInAnonymously(auth);
-          if (!cred?.user) { setCloudBadge('local'); return; }
+          if (!cred?.user || isGhConfigured()) {
+            if (!isGhConfigured()) setCloudBadge('local');
+            return;
+          }
 
           userUid = cred.user.uid;
           cloudReady = true;
@@ -5174,6 +5054,7 @@
           fb.onSnapshot(
             ref,
             (snap) => {
+              if (isGhConfigured()) return;
               if (!snap.exists()) {
                 if (state.coffees.length || state.logs.length) persistState(true);
                 else setCloudBadge('ok');
@@ -5755,7 +5636,7 @@
 
         $('btnFinishToJournal').classList.toggle('hidden', !isFinished);
 
-        $('navBrewDot').classList.toggle('hidden', !state.swRun);
+        $('navBrewBtn')?.classList.toggle('is-running', Boolean(state.swRun));
 
         // Animacja SVG w kwadracie (118×118px) — podczas dolewania mleka (i po zakończeniu kawy z mlekiem) zdejmujemy dripper V60
         const hideDripper = isMilkActive || (isFinished && hasMilk);
@@ -6189,26 +6070,86 @@
                 <button type="button" data-act="recipe" class="btn btn-ghost btn-sm" style="flex:1 1 auto; min-width:82px;">Receptura</button>
                 <button type="button" data-act="archive" class="btn ${c.isArchived ? 'finish-btn-on' : 'btn-ghost'} log-circle-btn" style="width:34px; height:34px; font-size:14px;" title="${c.isArchived ? 'Przywróć paczkę do aktywnych' : 'Oznacz paczkę jako skończoną'}" aria-label="${c.isArchived ? 'Przywróć paczkę' : 'Oznacz paczkę jako skończoną'}" aria-pressed="${Boolean(c.isArchived)}">🫙</button>
                 <button type="button" data-act="edit" class="btn btn-ghost log-circle-btn" style="width:34px; height:34px;" title="Edytuj / aktualizuj profil" aria-label="Edytuj profil kawy">
-                  <svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 20h9"/>
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                  </svg>
+                  ${ICONS.edit}
                 </button>
                 ${delAsk ? `
                   <button type="button" data-act="del-yes" class="btn btn-del log-circle-btn" style="width:34px; height:34px; font-size:14px;" title="Potwierdź usunięcie" aria-label="Potwierdź usunięcie">✓</button>
                   <button type="button" data-act="del-no" class="btn btn-ghost log-circle-btn" style="width:34px; height:34px; font-size:14px;" title="Anuluj" aria-label="Anuluj">✕</button>
                 ` : `<button type="button" data-act="del-ask" class="btn btn-ghost log-circle-btn" style="width:34px; height:34px;" title="Usuń kawę" aria-label="Usuń kawę">
-                  <svg class="icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polyline points="3 6 5 6 21 6"/>
-                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-                    <path d="M10 11v6"/>
-                    <path d="M14 11v6"/>
-                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-                  </svg>
+                  ${ICONS.trash}
                 </button>`}
               </div>
             </article>`;
         }).join('');
+      }
+      /** Wspólna animacja FLIP dla płynnego przemieszczania kart na liście (Półka oraz Historia). */
+      function animateListFlip(listEl, itemSelector, idAttr, mutateAndRender, { pulseId = null, fadeRemoved = false } = {}) {
+        const oldRects = new Map();
+        const oldClones = fadeRemoved ? new Map() : null;
+        listEl.querySelectorAll(itemSelector).forEach((el) => {
+          const id = el.getAttribute(idAttr);
+          if (!id) return;
+          oldRects.set(id, el.getBoundingClientRect());
+          if (oldClones) oldClones.set(id, el.cloneNode(true));
+        });
+
+        mutateAndRender();
+
+        const newIds = new Set();
+        listEl.querySelectorAll(itemSelector).forEach((el) => {
+          const id = el.getAttribute(idAttr);
+          if (!id) return;
+          newIds.add(id);
+          const prevRect = oldRects.get(id);
+          if (prevRect) {
+            const dy = prevRect.top - el.getBoundingClientRect().top;
+            if (Math.abs(dy) > 1) {
+              el.style.transform = `translateY(${dy}px)`;
+              el.style.transition = 'none';
+              requestAnimationFrame(() => {
+                el.style.transition = 'transform var(--dur-slow) var(--ease-out), background-color var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out)';
+                el.style.transform = '';
+                el.addEventListener('transitionend', function onEnd(ev) {
+                  if (ev.propertyName === 'transform') {
+                    el.style.transition = '';
+                    el.removeEventListener('transitionend', onEnd);
+                  }
+                });
+              });
+            } else if (pulseId && id === String(pulseId)) {
+              el.classList.remove('card-pulse');
+              void el.offsetWidth;
+              el.classList.add('card-pulse');
+            }
+          } else if (fadeRemoved) {
+            el.classList.add('card-enter');
+            el.addEventListener('animationend', () => el.classList.remove('card-enter'), { once: true });
+          }
+        });
+
+        if (oldClones) {
+          oldRects.forEach((rect, id) => {
+            if (newIds.has(id)) return;
+            const ghost = oldClones.get(id);
+            if (!ghost) return;
+            ghost.classList.add('card-exit');
+            ghost.style.position = 'fixed';
+            ghost.style.left = `${rect.left}px`;
+            ghost.style.top = `${rect.top}px`;
+            ghost.style.width = `${rect.width}px`;
+            ghost.style.zIndex = '25';
+            document.body.appendChild(ghost);
+            setTimeout(() => ghost.remove(), 260);
+          });
+        }
+      }
+
+      function switchHistFilter(nextFilter) {
+        if (state.histFilter === nextFilter) return;
+        animateListFlip($('historyList'), '.log-card[data-log-id]', 'data-log-id', () => {
+          state.histFilter = nextFilter;
+          renderJournal();
+        }, { fadeRemoved: true });
       }
 
       function renderRecipe() {
@@ -6218,10 +6159,8 @@
         $('btnRecipeGoShelf').classList.toggle('hidden', !!c || state.coffees.length === 0);
         $('recipeBody').classList.toggle('hidden', !c);
         $('recipeFabDock').classList.toggle('hidden', state.tab !== 'recipe' || !c);
-        if (!c) {
-          setPresetMenu(false);
-          return;
-        }
+        if (!c) return;
+
         const p = c.params, dl = c.dialedIn, fix = c.suggestedFix;
         const rm = ROAST_META[c.roastLevel] || ROAST_META.medium;
         const vb = getVerBadgeInfo(c);
@@ -7042,7 +6981,6 @@
                 </div>
                 <div class="wrap" style="gap:5px;">
                   <span class="badge badge-dialed dialed-pill-badge ${isDialed ? '' : 'is-off'}" aria-hidden="${!isDialed}">🎯 Wzorzec</span>
-                  <button type="button" data-log-act="load" class="btn btn-sec log-circle-btn" style="width:30px; height:30px; font-size:13px; color:var(--accent);" title="Wczytaj parametry" aria-label="Wczytaj parametry">↻</button>
                 </div>
               </div>
               <strong style="font-size:14px;">${esc(e.coffeeName)}</strong>
@@ -7076,38 +7014,47 @@
               ${clogBanner}
               ${e.notes ? `<p class="log-note">„${esc(e.notes)}”</p>` : ''}
               <div class="row" style="justify-content:flex-end; gap:8px;">
+                <button type="button" data-log-act="load" class="btn btn-sec log-circle-btn" style="font-size:15px; color:var(--accent);" title="Wczytaj parametry" aria-label="Wczytaj parametry">↻</button>
                 ${coffee ? `
                   <button type="button" data-log-act="toggle-dialed" class="btn log-circle-btn ${isDialed ? 'btn-dialed' : 'btn-ghost'}" title="${isDialed ? 'Najlepsze ustawienia (usuń wzorzec)' : 'Ustaw jako wzorzec'}" aria-label="${isDialed ? 'Najlepsze ustawienia' : 'Ustaw jako wzorzec'}">🎯</button>
                 ` : ''}
                 <button type="button" data-log-act="edit" class="btn btn-sec log-circle-btn" title="Edytuj wpis" aria-label="Edytuj wpis">
-                  <svg class="icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 20h9"/>
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                  </svg>
+                  ${ICONS.edit}
                 </button>
                 ${delAsk ? `
                   <button type="button" data-log-act="del-yes" class="btn btn-del log-circle-btn" title="Potwierdź usunięcie" aria-label="Potwierdź usunięcie">✓</button>
                   <button type="button" data-log-act="del-no" class="btn btn-ghost log-circle-btn" title="Anuluj" aria-label="Anuluj">✕</button>
                 ` : `<button type="button" data-log-act="del-ask" class="btn btn-ghost log-circle-btn" title="Usuń wpis" aria-label="Usuń wpis">
-                  <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polyline points="3 6 5 6 21 6"/>
-                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-                    <path d="M10 11v6"/>
-                    <path d="M14 11v6"/>
-                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-                  </svg>
+                  ${ICONS.trash}
                 </button>`}
               </div>
             </article>`;
         }).join('');
       }
 
+      const TAB_RENDERERS = {
+        shelf: renderShelf,
+        recipe: renderRecipe,
+        brew: renderBrew,
+        journal: renderJournal,
+      };
+
+      function renderActiveTab(markOthersDirty = true) {
+        renderHeader();
+        if (markOthersDirty) {
+          Object.keys(state.dirty).forEach((k) => { if (k !== state.tab) state.dirty[k] = true; });
+        }
+        TAB_RENDERERS[state.tab]?.();
+        state.dirty[state.tab] = false;
+        scheduleOverflowRefresh();
+      }
+
       function renderAll() {
         renderHeader();
-        renderShelf();
-        renderRecipe();
-        renderBrew();
-        renderJournal();
+        Object.keys(TAB_RENDERERS).forEach((k) => {
+          TAB_RENDERERS[k]();
+          state.dirty[k] = false;
+        });
         renderSettings();
         scheduleOverflowRefresh();
       }
@@ -7156,6 +7103,10 @@
         $('journalFabDock').classList.toggle('hidden', t !== 'journal' || state.journalSub !== 'hist' || state.coffees.length === 0);
         $('brewBottomDock').classList.toggle('hidden', t !== 'brew' || !getActive());
         $('journalBottomDock').classList.toggle('hidden', t !== 'journal');
+        if (state.dirty[t]) {
+          TAB_RENDERERS[t]?.();
+          state.dirty[t] = false;
+        }
         syncShelfToolbarLayout();
         syncHistToolbarLayout();
         document.querySelectorAll('.nav-item').forEach((el) => el.classList.toggle('active', el.dataset.nav === t));
@@ -7682,91 +7633,22 @@
         toast(`Dodano na Półkę V60: ${fresh.name}`);
       }
 
-      function saveManualCoffee() {
-        const name = $('manName').value.trim();
-        if (!name) {
-          $('manErr').textContent = 'Wpisz przynajmniej nazwę kawy.';
-          $('manErr').classList.remove('hidden');
-          return;
-        }
-        $('manErr').classList.add('hidden');
-
-        const roastLevel = normRoast($('manRoast').value);
-        const def = ROAST_DEFAULTS[roastLevel];
-        const tastingNotes = $('manNotes').value.split(',').map((s) => s.trim()).filter(Boolean).slice(0, 6);
-
-        if (state.editingCoffeeId) {
-          const idx = state.coffees.findIndex((x) => x.id === state.editingCoffeeId);
-          if (idx === -1) return;
-          const prev = state.coffees[idx];
-          const roastChanged = prev.roastLevel !== roastLevel;
-
-          state.coffees[idx] = normCoffee({
-            ...prev,
-            name,
-            roaster: $('manRoaster').value.trim() || 'Palarnia własna',
-            origin: $('manOrigin').value.trim() || 'Single Origin',
-            process: $('manProcess').value.trim() || 'Nieokreślona',
-            variety: normNullableStr($('manVariety').value),
-            altitude: normNullableStr($('manAltitude').value),
-            scaScore: normScaScore($('manSca').value),
-            roastDate: normRoastDate($('manRoastDate').value),
-            roastLevel,
-            roastLabel: ROAST_META[roastLevel].label,
-            tastingNotes,
-            ...(roastChanged ? {
-              ratioMin: def.ratioMin, ratioMax: def.ratioMax, ratioRecommended: def.ratioRecommended,
-              tempMin: def.tempMin, tempMax: def.tempMax, tempRecommended: def.tempRecommended,
-              grindMinUm: def.grindMinUm, grindMaxUm: def.grindMaxUm, grindRecommendedUm: def.grindRecommendedUm,
-              pourProfile: def.pourProfile,
-              strategySummary: def.strategySummary,
-              checklistExtras: def.checklistExtras,
-            } : {}),
-            dialedIn: prev.dialedIn,
-            suggestedFix: prev.suggestedFix,
-            params: prev.params,
-          });
-
-          state.logs.forEach((l) => { if (l.coffeeId === prev.id) l.coffeeName = name; });
-          state.editingCoffeeId = null;
-          closeModal('modalAdd');
-          persistState(true);
-          renderAll();
-          toast(`Zapisano zmiany: ${name}`);
-          return;
-        }
-
-        const fresh = normCoffee({
-          schemaVersion: 1,
-          id: `m-${Date.now()}`,
-          createdAt: Date.now(),
-          name,
-          roaster: $('manRoaster').value.trim() || 'Palarnia własna',
-          origin: $('manOrigin').value.trim() || 'Single Origin',
-          process: $('manProcess').value.trim() || 'Nieokreślona',
-          variety: normNullableStr($('manVariety').value),
-          altitude: normNullableStr($('manAltitude').value),
-          scaScore: normScaScore($('manSca').value),
-          roastDate: normRoastDate($('manRoastDate').value),
-          roastLevel,
-          roastLabel: ROAST_META[roastLevel].label,
-          tastingNotes,
-          ratioMin: def.ratioMin, ratioMax: def.ratioMax, ratioRecommended: def.ratioRecommended,
-          tempMin: def.tempMin, tempMax: def.tempMax, tempRecommended: def.tempRecommended,
-          grindMinUm: def.grindMinUm, grindMaxUm: def.grindMaxUm, grindRecommendedUm: def.grindRecommendedUm,
-          pourProfile: def.pourProfile,
-          strategySummary: def.strategySummary,
-          checklistExtras: def.checklistExtras,
-          verificationStatus: 'estimated',
-          verificationNote: 'Kawa dodana ręcznie — parametry startowe dobrane na podstawie stopnia palenia.',
-          sources: [],
-        });
-
-        state.coffees.unshift(fresh);
-        selectCoffee(fresh.id, { resetBrew: true });
-        closeModal('modalAdd');
-        persistState(true);
-        toast(`Dodano na Półkę V60: ${fresh.name}`);
+      function copyTextToClipboard(text, okMsg, failMsg = 'Nie udało się skopiować do schowka.') {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.cssText = 'position:fixed;top:-9999px;opacity:0;';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          ta.setSelectionRange(0, ta.value.length);
+          const ok = document.execCommand('copy');
+          ta.remove();
+          if (ok) { toast(okMsg); return true; }
+        } catch (err) {}
+        if (failMsg) toast(failMsg, 'warn');
+        return false;
       }
 
       function copyActiveRecipeText() {
@@ -7793,23 +7675,7 @@
             ? `${i + 1}. ${s.name}: +${s.milkMl} ml (${s.milkShort}) po zdjęciu V60`
             : `${i + 1}. ${s.name} (${fmtMin(s.start)}–${fmtMin(s.end)}): do ${s.target} g`),
         ];
-        const text = lines.join('\n');
-        try {
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.setAttribute('readonly', '');
-          ta.style.cssText = 'position:fixed;top:-9999px;opacity:0;';
-          document.body.appendChild(ta);
-          ta.focus();
-          ta.select();
-          ta.setSelectionRange(0, ta.value.length);
-          const ok = document.execCommand('copy');
-          ta.remove();
-          if (ok) toast('Skopiowano przepis V60 do schowka!');
-          else toast('Nie udało się skopiować przepisu.', 'warn');
-        } catch (err) {
-          toast('Nie udało się skopiować przepisu.', 'warn');
-        }
+        copyTextToClipboard(lines.join('\n'), 'Skopiowano przepis V60 do schowka!', 'Nie udało się skopiować przepisu.');
       }
 
       function buildBackupPackage() {
@@ -7859,19 +7725,11 @@
 
       function copyBackupJson() {
         const { jsonText } = buildBackupPackage();
-        try {
-          const ta = document.createElement('textarea');
-          ta.value = jsonText; ta.setAttribute('readonly', '');
-          ta.style.cssText = 'position:fixed;top:-9999px;opacity:0;';
-          document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
-          const ok = document.execCommand('copy');
-          ta.remove();
-          if (ok) toast('Skopiowano kod JSON do schowka!');
-          else throw new Error('copy-failed');
-        } catch (err) {
+        if (!copyTextToClipboard(jsonText, 'Skopiowano kod JSON do schowka!', '')) {
           setFoldOpen('pasteJsonPanel', true);
           $('pasteJsonInput').value = jsonText;
-          $('pasteJsonInput').focus(); $('pasteJsonInput').select();
+          $('pasteJsonInput').focus();
+          $('pasteJsonInput').select();
           toast('Zaznaczono kod JSON poniżej — skopiuj go ręcznie.', 'info', 3800);
         }
       }
@@ -7972,48 +7830,18 @@
             c.isFavorite = !c.isFavorite;
             persistState(); renderShelf();
           } else if (act === 'archive') {
-            const listEl = $('shelfList');
-            const oldRects = new Map();
-            listEl.querySelectorAll('.coffee-card[data-id]').forEach((el) => {
-              oldRects.set(el.dataset.id, el.getBoundingClientRect());
-            });
-
-            c.isArchived = !c.isArchived;
-            if (c.isArchived && state.activeCoffeeId === c.id) {
-              const nextActive = state.coffees.find((x) => !x.isArchived && x.id !== c.id);
-              state.activeCoffeeId = nextActive ? nextActive.id : null;
-              syncDraftFromCoffee(getActive());
-            } else if (!c.isArchived && !state.activeCoffeeId) {
-              state.activeCoffeeId = c.id;
-              syncDraftFromCoffee(c);
-            }
-            persistState(true); renderAll();
-
-            listEl.querySelectorAll('.coffee-card[data-id]').forEach((el) => {
-              const cid = el.dataset.id;
-              const prevRect = oldRects.get(cid);
-              if (!prevRect) return;
-              const nextRect = el.getBoundingClientRect();
-              const dy = prevRect.top - nextRect.top;
-              if (Math.abs(dy) > 1) {
-                el.style.transform = `translateY(${dy}px)`;
-                el.style.transition = 'none';
-                requestAnimationFrame(() => {
-                  el.style.transition = 'transform var(--dur-slow) var(--ease-out), background-color var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out)';
-                  el.style.transform = '';
-                  el.addEventListener('transitionend', function onEnd(ev) {
-                    if (ev.propertyName === 'transform') {
-                      el.style.transition = '';
-                      el.removeEventListener('transitionend', onEnd);
-                    }
-                  });
-                });
-              } else if (cid === c.id) {
-                el.classList.remove('card-pulse');
-                void el.offsetWidth;
-                el.classList.add('card-pulse');
+            animateListFlip($('shelfList'), '.coffee-card[data-id]', 'data-id', () => {
+              c.isArchived = !c.isArchived;
+              if (c.isArchived && state.activeCoffeeId === c.id) {
+                const nextActive = state.coffees.find((x) => !x.isArchived && x.id !== c.id);
+                state.activeCoffeeId = nextActive ? nextActive.id : null;
+                syncDraftFromCoffee(getActive());
+              } else if (!c.isArchived && !state.activeCoffeeId) {
+                state.activeCoffeeId = c.id;
+                syncDraftFromCoffee(c);
               }
-            });
+              persistState(true); renderAll();
+            }, { pulseId: c.id });
 
             toast(c.isArchived ? `Oznaczono jako skończoną: ${c.name}` : `Przywrócono nową paczkę: ${c.name}`, 'info');
           } else if (act === 'logs') {
@@ -8090,12 +7918,12 @@
             document.querySelectorAll('.modal-bg:not(.hidden)').forEach((m) => m.classList.add('hidden'));
           }
         });
-
-        // Receptura V60
+        // Receptura V60 (leniwie odświeża pozostałe zakładki przy przełączeniu)
         const syncRecipe = () => {
           const c = getActive();
           if (c) syncDraftFromCoffee(c, state.capturedWater, state.capturedMilkMl);
-          persistState(); renderHeader(); renderRecipe(); renderBrew(); renderJournal(); renderShelf();
+          persistState();
+          renderActiveTab(true);
         };
 
         // Ochrona suwaków przed przypadkowym przesunięciem podczas pionowego przewijania palcem
@@ -8356,45 +8184,32 @@
         });
 
         // Interaktywne pokrętło SVG grubości mielenia (działa w trybie KG79 oraz w trybie mikronów µm)
-        const setGrindByNorm = (normVal) => {
+        const applyGrindChange = (kgClicks, umVal) => {
           const c = getActive();
           if (!c || state.settings.slidersLocked) return;
-          const n = clamp(normVal, 0, 1);
           if (state.settings.kg79Enabled) {
-            const clicks = Math.round(n * 15);
-            const curClicks = getActiveKg79Info(c).clicks;
-            if (clicks === curClicks) return;
+            const clicks = clamp(Math.round(kgClicks), 0, 15);
+            if (clicks === getActiveKg79Info(c).clicks) return;
             const off = clamp(Math.round(state.settings.kg79Offset || 0), -2, 2);
             c.params.grinder = formatKg79Short(clicks);
             c.params.grindUm = kg79ClicksToUm(clicks, off);
-            syncRecipe();
           } else {
-            const rawUm = 1050 - n * 600;
-            const um = clamp(Math.round(rawUm / 10) * 10, 450, 1050);
+            const um = clamp(Math.round(umVal / 10) * 10, 450, 1050);
             if (um === c.params.grindUm) return;
             c.params.grindUm = um;
-            syncRecipe();
           }
+          syncRecipe();
+        };
+
+        const setGrindByNorm = (normVal) => {
+          const n = clamp(normVal, 0, 1);
+          applyGrindChange(Math.round(n * 15), 1050 - n * 600);
         };
 
         const stepGrindDial = (dir) => {
-          // dir = -1 (grubiej: mniej klików KG79 lub więcej µm), dir = +1 (drobniej: więcej klików KG79 lub mniej µm)
           const c = getActive();
-          if (!c || state.settings.slidersLocked) return;
-          if (state.settings.kg79Enabled) {
-            const cur = getActiveKg79Info(c).clicks;
-            const next = clamp(cur + dir, 0, 15);
-            if (next === cur) return;
-            const off = clamp(Math.round(state.settings.kg79Offset || 0), -2, 2);
-            c.params.grinder = formatKg79Short(next);
-            c.params.grindUm = kg79ClicksToUm(next, off);
-            syncRecipe();
-          } else {
-            const nextUm = clamp(c.params.grindUm - dir * 10, 450, 1050);
-            if (nextUm === c.params.grindUm) return;
-            c.params.grindUm = nextUm;
-            syncRecipe();
-          }
+          if (!c) return;
+          applyGrindChange(getActiveKg79Info(c).clicks + dir, c.params.grindUm - dir * 10);
         };
 
         $('btnDialMinus').addEventListener('click', () => stepGrindDial(-1));
@@ -9112,22 +8927,7 @@
               sources: [{ title: 'Strona palarni', url: 'https://example.com' }],
             }, null, 2),
           ].join('\n');
-          try {
-            const ta = document.createElement('textarea');
-            ta.value = promptText;
-            ta.setAttribute('readonly', '');
-            ta.style.cssText = 'position:fixed;top:-9999px;opacity:0;';
-            document.body.appendChild(ta);
-            ta.focus();
-            ta.select();
-            ta.setSelectionRange(0, ta.value.length);
-            const ok = document.execCommand('copy');
-            ta.remove();
-            if (ok) toast('Skopiowano prompt + szablon JSON do schowka!');
-            else toast('Nie udało się skopiować szablonu.', 'warn');
-          } catch (err) {
-            toast('Nie udało się skopiować szablonu.', 'warn');
-          }
+          copyTextToClipboard(promptText, 'Skopiowano prompt + szablon JSON do schowka!', 'Nie udało się skopiować szablonu.');
         });
         $('btnPasteClipboard').addEventListener('click', async () => {
           if (navigator.clipboard && typeof navigator.clipboard.readText === 'function') {
@@ -9144,7 +8944,73 @@
           toast('Przeglądarka blokuje automatyczny schowek — przytrzymaj pole i wybierz „Wklej”.', 'info', 3800);
         });
         $('btnSaveJsonCoffee').addEventListener('click', saveParsedJsonCoffee);
-        $('btnSaveManualCoffee').addEventListener('click', saveManualCoffee);
+        $('btnSaveManualCoffee').addEventListener('click', () => {
+          const name = $('manName').value.trim();
+          if (!name) {
+            $('manErr').textContent = 'Podaj nazwę kawy (pole wymagane).';
+            $('manErr').classList.remove('hidden');
+            $('manName').focus();
+            return;
+          }
+          $('manErr').classList.add('hidden');
+          const rl = normRoast($('manRoast').value);
+          const def = ROAST_DEFAULTS[rl] || ROAST_DEFAULTS.medium;
+          const notes = $('manNotes').value.split(',').map((s) => s.trim()).filter(Boolean);
+          const payload = {
+            name,
+            roaster: $('manRoaster').value.trim() || 'Palarnia',
+            origin: $('manOrigin').value.trim() || 'Single Origin',
+            process: $('manProcess').value.trim() || 'Washed / Natural',
+            variety: $('manVariety').value,
+            altitude: $('manAltitude').value,
+            scaScore: $('manSca').value,
+            roastDate: $('manRoastDate').value,
+            roastLevel: rl,
+            roastLabel: ROAST_META[rl].label,
+            tastingNotes: notes,
+            verificationStatus: 'estimated',
+            verificationNote: 'Profil utworzony ręcznie — parametry startowe dobrane według stopnia palenia.',
+            ...def,
+          };
+
+          if (state.editingCoffeeId) {
+            const idx = state.coffees.findIndex((x) => x.id === state.editingCoffeeId);
+            if (idx === -1) return;
+            const prev = state.coffees[idx];
+            const applySliders = $('tglUpdateApplySliders').checked;
+            state.coffees[idx] = {
+              ...normCoffee(payload),
+              id: prev.id,
+              isFavorite: prev.isFavorite,
+              isArchived: prev.isArchived,
+              createdAt: prev.createdAt,
+              dialedIn: prev.dialedIn,
+              suggestedFix: prev.suggestedFix || null,
+              params: {
+                ...prev.params,
+                ratio: applySliders ? def.ratioRecommended : prev.params.ratio,
+                exactWater: applySliders ? null : (prev.params.exactWater || null),
+                tempC: applySliders ? def.tempRecommended : prev.params.tempC,
+                grindUm: applySliders ? def.grindRecommendedUm : prev.params.grindUm,
+                profile: applySliders ? def.pourProfile : prev.params.profile,
+              },
+            };
+            state.logs.forEach((l) => { if (l.coffeeId === prev.id) l.coffeeName = name; });
+            state.editingCoffeeId = null;
+            closeModal('modalAdd');
+            persistState(true);
+            renderAll();
+            toast(`Zapisano zmiany: ${name}`);
+            return;
+          }
+
+          const fresh = normCoffee({ ...payload, id: `c-${Date.now()}`, createdAt: Date.now() });
+          state.coffees.unshift(fresh);
+          selectCoffee(fresh.id, { resetBrew: true });
+          closeModal('modalAdd');
+          persistState(true);
+          toast(`Dodano kawę: ${fresh.name}`);
+        });
 
         // Modal Ustawień
         $('themeGrid').addEventListener('click', (e) => {
