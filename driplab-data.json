@@ -87,7 +87,7 @@
       "schemaVersion": 1,
       "id": "c-1795442811163",
       "isFavorite": false,
-      "isArchived": true,
+      "isArchived": false,
       "roastDate": null,
       "createdAt": 1795442811163,
       "name": "Single Origin Kolumbia",
@@ -508,5 +508,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795634017681
+  "updatedAt": 1795634021346
 }
