@@ -11,7 +11,8 @@
   <title>DripLab — Asystent Parzenia V60</title>
 
   <!-- Ikona aplikacji i wbudowany manifest PWA (1-plikowy deploy pod GitHub Pages / Android) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23e8b06c'/%3E%3Cstop offset='100%25' stop-color='%23d99b52'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='112' fill='%23120f0d'/%3E%3Crect x='20' y='20' width='472' height='472' rx='96' fill='none' stroke='url(%23g)' stroke-width='14'/%3E%3Cpath d='M120 132h272l-102 170a40 40 0 0 1-68 0L120 132z' fill='none' stroke='url(%23g)' stroke-width='26' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M186 392h140' stroke='url(%23g)' stroke-width='26' stroke-linecap='round'/%3E%3Cpath d='M256 318v74' stroke='url(%23g)' stroke-width='26' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link id="appFavicon" rel="icon" type="image/svg+xml" />
+  <link id="appleTouchIcon" rel="apple-touch-icon" />
   <link id="pwaManifestLink" rel="manifest" />
 
   <!-- Natychmiastowe przywrócenie motywu + generowanie manifestu PWA przed pierwszym renderowaniem -->
@@ -28,19 +29,76 @@
       } catch (e) {}
 
       try {
-        var iconSvg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='#e8b06c'/><stop offset='100%' stop-color='#d99b52'/></linearGradient></defs><rect width='512' height='512' rx='112' fill='#120f0d'/><rect x='20' y='20' width='472' height='472' rx='96' fill='none' stroke='url(#g)' stroke-width='14'/><path d='M120 132h272l-102 170a40 40 0 0 1-68 0L120 132z' fill='none' stroke='url(#g)' stroke-width='26' stroke-linecap='round' stroke-linejoin='round'/><path d='M186 392h140' stroke='url(#g)' stroke-width='26' stroke-linecap='round'/><path d='M256 318v74' stroke='url(#g)' stroke-width='26' stroke-linecap='round'/></svg>";
+        var iconSvg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>" +
+          "<defs>" +
+            "<linearGradient id='bg' x1='0.1' y1='0.05' x2='0.95' y2='0.95'>" +
+              "<stop offset='0%' stop-color='#0f636a'/>" +
+              "<stop offset='52%' stop-color='#3d5c50'/>" +
+              "<stop offset='100%' stop-color='#9f5616'/>" +
+            "</linearGradient>" +
+            "<linearGradient id='ceramic' x1='0' y1='0' x2='1' y2='0.3'>" +
+              "<stop offset='0%' stop-color='#ffffff'/>" +
+              "<stop offset='72%' stop-color='#f1f4f6'/>" +
+              "<stop offset='100%' stop-color='#d3dbe0'/>" +
+            "</linearGradient>" +
+            "<linearGradient id='stream' x1='0' y1='1' x2='1' y2='0'>" +
+              "<stop offset='0%' stop-color='#f3d8b8'/>" +
+              "<stop offset='35%' stop-color='#ffffff'/>" +
+              "<stop offset='100%' stop-color='#dce5ea' stop-opacity='0.88'/>" +
+            "</linearGradient>" +
+            "<filter id='sh' x='-15%' y='-15%' width='130%' height='130%'>" +
+              "<feDropShadow dx='0' dy='6' stdDeviation='7' flood-color='#081618' flood-opacity='0.38'/>" +
+            "</filter>" +
+          "</defs>" +
+          "<rect width='512' height='512' rx='114' fill='url(#bg)'/>" +
+          "<g filter='url(#sh)'>" +
+            "<path d='M223 148c-8-18 4-35-3-52 13 13 18 32 3 52z' fill='#eef3f5' opacity='0.88'/>" +
+            "<path d='M247 142c-9-26 9-52-4-77 18 18 23 48 4 77z' fill='#ffffff' opacity='0.92'/>" +
+            "<path d='M267 104c-4-11 4-21-2-32 9 8 11 20 2 32z' fill='#eef3f5' opacity='0.85'/>" +
+            "<ellipse cx='202' cy='140' rx='9' ry='5' transform='rotate(-22 202 140)' fill='#f7e6ce'/>" +
+            "<circle cx='216' cy='151' r='3.5' fill='#f7e6ce'/>" +
+            "<ellipse cx='298' cy='144' rx='8' ry='4.5' transform='rotate(24 298 144)' fill='#f7e6ce'/>" +
+            "<circle cx='286' cy='153' r='3.5' fill='#f7e6ce'/>" +
+            "<circle cx='369' cy='101' r='4.5' fill='#eef3f5' opacity='0.9'/>" +
+            "<path d='M240 183c8-45 28-86 68-86 35 0 58 24 89 15-21 15-42 18-63 14 23 13 46 15 69 7-26 17-54 19-82 4-26-14-48 11-50 46z' fill='url(#stream)'/>" +
+            "<ellipse cx='256' cy='175' rx='89' ry='16' fill='#f6e7d4'/>" +
+            "<ellipse cx='256' cy='176' rx='77' ry='11' fill='#6d3716'/>" +
+            "<path d='M187 177c25-5 52-4 76 0 21 3 43 2 61-2-17 7-44 10-70 9-25-1-49-3-67-7z' fill='#8f4c22' opacity='0.75'/>" +
+            "<path d='M339 194h15c24 0 36 16 32 37-3 18-17 30-38 30h-19l4-14h13c13 0 21-7 23-18 2-12-5-21-18-21h-15z' fill='url(#ceramic)'/>" +
+            "<path d='M167 177c0 9 40 16 89 16s89-7 89-16l-37 104H204z' fill='url(#ceramic)'/>" +
+            "<g fill='#7a4424'>" +
+              "<polygon points='185,193 192,195 215,277 210,277'/>" +
+              "<polygon points='205,197 213,198 229,277 223,277'/>" +
+              "<polygon points='228,200 237,201 244,277 238,277'/>" +
+              "<polygon points='252,201 260,201 260,277 252,277'/>" +
+              "<polygon points='275,200 284,199 274,277 268,277'/>" +
+              "<polygon points='299,197 307,196 289,277 283,277'/>" +
+              "<polygon points='320,193 327,191 302,277 297,277'/>" +
+            "</g>" +
+            "<ellipse cx='256' cy='288' rx='75' ry='11' fill='url(#ceramic)'/>" +
+            "<path d='M182 290c18 6 130 6 148 0-12 7-136 7-148 0z' fill='#c5cfd6'/>" +
+            "<path d='M313 313h29c20 0 32 13 28 33l-7 32c-2 8-12 6-10-3l6-28c2-12-4-20-18-20h-26z' fill='url(#ceramic)'/>" +
+            "<path d='M196 303h118c6 0 9 6 6 12l-6 10 15 55c2 7-8 9-11 2l-11-36h-92l-15 36c-3 7-13 5-10-2l17-55-12-10c-5-4-2-12 5-12z' fill='url(#ceramic)'/>" +
+            "<path d='M212 311h86l-4 7h-78z' fill='#c5cfd6'/>" +
+            "<text x='256' y='456' text-anchor='middle' font-family='system-ui,-apple-system,Segoe UI,Roboto,sans-serif' font-weight='800' font-size='64' letter-spacing='1.5' fill='#ffffff'>DRIP&#8226;LAB</text>" +
+          "</g>" +
+        "</svg>";
         var iconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(iconSvg);
+        var favEl = document.getElementById('appFavicon');
+        if (favEl) favEl.href = iconUrl;
+        var touchEl = document.getElementById('appleTouchIcon');
+        if (touchEl) touchEl.href = iconUrl;
         var baseUrl = location.href.split('#')[0].split('?')[0];
         var scopeUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1);
         var manifest = {
           name: 'DripLab — Asystent Parzenia V60',
-          short_name: 'DripLab V60',
+          short_name: 'DripLab',
           description: 'Osobisty asystent parzenia Hario V60: półka ziaren, profile ekstrakcji, stoper i dziennik smakowy.',
           start_url: baseUrl,
           scope: scopeUrl,
           display: 'standalone',
           orientation: 'portrait',
-          background_color: '#120f0d',
+          background_color: '#0f636a',
           theme_color: '#120f0d',
           icons: [
             { src: iconUrl, sizes: '192x192', type: 'image/svg+xml', purpose: 'any maskable' },
@@ -640,10 +698,12 @@
       height: 36px;
       border-radius: 10px;
       flex-shrink: 0;
-      background: linear-gradient(135deg, var(--accent-2), var(--accent));
-      color: var(--on-accent);
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f636a, #9f5616);
       display: grid;
       place-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
     }
     .ctx-pill {
       flex: 1;
@@ -2527,8 +2587,31 @@
     <!-- ==================== GÓRNY PASEK KONTEKSTOWY (48px) ==================== -->
     <header class="topbar">
       <button id="btnLogoHome" type="button" class="logo-btn" title="DripLab V60 — Półka" aria-label="Półka">
-        <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16l-6 10a2 2 0 0 1-4 0L4 4z"/><path d="M8 20h8"/><path d="M12 15v5"/>
+        <svg width="36" height="36" viewBox="0 0 512 512" aria-hidden="true">
+          <defs>
+            <linearGradient id="navLogoBg" x1="0.1" y1="0.05" x2="0.95" y2="0.95">
+              <stop offset="0%" stop-color="#0f636a"/>
+              <stop offset="52%" stop-color="#3d5c50"/>
+              <stop offset="100%" stop-color="#9f5616"/>
+            </linearGradient>
+          </defs>
+          <rect width="512" height="512" rx="114" fill="url(#navLogoBg)"/>
+          <path d="M242 152c-10-28 10-56-4-84 20 20 26 52 4 84z" fill="#ffffff" opacity="0.92"/>
+          <path d="M236 196c10-50 32-96 78-96 38 0 64 26 98 16-23 17-46 20-70 16 25 14 50 16 76 8-29 19-60 21-90 4-29-15-53 12-56 52z" fill="#ffffff"/>
+          <ellipse cx="256" cy="186" rx="102" ry="18" fill="#f6e7d4"/>
+          <ellipse cx="256" cy="187" rx="88" ry="12" fill="#6d3716"/>
+          <path d="M350 208h17c26 0 40 18 35 41-3 20-19 33-42 33h-21l4-16h15c14 0 23-8 25-20 2-13-5-23-20-23h-17z" fill="#ffffff"/>
+          <path d="M154 188c0 10 46 18 102 18s102-8 102-18l-42 118H196z" fill="#ffffff"/>
+          <g fill="#7a4424">
+            <polygon points="182,208 192,210 215,300 207,300"/>
+            <polygon points="214,213 225,214 238,300 230,300"/>
+            <polygon points="250,215 262,215 262,300 250,300"/>
+            <polygon points="287,214 298,213 282,300 274,300"/>
+            <polygon points="320,210 330,208 305,300 297,300"/>
+          </g>
+          <ellipse cx="256" cy="318" rx="86" ry="13" fill="#ffffff"/>
+          <path d="M320 346h32c22 0 36 14 31 36l-8 36c-2 9-14 7-11-3l7-31c2-13-5-22-20-22h-29z" fill="#ffffff"/>
+          <path d="M188 335h134c7 0 10 7 7 14l-7 11 17 62c2 8-9 10-12 2l-13-40H210l-17 40c-3 8-14 6-11-2l19-62-14-11c-6-5-2-14 6-14z" fill="#ffffff"/>
         </svg>
       </button>
 
