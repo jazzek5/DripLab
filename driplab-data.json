@@ -9,7 +9,7 @@
     "toasts": false,
     "brewAlwaysDark": true,
     "slidersLocked": false,
-    "kg79Enabled": false,
+    "kg79Enabled": true,
     "kg79Offset": 2,
     "swManualMode": true
   },
@@ -166,7 +166,7 @@
         "ratio": 15.5,
         "exactWater": 295,
         "tempC": 88,
-        "grindUm": 820,
+        "grindUm": 810,
         "profile": "two_pours",
         "grinder": "3 kliki od COARSE",
         "milkType": "cow",
@@ -442,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795610497817
+  "updatedAt": 1795610505126
 }
