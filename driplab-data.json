@@ -258,6 +258,31 @@
   ],
   "logs": [
     {
+      "id": "1795635395662",
+      "createdAt": 1795635395662,
+      "coffeeId": "c-1795442811163",
+      "coffeeName": "Single Origin Kolumbia",
+      "date": "25.11, 20:36",
+      "dose": 19,
+      "water": 300,
+      "plannedWater": 300,
+      "ratio": 15.8,
+      "temp": 88,
+      "grindUm": 820,
+      "grinderClicks": "3 kliki od COARSE",
+      "pourProfile": "two_pours",
+      "milkType": "cow",
+      "milkMl": 100,
+      "brewTimeSec": 244,
+      "plannedTimeSec": 150,
+      "rating": 4,
+      "notes": "",
+      "suggestedFixSummary": null,
+      "fixResult": null,
+      "manualMode": true,
+      "manualSplitsSummary": "Blooming: 0:38 (plan 0:35) · Zalanie 1: 0:45 (plan 0:40) · Zalanie 2: 2:25 (plan 0:35) · Przelanie: 0:16 (plan 0:40) · 🥛 Dolej mleko: 0:01 (plan 0:15)"
+    },
+    {
       "id": "1795633994721",
       "createdAt": 1795633994721,
       "coffeeId": "c-1795442370251",
@@ -508,5 +533,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795634618378
+  "updatedAt": 1795635395667
 }
