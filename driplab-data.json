@@ -5,7 +5,7 @@
   "theme": "cappuccino",
   "activeCoffeeId": "c-1795601761792",
   "settings": {
-    "sound": true,
+    "sound": false,
     "toasts": false,
     "brewAlwaysDark": true,
     "slidersLocked": false,
@@ -435,5 +435,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795606259770
+  "updatedAt": 1795606263794
 }
