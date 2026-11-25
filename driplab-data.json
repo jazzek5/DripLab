@@ -165,7 +165,7 @@
         "dose": 19,
         "ratio": 15.5,
         "exactWater": null,
-        "tempC": 85,
+        "tempC": 88,
         "grindUm": 810,
         "profile": "two_pours",
         "grinder": "3 kliki od COARSE",
@@ -442,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795610667224
+  "updatedAt": 1795610672102
 }
