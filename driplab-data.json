@@ -170,7 +170,7 @@
         "profile": "two_pours",
         "grinder": "3 kliki od COARSE",
         "milkType": "cow",
-        "milkMl": 100
+        "milkMl": 60
       }
     },
     {
@@ -442,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795621164530
+  "updatedAt": 1795621176573
 }
