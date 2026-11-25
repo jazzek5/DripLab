@@ -85,7 +85,7 @@
         "grinder": "2 kliki od COARSE",
         "profile": "three_pours",
         "createdAt": 1795606220358,
-        "forNextBrew": true
+        "forNextBrew": false
       },
       "params": {
         "dose": 18,
@@ -274,6 +274,29 @@
   ],
   "logs": [
     {
+      "id": "1795606244728",
+      "createdAt": 1795606244728,
+      "coffeeId": "c-1795601761792",
+      "coffeeName": "Brothers' Coffee",
+      "date": "25.11, 12:30",
+      "dose": 18,
+      "water": 270,
+      "plannedWater": 270,
+      "ratio": 15,
+      "temp": 88,
+      "grindUm": 810,
+      "grinderClicks": "1 klik od COARSE",
+      "pourProfile": "two_pours",
+      "milkType": "cow",
+      "milkMl": 100,
+      "brewTimeSec": 10,
+      "plannedTimeSec": 150,
+      "rating": 0,
+      "notes": "⏱ Etapy (tryb ręczny): Blooming: 0:03 (plan 0:35) · Zalanie 1: 0:01 (plan 0:40) · Zalanie 2: 0:01 (plan 0:35) · Przelanie: 0:05 (plan 0:40)",
+      "suggestedFixSummary": "Za szybki spływ: KG79: 1 klik od COARSE → 2 kliki od COARSE · Profil: 2 zalania → 3 zalania",
+      "manualMode": true
+    },
+    {
       "id": "1795605979069",
       "createdAt": 1795605979069,
       "coffeeId": "c-1795601761792",
@@ -412,5 +435,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795606220358
+  "updatedAt": 1795606244729
 }
