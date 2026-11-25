@@ -3,7 +3,7 @@
   "version": 11,
   "method": "V60",
   "theme": "cappuccino",
-  "activeCoffeeId": "c-1795442811163",
+  "activeCoffeeId": "c-1795442370251",
   "settings": {
     "sound": false,
     "toasts": false,
@@ -278,7 +278,9 @@
       "rating": 5,
       "notes": "⏱ Etapy (tryb ręczny):  ·  ·  ·  · Przelanie: 0:02 (plan 0:40)\n✓ Korekta pomogła: Za szybki spływ (KG79: 1 klik od COARSE → 2 kliki od COARSE · Profil: 2 zalania → 3 zalania)",
       "suggestedFixSummary": null,
-      "manualMode": true
+      "fixResult": null,
+      "manualMode": true,
+      "manualSplitsSummary": null
     },
     {
       "id": "1795606244728",
@@ -301,7 +303,9 @@
       "rating": 0,
       "notes": "⏱ Etapy (tryb ręczny): Blooming: 0:03 (plan 0:35) · Zalanie 1: 0:01 (plan 0:40) · Zalanie 2: 0:01 (plan 0:35) · Przelanie: 0:05 (plan 0:40)",
       "suggestedFixSummary": "Za szybki spływ: KG79: 1 klik od COARSE → 2 kliki od COARSE · Profil: 2 zalania → 3 zalania",
-      "manualMode": true
+      "fixResult": null,
+      "manualMode": true,
+      "manualSplitsSummary": null
     },
     {
       "id": "1795605979069",
@@ -324,7 +328,9 @@
       "rating": 0,
       "notes": "",
       "suggestedFixSummary": null,
-      "manualMode": false
+      "fixResult": null,
+      "manualMode": false,
+      "manualSplitsSummary": null
     },
     {
       "id": "1795601707502",
@@ -347,7 +353,9 @@
       "rating": 5,
       "notes": "✓ Korekta pomogła: Kwaśna / ostra (Temperatura: 85°C → 87°C · KG79: 1 klik od COARSE → 2 kliki od COARSE)",
       "suggestedFixSummary": null,
-      "manualMode": false
+      "fixResult": null,
+      "manualMode": false,
+      "manualSplitsSummary": null
     },
     {
       "id": "1795601625673",
@@ -370,7 +378,9 @@
       "rating": 0,
       "notes": "✕ Korekta nie pomogła: Wodnista / płaska (Ratio: 1:20.8 → 1:20.2 · KG79: 0 klików (MAX COARSE) → 1 klik od COARSE)",
       "suggestedFixSummary": null,
-      "manualMode": false
+      "fixResult": null,
+      "manualMode": false,
+      "manualSplitsSummary": null
     },
     {
       "id": "1795601594390",
@@ -393,7 +403,9 @@
       "rating": 0,
       "notes": "",
       "suggestedFixSummary": "Wodnista / płaska: Ratio: 1:20.8 → 1:20.2 · KG79: 0 klików (MAX COARSE) → 1 klik od COARSE",
-      "manualMode": false
+      "fixResult": null,
+      "manualMode": false,
+      "manualSplitsSummary": null
     },
     {
       "id": "1795442851100",
@@ -416,7 +428,9 @@
       "rating": 4,
       "notes": "",
       "suggestedFixSummary": null,
-      "manualMode": false
+      "fixResult": null,
+      "manualMode": false,
+      "manualSplitsSummary": null
     },
     {
       "id": "1795442727893",
@@ -439,8 +453,10 @@
       "rating": 5,
       "notes": "",
       "suggestedFixSummary": null,
-      "manualMode": false
+      "fixResult": null,
+      "manualMode": false,
+      "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795621176573
+  "updatedAt": 1795633699496
 }
