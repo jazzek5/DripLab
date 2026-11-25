@@ -176,7 +176,7 @@
     {
       "schemaVersion": 1,
       "id": "c-1795442370251",
-      "isFavorite": false,
+      "isFavorite": true,
       "isArchived": false,
       "roastDate": null,
       "createdAt": 1795442370251,
@@ -533,5 +533,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795635427501
+  "updatedAt": 1795637221683
 }
