@@ -3440,34 +3440,63 @@
         <span class="lbl">Preferencje stopera V60</span>
         <label class="row-item clickable">
           <div>
-            <strong style="font-size:13px; display:block;">Dźwięki stopera</strong>
-            <span class="sub-xs">Sygnał zmiany etapu i ciche odliczanie 3–2–1</span>
+            <strong style="font-size:13px; display:block;">Sygnał dźwiękowy etapów</strong>
+            <span class="sub-xs">Odliczanie 3-2-1 i dzwonek kolejnego zalania V60</span>
           </div>
           <input id="tglSound" type="checkbox" checked class="chk-box" />
         </label>
-      </div>
-
-      <div class="hr"></div>
-
-      <!-- 2B. Młynek De'Longhi KG79 (warstwa tłumacząca µm → kliki) -->
-      <div class="col-xs">
-        <span class="lbl">Młynek (warstwa tłumacząca µm)</span>
         <label class="row-item clickable">
           <div>
-            <strong style="font-size:13px; display:block;">De'Longhi KG79</strong>
-            <span class="sub-xs">Przeliczaj µm na kliki od MAX COARSE</span>
+            <strong style="font-size:13px; display:block;">Młynek De'Longhi KG79</strong>
+            <span class="sub-xs">Pokazuj przelicznik klików od MAX COARSE i podpowiedzi pod pył</span>
           </div>
           <input id="tglKg79" type="checkbox" checked class="chk-box" />
         </label>
         <div id="kg79CalibRow" class="row-item">
           <div style="min-width:0; flex:1;">
-            <strong style="font-size:12.5px; display:block;">Kalibracja pokrętła KG79</strong>
-            <span class="sub-xs">Przesunięcie względem fabrycznego zera (−2 do +2 kliki)</span>
+            <strong style="font-size:13px; display:block;">Kalibracja mojego KG79</strong>
+            <span class="sub-xs">Przesuń punkt bazowy, jeśli Twój egzemplarz miele drobniej (−) lub grubiej (+)</span>
           </div>
-          <div class="wrap" style="gap:5px; flex-shrink:0;">
-            <button id="btnKg79CalMinus" type="button" class="btn-icon btn-icon-sm" aria-label="Zmniejsz kalibrację KG79">−</button>
-            <strong id="kg79CalibVal" class="mono" style="min-width:34px; text-align:center; font-size:13px;">0</strong>
-            <button id="btnKg79CalPlus" type="button" class="btn-icon btn-icon-sm" aria-label="Zwiększ kalibrację KG79">+</button>
+          <div class="wrap" style="gap:6px; flex-shrink:0;">
+            <button id="btnKg79CalMinus" type="button" class="btn-icon btn-icon-sm" aria-label="Przesuń kalibrację w stronę COARSE">−</button>
+            <strong id="kg79CalibVal" class="mono" style="min-width:28px; text-align:center; font-size:13px;">0</strong>
+            <button id="btnKg79CalPlus" type="button" class="btn-icon btn-icon-sm" aria-label="Przesuń kalibrację w stronę FINE">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- 3. Synchronizacja w chmurze / GitHub -->
+      <div class="col-xs">
+        <div class="row">
+          <span class="lbl">Synchronizacja z GitHub (driplab-data.json)</span>
+          <span id="ghModeTag" class="badge badge-muted mono">Lokalnie</span>
+        </div>
+        <div class="row-item">
+          <div style="min-width:0; flex:1;">
+            <div class="wrap" style="gap:6px;">
+              <span id="setCloudDot" class="dot busy"></span>
+              <strong id="setCloudTxt" style="font-size:13px;">Łączenie</strong>
+            </div>
+            <p id="setCloudDetail" class="sub-xs trunc" style="margin-top:2px;">Łączenie w tle...</p>
+          </div>
+          <button id="btnManualSync" type="button" class="btn btn-sec btn-sm">↻ Synchronizuj</button>
+        </div>
+
+        <div class="col-xs" style="margin-top:2px; gap:6px;">
+          <div class="g2" style="gap:6px;">
+            <input id="ghRepoInput" type="text" placeholder="użytkownik/repozytorium" class="input mono" style="font-size:11.5px;" autocomplete="off" />
+            <input id="ghPathInput" type="text" value="driplab-data.json" placeholder="driplab-data.json" class="input mono" style="font-size:11.5px;" autocomplete="off" />
+          </div>
+          <div class="row" style="gap:6px;">
+            <input id="ghTokenInput" type="password" placeholder="GitHub Personal Access Token (github_pat_...)" class="input mono" style="font-size:11.5px; flex:1;" autocomplete="off" />
+            <button id="btnSaveGhSync" type="button" class="btn btn-primary btn-sm">Połącz</button>
+          </div>
+          <div class="row" style="gap:6px;">
+            <span class="sub-xs" style="flex:1;">Token zapisywany jest wyłącznie lokalnie w przeglądarce telefonu.</span>
+            <button id="btnPullGhNow" type="button" class="btn btn-ghost btn-sm hidden">⬇ Pobierz z GitHub</button>
+            <button id="btnClearGhSync" type="button" class="btn btn-ghost btn-sm hidden" style="color:var(--danger);">Odłącz</button>
           </div>
         </div>
       </div>
@@ -3533,7 +3562,7 @@
        * ---------------------------------------------------------------------- */
       const LS_THEME = 'driplab_v60_theme_v1';
       const LS_STATE = 'driplab_v60_state_v1';
-
+      const LS_GH_CFG = 'driplab_v60_gh_sync_v1';
       const THEMES = [
         { id: 'espresso', name: 'Espresso', desc: 'Ciemny klasyczny', sw: ['#120f0d', '#d99b52', '#38bdf8'] },
         { id: 'cappuccino', name: 'Cappuccino', desc: 'Ciepły jasny', sw: ['#f6efe6', '#b66824', '#0284c7'] },
@@ -4756,21 +4785,208 @@
       }
 
       /* ----------------------------------------------------------------------
-       * 4. INSTANT PAINT (LOCALSTORAGE) + LENIWA SYNCHRONIZACJA FIRESTORE
+       * 4. INSTANT PAINT (LOCALSTORAGE) + GITHUB DATA FILE + LENIWA CHMURA
        * ---------------------------------------------------------------------- */
       const appId = typeof __app_id !== 'undefined' ? __app_id : 'driplab-ai';
       let fb = null, db = null, userUid = null, cloudReady = false, syncTimer = null;
+      let ghCfg = { repo: '', path: 'driplab-data.json', token: '', branch: '' };
+      let ghFileSha = null;
+      let ghSyncTimer = null;
+      let ghBusy = false;
+
+      function loadGhConfig() {
+        try {
+          const raw = localStorage.getItem(LS_GH_CFG);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            ghCfg = {
+              repo: String(parsed.repo || '').trim().replace(/^https?:\/\/github\.com\//i, '').replace(/\.git$/i, '').replace(/^\/+|\/+$/g, ''),
+              path: String(parsed.path || 'driplab-data.json').trim().replace(/^\/+/, '') || 'driplab-data.json',
+              token: String(parsed.token || '').trim(),
+              branch: String(parsed.branch || '').trim(),
+            };
+          } else if (location.hostname.endsWith('.github.io')) {
+            const owner = location.hostname.split('.')[0];
+            const seg = location.pathname.split('/').filter(Boolean)[0];
+            if (owner && seg) ghCfg.repo = `${owner}/${seg}`;
+          }
+        } catch (e) {}
+      }
+
+      function saveGhConfig() {
+        try {
+          if (ghCfg.repo || ghCfg.token) localStorage.setItem(LS_GH_CFG, JSON.stringify(ghCfg));
+          else localStorage.removeItem(LS_GH_CFG);
+        } catch (e) {}
+      }
+
+      function isGhConfigured() {
+        return Boolean(ghCfg.repo && ghCfg.repo.includes('/') && ghCfg.token);
+      }
+
+      function encodeUtf8Base64(str) {
+        const bytes = new TextEncoder().encode(str);
+        let bin = '';
+        for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+        return btoa(bin);
+      }
+
+      function decodeUtf8Base64(b64) {
+        const bin = atob(String(b64 || '').replace(/\s+/g, ''));
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return new TextDecoder().decode(bytes);
+      }
 
       function setCloudBadge(mode, detail) {
+        const isGh = isGhConfigured();
         const cfg = {
-          ok: { cls: 'dot ok', txt: 'OK', msg: detail || `Zsynchronizowano • ${new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}` },
-          busy: { cls: 'dot busy', txt: 'Zapis...', msg: detail || 'Zapisywanie zmian w chmurze...' },
-          conn: { cls: 'dot busy', txt: 'Łączenie', msg: 'Łączenie z chmurą w tle...' },
-          local: { cls: 'dot', txt: 'Lokalnie', msg: detail || 'Zapis lokalny — użyj kopii JSON w razie potrzeby.' },
+          ok: {
+            cls: 'dot ok',
+            txt: isGh ? 'GitHub' : 'OK',
+            msg: detail || (isGh ? `${ghCfg.repo}/${ghCfg.path} • ${new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}` : `Zsynchronizowano • ${new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}`),
+          },
+          busy: {
+            cls: 'dot busy',
+            txt: 'Zapis...',
+            msg: detail || (isGh ? `Wysyłanie ${ghCfg.path} na GitHub...` : 'Zapisywanie zmian w chmurze...'),
+          },
+          conn: {
+            cls: 'dot busy',
+            txt: 'Łączenie',
+            msg: detail || (isGh ? `Łączenie z ${ghCfg.repo}...` : 'Łączenie z chmurą w tle...'),
+          },
+          local: {
+            cls: 'dot',
+            txt: 'Lokalnie',
+            msg: detail || 'Zapis lokalny — podaj repozytorium i token GitHub poniżej, aby zapisywać do pliku.',
+          },
         }[mode];
         $('cloudDot').className = $('setCloudDot').className = cfg.cls;
         $('cloudTxt').textContent = $('setCloudTxt').textContent = cfg.txt;
         $('setCloudDetail').textContent = cfg.msg;
+      }
+
+      async function ghFetchFile() {
+        if (!isGhConfigured()) return null;
+        const apiUrl = `https://api.github.com/repos/${ghCfg.repo}/contents/${encodeURIComponent(ghCfg.path).replace(/%2F/g, '/')}?t=${Date.now()}`;
+        const res = await fetch(apiUrl, {
+          headers: {
+            Accept: 'application/vnd.github+json',
+            Authorization: `Bearer ${ghCfg.token}`,
+            'X-GitHub-Api-Version': '2022-11-28',
+          },
+        });
+        if (res.status === 404) {
+          ghFileSha = null;
+          return { missing: true };
+        }
+        if (!res.ok) {
+          const errJson = await res.json().catch(() => ({}));
+          throw new Error(errJson.message || `GitHub HTTP ${res.status}`);
+        }
+        const meta = await res.json();
+        ghFileSha = meta.sha || null;
+        const rawText = decodeUtf8Base64(meta.content || '');
+        return { data: JSON.parse(rawText), sha: ghFileSha };
+      }
+
+      async function ghPushFile(forcePullFirst = false) {
+        if (!isGhConfigured() || ghBusy) return;
+        ghBusy = true;
+        setCloudBadge('busy');
+        try {
+          if (!ghFileSha || forcePullFirst) {
+            const remote = await ghFetchFile();
+            if (remote?.data) {
+              const remoteTs = Number(remote.data.updatedAt) || 0;
+              const localEmpty = !state.coffees.length && !state.logs.length;
+              if (remoteTs > state.updatedAt || localEmpty) {
+                hydrateFromObject(remote.data);
+                applyTheme(state.theme, false);
+                try { localStorage.setItem(LS_STATE, JSON.stringify(snapshotPayload())); } catch (e) {}
+                renderAll();
+                ghBusy = false;
+                setCloudBadge('ok', `Pobrano nowsze dane z ${ghCfg.path}`);
+                return;
+              }
+            }
+          }
+
+          const contentJson = JSON.stringify(
+            { app: 'DripLab V60', version: 11, ...snapshotPayload() },
+            null,
+            2
+          );
+          const apiUrl = `https://api.github.com/repos/${ghCfg.repo}/contents/${encodeURIComponent(ghCfg.path).replace(/%2F/g, '/')}`;
+          const body = {
+            message: `DripLab sync (${new Date().toLocaleString('pl-PL')})`,
+            content: encodeUtf8Base64(contentJson),
+          };
+          if (ghFileSha) body.sha = ghFileSha;
+          if (ghCfg.branch) body.branch = ghCfg.branch;
+
+          const res = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/vnd.github+json',
+              Authorization: `Bearer ${ghCfg.token}`,
+              'Content-Type': 'application/json',
+              'X-GitHub-Api-Version': '2022-11-28',
+            },
+            body: JSON.stringify(body),
+          });
+          if (!res.ok) {
+            if (res.status === 409 && !forcePullFirst) {
+              ghBusy = false;
+              ghFileSha = null;
+              return ghPushFile(true);
+            }
+            const errJson = await res.json().catch(() => ({}));
+            throw new Error(errJson.message || `GitHub HTTP ${res.status}`);
+          }
+          const saved = await res.json();
+          ghFileSha = saved?.content?.sha || ghFileSha;
+          setCloudBadge('ok');
+        } catch (err) {
+          setCloudBadge('local', `Błąd GitHub: ${err.message || 'brak połączenia'}`);
+          toast(`GitHub Sync: ${err.message || 'błąd zapisu'}`, 'err', 3800);
+        } finally {
+          ghBusy = false;
+        }
+      }
+
+      async function ghPullNow(notify = true) {
+        if (!isGhConfigured()) return;
+        setCloudBadge('conn', `Pobieranie ${ghCfg.path} z GitHub...`);
+        try {
+          const remote = await ghFetchFile();
+          if (remote?.missing) {
+            if (state.coffees.length || state.logs.length) {
+              await ghPushFile(false);
+              if (notify) toast(`Utworzono plik ${ghCfg.path} w repozytorium GitHub!`);
+            } else {
+              setCloudBadge('ok', `Połączono z ${ghCfg.repo} (plik powstanie przy 1. zapisie)`);
+              if (notify) toast(`Połączono z ${ghCfg.repo}!`);
+            }
+            return;
+          }
+          if (remote?.data) {
+            const remoteTs = Number(remote.data.updatedAt) || 0;
+            const localEmpty = !state.coffees.length && !state.logs.length;
+            if (remoteTs > state.updatedAt || localEmpty || notify) {
+              hydrateFromObject(remote.data);
+              applyTheme(state.theme, false);
+              try { localStorage.setItem(LS_STATE, JSON.stringify(snapshotPayload())); } catch (e) {}
+              renderAll();
+              if (notify) toast(`Pobrano dane z GitHub (${state.coffees.length} kaw, ${state.logs.length} parzeń)!`);
+            }
+            setCloudBadge('ok');
+          }
+        } catch (err) {
+          setCloudBadge('local', `Błąd GitHub: ${err.message || 'sprawdź repo i token'}`);
+          if (notify) toast(`GitHub Sync: ${err.message || 'nie udało się połączyć'}`, 'err', 4000);
+        }
       }
 
       function snapshotPayload() {
@@ -4780,7 +4996,7 @@
           activeCoffeeId: state.activeCoffeeId,
           settings: state.settings,
           coffees: state.coffees,
-          logs: state.logs.slice(0, 100),
+          logs: state.coffees ? state.logs.slice(0, 200) : [],
           updatedAt: state.updatedAt,
         }));
       }
@@ -4823,6 +5039,13 @@
           localStorage.setItem(LS_THEME, state.theme);
         } catch (e) {}
 
+        if (isGhConfigured()) {
+          clearTimeout(ghSyncTimer);
+          if (immediateCloud) ghPushFile(false);
+          else ghSyncTimer = setTimeout(() => ghPushFile(false), 1200);
+          return;
+        }
+
         if (!cloudReady || !userUid || !fb) return;
         clearTimeout(syncTimer);
         const push = async () => {
@@ -4838,6 +5061,10 @@
       }
 
       async function initCloudLazy() {
+        if (isGhConfigured()) {
+          await ghPullNow(false);
+          return;
+        }
         try {
           const rawCfg = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
           if (!rawCfg) { setCloudBadge('local'); return; }
@@ -6391,6 +6618,21 @@
         $('kg79CalibVal').textContent = off > 0 ? `+${off}` : String(off);
         $('btnKg79CalMinus').disabled = off <= -2;
         $('btnKg79CalPlus').disabled = off >= 2;
+
+        const ghActive = isGhConfigured();
+        const tag = $('ghModeTag');
+        if (tag) {
+          tag.className = `badge ${ghActive ? 'badge-ai' : 'badge-muted'} mono`;
+          tag.textContent = ghActive ? 'GitHub API' : 'Lokalnie';
+        }
+        if ($('ghRepoInput') && document.activeElement !== $('ghRepoInput')) $('ghRepoInput').value = ghCfg.repo || '';
+        if ($('ghPathInput') && document.activeElement !== $('ghPathInput')) $('ghPathInput').value = ghCfg.path || 'driplab-data.json';
+        if ($('ghTokenInput') && document.activeElement !== $('ghTokenInput')) $('ghTokenInput').value = ghCfg.token || '';
+        $('btnSaveGhSync')?.classList.toggle('btn-ai', ghActive);
+        $('btnSaveGhSync')?.classList.toggle('btn-primary', !ghActive);
+        if ($('btnSaveGhSync')) $('btnSaveGhSync').textContent = ghActive ? 'Zapisz' : 'Połącz';
+        $('btnPullGhNow')?.classList.toggle('hidden', !ghActive);
+        $('btnClearGhSync')?.classList.toggle('hidden', !ghActive);
 
         renderSliderLock();
       }
@@ -8826,8 +9068,36 @@
           const t = e.target.closest('[data-theme]')?.dataset.theme;
           if (t) { applyTheme(t, true); toast(`Motyw: ${THEMES.find((x) => x.id === t).name}`, 'info'); }
         });
+        $('btnSaveGhSync').addEventListener('click', async () => {
+          const repo = $('ghRepoInput').value.trim().replace(/^https?:\/\/github\.com\//i, '').replace(/\.git$/i, '').replace(/^\/+|\/+$/g, '');
+          const path = $('ghPathInput').value.trim().replace(/^\/+/, '') || 'driplab-data.json';
+          const token = $('ghTokenInput').value.trim();
+          if (!repo || !repo.includes('/')) {
+            toast('Podaj repozytorium w formacie: użytkownik/nazwa-repo', 'warn', 3200);
+            return;
+          }
+          if (!token) {
+            toast('Wklej swój token GitHub Personal Access Token.', 'warn', 3200);
+            return;
+          }
+          ghCfg = { ...ghCfg, repo, path, token };
+          ghFileSha = null;
+          saveGhConfig();
+          renderSettings();
+          await ghPullNow(true);
+        });
+        $('btnPullGhNow').addEventListener('click', () => ghPullNow(true));
+        $('btnClearGhSync').addEventListener('click', () => {
+          ghCfg = { repo: ghCfg.repo, path: 'driplab-data.json', token: '', branch: '' };
+          ghFileSha = null;
+          saveGhConfig();
+          renderSettings();
+          setCloudBadge('local', 'Odłączono GitHub — dane zapisywane są lokalnie w telefonie.');
+          toast('Odłączono synchronizację GitHub.', 'info');
+        });
         $('btnManualSync').addEventListener('click', () => {
-          if (cloudReady) { persistState(true); toast('Zsynchronizowano z chmurą!'); }
+          if (isGhConfigured()) { ghPushFile(true); toast('Synchronizuję driplab-data.json z GitHub...'); }
+          else if (cloudReady) { persistState(true); toast('Zsynchronizowano z chmurą!'); }
           else initCloudLazy();
         });
 
@@ -8859,6 +9129,7 @@
        * 11. INSTANT FIRST PAINT + LENIWA CHMURA W TLE
        * ---------------------------------------------------------------------- */
       function init() {
+        loadGhConfig();
         loadLocal();
         buildStaticControls();
         applyTheme(state.theme, false);
