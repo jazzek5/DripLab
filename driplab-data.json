@@ -70,23 +70,7 @@
         "rating": 0,
         "updatedAt": 1795605979070
       },
-      "suggestedFix": {
-        "fixId": "fast",
-        "title": "Za szybki spływ",
-        "reason": "Woda przeleciała przez złoże zbyt szybko, nie zdążając wyciągnąć pełni aromatu. Drobniejszy przemiał lub podział na więcej zalań wydłuży kontakt.",
-        "summary": "KG79: 1 klik od COARSE → 2 kliki od COARSE · Profil: 2 zalania → 3 zalania",
-        "steps": [
-          "KG79: 1 klik od COARSE → 2 kliki od COARSE",
-          "Profil: 2 zalania → 3 zalania"
-        ],
-        "ratio": null,
-        "tempC": null,
-        "grindUm": 710,
-        "grinder": "2 kliki od COARSE",
-        "profile": "three_pours",
-        "createdAt": 1795606220358,
-        "forNextBrew": false
-      },
+      "suggestedFix": null,
       "params": {
         "dose": 18,
         "ratio": 15,
@@ -435,5 +419,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795606263794
+  "updatedAt": 1795606273192
 }
