@@ -68,7 +68,7 @@
         "milkMl": 0,
         "brewTimeSec": 0,
         "rating": 0,
-        "updatedAt": 1795613741585
+        "updatedAt": 1795613743139
       },
       "suggestedFix": null,
       "params": {
@@ -442,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795613741585
+  "updatedAt": 1795613743139
 }
