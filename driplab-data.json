@@ -92,9 +92,9 @@
         "ratio": 15,
         "exactWater": null,
         "tempC": 88,
-        "grindUm": 810,
-        "profile": "two_pours",
-        "grinder": "1 klik od COARSE",
+        "grindUm": 710,
+        "profile": "three_pours",
+        "grinder": "2 kliki od COARSE",
         "milkType": "none",
         "milkMl": 0
       }
@@ -435,5 +435,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795606244729
+  "updatedAt": 1795606259770
 }
