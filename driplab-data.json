@@ -2,7 +2,7 @@
   "app": "DripLab V60",
   "version": 11,
   "method": "V60",
-  "theme": "cappuccino",
+  "theme": "coldbrew",
   "activeCoffeeId": "c-1795442370251",
   "settings": {
     "sound": false,
@@ -508,5 +508,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795634033166
+  "updatedAt": 1795634043996
 }
