@@ -228,19 +228,19 @@
         "Jeśli napar wyjdzie zbyt intensywny, zamiast zwiększać ilość wody przez złoże, rozcieńcz gotową kawę odrobiną czystej gorącej wody (bypass)."
       ],
       "dialedIn": {
-        "logId": "1795601707502",
+        "logId": "1795633780745",
         "dose": 12,
-        "water": 242,
-        "ratio": 20.2,
+        "water": 250,
+        "ratio": 20.8,
         "temp": 87,
         "grindUm": 710,
         "grinderClicks": "2 kliki od COARSE",
         "pourProfile": "single_pour",
         "milkType": "cow",
         "milkMl": 100,
-        "brewTimeSec": 90,
-        "rating": 5,
-        "updatedAt": 1795601712277
+        "brewTimeSec": 0,
+        "rating": 0,
+        "updatedAt": 1795633784156
       },
       "suggestedFix": null,
       "params": {
@@ -483,5 +483,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795633780745
+  "updatedAt": 1795633784156
 }
