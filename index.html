@@ -434,13 +434,19 @@
       background: var(--bg);
       border: 1px solid var(--border);
       width: 100%;
-      transition: border-color var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  transform var(--dur-fast) var(--ease-out);
     }
     .row-item.clickable { cursor: pointer; }
     .row-item.clickable:hover { border-color: var(--border-2); }
     .row-item.clickable:active { transform: scale(0.99); }
+
+    /* Wspólna płynna tranzycja interaktywnych kontrolek */
+    .row-item, .btn, .btn-icon, .seg-btn, .chip, .nav-item, .brew-circle-btn, .fab-circle {
+      transition: transform var(--dur-fast) var(--ease-out),
+                  background-color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out),
+                  color var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out);
+    }
 
     /* Wspólny system przycisków .btn + warianty */
     .btn {
@@ -454,11 +460,6 @@
       font-weight: 700;
       white-space: nowrap;
       user-select: none;
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out),
-                  box-shadow var(--dur-fast) var(--ease-out);
     }
     .btn:active:not(:disabled) { transform: scale(0.96); }
     .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--on-accent); font-weight: 800; }
@@ -483,10 +484,6 @@
       color: var(--muted);
       display: inline-grid;
       place-items: center;
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out);
     }
     .btn-icon:active:not(:disabled) { transform: scale(0.94); }
     .btn-icon:hover:not(:disabled) { color: var(--text); border-color: var(--accent-bd); background: var(--surface-2); }
@@ -515,11 +512,6 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out),
-                  box-shadow var(--dur-fast) var(--ease-out);
       white-space: nowrap;
       text-align: center;
     }
@@ -576,10 +568,6 @@
       color: var(--muted);
       white-space: nowrap;
       flex-shrink: 0;
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out);
     }
     .chip:active:not(:disabled) { transform: scale(0.96); }
     .chip:hover { border-color: var(--accent-bd); color: var(--text); }
@@ -615,7 +603,6 @@
     .badge-ai { background: var(--ai-bg); border-color: var(--ai-bd); color: var(--ai); }
     .badge-dialed { background: var(--dialed-bg); border-color: var(--dialed-bd); color: var(--dialed); font-weight: 500; }
     .badge-fix { background: var(--fix-bg); border-color: var(--fix-bd); color: var(--fix); font-weight: 600; }
-    .badge-net { background: var(--ai-bg); border-color: var(--ai-bd); color: var(--ai); }
     .badge-muted { background: var(--bg); border-color: var(--border); color: var(--muted); }
     .badge-acc { background: var(--accent-bg); border-color: var(--accent-bd); color: var(--accent); }
     .badge-warn { background: var(--warn-bg); border-color: rgba(245, 158, 11, 0.42); color: var(--warn); }
@@ -776,11 +763,6 @@
       color: var(--muted);
       font-size: 11.5px;
       font-weight: 700;
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out),
-                  box-shadow var(--dur-fast) var(--ease-out);
     }
     .nav-item:active { transform: scale(0.95); }
     .nav-item .icon-svg {
@@ -930,27 +912,32 @@
     .coffee-card {
       position: relative;
       border-width: 1.5px;
+      padding: 10px 11px;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 6px;
       transition: opacity var(--dur-med) var(--ease-out),
                   filter var(--dur-med) var(--ease-out),
                   background-color var(--dur-med) var(--ease-out),
                   border-color var(--dur-fast) var(--ease-out);
     }
     .coffee-card.active { border-color: var(--accent); background: var(--surface-2); }
+    .coffee-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+    }
     .coffee-card.is-finished {
       background: var(--bg);
       border-color: var(--border);
     }
-    .coffee-card.is-finished > .card-head,
-    .coffee-card.is-finished > .row-item {
+    .coffee-card.is-finished > .coffee-card-body {
       opacity: 0.56;
       filter: grayscale(0.85) saturate(0.35);
       transition: opacity var(--dur-slow) var(--ease-out), filter var(--dur-slow) var(--ease-out);
     }
-    .coffee-card > .card-head,
-    .coffee-card > .row-item {
+    .coffee-card > .coffee-card-body {
       transition: opacity var(--dur-slow) var(--ease-out), filter var(--dur-slow) var(--ease-out);
     }
     .coffee-card.card-pulse {
@@ -959,12 +946,11 @@
     .coffee-card-actions {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 2px;
+      gap: 5px;
+      margin-top: 1px;
       width: 100%;
     }
-    .fav-btn { font-size: 16px; line-height: 1; }
+    .fav-btn { width: 32px; height: 32px; border-radius: 9px; font-size: 15px; line-height: 1; }
     .fav-btn.on { color: var(--accent); border-color: var(--accent-bd); background: var(--accent-bg); }
     .finish-btn-on {
       background: var(--accent);
@@ -1099,13 +1085,6 @@
     .snap-link.fix { color: var(--fix); background: var(--fix-bg); font-weight: 700; }
     .snap-link:hover { filter: brightness(1.12); }
     .snap-link:active { transform: scale(0.95); }
-
-    .clamped {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
 
     .strat-body {
       position: relative;
@@ -1297,9 +1276,6 @@
       color: var(--on-ai);
       font-weight: 800;
       box-shadow: 0 4px 14px -4px var(--ai-bd);
-    }
-    .brew-row1 .seg-btn.btn-ready:not(.active) .dot.ok {
-      background: var(--on-ai);
     }
 
     #brewChecklistView {
@@ -1586,10 +1562,6 @@
       letter-spacing: 0;
       text-align: center;
       box-shadow: var(--shadow);
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out);
     }
     .brew-circle-btn:active {
       transform: scale(0.93);
@@ -1742,41 +1714,63 @@
     /* ========================================================================
      * 6. DZIENNIK I DIAGNOSTYKA SMAKU V60 (Z OBSŁUGĄ WZORCA DIALED-IN)
      * ======================================================================== */
-    .log-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; font-size: 11px; }
-    .log-cell {
-      padding: 5px 6px;
-      border-radius: 8px;
+    .log-params-box {
+      padding: 6px 8px;
+      border-radius: 9px;
       background: var(--bg);
       border: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 1px;
-      min-width: 0;
+      gap: 2px;
+      font-size: 11px;
+      line-height: 1.35;
       transition: background-color var(--dur-slow) var(--ease-out),
                   border-color var(--dur-slow) var(--ease-out);
     }
-    .log-cell-val {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.2;
-      overflow-wrap: anywhere;
-    }
     .log-note {
-      padding: 6px 8px;
+      padding: 5px 8px;
       border-radius: 8px;
       background: var(--bg);
       border-left: 2.5px solid var(--accent-bd);
       font-size: 11.5px;
+      line-height: 1.35;
       font-style: italic;
       overflow-wrap: anywhere;
+      cursor: pointer;
       transition: background-color var(--dur-slow) var(--ease-out),
                   border-color var(--dur-slow) var(--ease-out);
     }
+    .log-note-drawer {
+      max-height: 220px;
+      margin-top: 1px;
+    }
+    .note-pill-btn {
+      width: 24px;
+      height: 22px;
+      padding: 0;
+      border-radius: 999px;
+      font-size: 11.5px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform var(--dur-fast) var(--ease-out),
+                  background-color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out);
+    }
+    .note-pill-btn:active { transform: scale(0.92); }
+    .note-pill-btn.is-open {
+      box-shadow: 0 0 0 1.5px var(--accent);
+    }
+    .note-pill-btn.badge-fix.is-open {
+      box-shadow: 0 0 0 1.5px var(--fix);
+    }
     .log-card {
       position: relative;
-      padding: 12px;
-      gap: 10px;
+      padding: 10px 11px;
+      gap: 6px;
       overflow: hidden;
       transition: background-color var(--dur-slow) var(--ease-out),
                   border-color var(--dur-slow) var(--ease-out),
@@ -1852,11 +1846,11 @@
       border-width: 0;
       transform: scale(0.85);
     }
-    .log-card.is-dialed .log-cell {
+    .log-card.is-dialed .log-params-box {
       background: rgba(18, 15, 13, 0.42);
       border-color: var(--dialed-bd);
     }
-    [data-theme="cappuccino"] .log-card.is-dialed .log-cell {
+    [data-theme="cappuccino"] .log-card.is-dialed .log-params-box {
       background: rgba(255, 253, 249, 0.55);
     }
     .log-card.is-dialed .log-note {
@@ -1880,6 +1874,11 @@
       line-height: 1;
       letter-spacing: 0;
       text-align: center;
+    }
+    .btn-circle-xs {
+      width: 30px;
+      height: 30px;
+      font-size: 13px;
     }
     .diag-dialed-toggle {
       background: var(--bg);
@@ -2009,11 +2008,6 @@
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      transition: transform var(--dur-fast) var(--ease-out),
-                  background-color var(--dur-fast) var(--ease-out),
-                  border-color var(--dur-fast) var(--ease-out),
-                  color var(--dur-fast) var(--ease-out),
-                  box-shadow var(--dur-fast) var(--ease-out);
     }
     .fab-circle:active { transform: scale(0.94); }
 
@@ -2068,26 +2062,51 @@
       align-items: center;
       justify-content: center;
       padding: 12px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
       animation: viewFade var(--dur-fast) var(--ease-out) both;
     }
     .modal-box {
       width: 100%;
       max-width: 490px;
-      max-height: 88dvh;
-      overflow-y: auto;
+      max-height: calc(100dvh - 24px);
+      margin: auto;
+      overflow: hidden;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 16px 14px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
       box-shadow: var(--shadow);
       animation: modalEnter var(--dur-med) var(--ease-spring) both;
     }
+    .modal-head {
+      flex-shrink: 0;
+      padding: 15px 14px 12px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      padding: 12px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .modal-body > * {
+      flex-shrink: 0;
+    }
     @media (min-width: 520px) {
       .modal-bg { padding: 16px; }
-      .modal-box { border-radius: 22px; padding: 18px; }
+      .modal-box { max-height: calc(100dvh - 32px); border-radius: 22px; }
+      .modal-head { padding: 17px 18px 13px; }
+      .modal-body { padding: 14px 18px 18px; }
     }
 
     .theme-tile {
@@ -2226,6 +2245,9 @@
     #diagManualOpenBar { max-height: 92px; }
     #diagSaveCard { max-height: 760px; }
     #diagMilkMlWrap { max-width: 96px; }
+    #mLogMilkMlWrap { max-width: 96px; }
+    #mLogFixSection { max-height: 260px; }
+    #mLogManualSplitsSection { max-height: 220px; }
 
     /* Spójne animacje wejścia dla przycisków kontekstowych i pływających doków */
     [data-act="del-yes"], [data-act="del-no"],
@@ -2541,7 +2563,7 @@
   <div id="appShell" class="shell">
     <!-- ==================== GÓRNY PASEK KONTEKSTOWY (48px) ==================== -->
     <header class="topbar">
-      <button id="btnLogoHome" type="button" class="logo-btn" title="DripLab V60 — Półka" aria-label="Półka">
+      <button id="btnLogoHome" type="button" class="logo-btn" title="DripLab V60 — O aplikacji (v1.2)" aria-label="O aplikacji DripLab V60">
         <svg width="36" height="36" viewBox="0 0 512 512" aria-hidden="true">
           <defs>
             <linearGradient id="navLogoBg" x1="0.1" y1="0.05" x2="0.95" y2="0.95">
@@ -2621,21 +2643,14 @@
       </div>
     </section>
 
-    <!-- Nieruchomy nagłówek oraz pasek wyszukiwania, filtra palarni, sortowania i chipów dla zakładki Półka -->
+    <!-- Nieruchomy pasek wyszukiwania, filtra palarni, sortowania i chipów dla zakładki Półka -->
     <div id="shelfTopDock" class="col" style="gap:8px;">
-      <div class="card-head" style="align-items:center;">
-        <div style="min-width:0;">
-          <h1 style="font-size:17px; font-weight:800;" class="wrap">
-            <span>Twoja Półka V60</span>
-            <span id="shelfCount" class="badge badge-muted mono">0</span>
-            <button id="btnClearShelfTop" type="button" class="badge badge-acc hidden" title="Wyczyść aktywne filtry Półki">✕ Filtry</button>
-          </h1>
-          <p class="sub-xs">Ulubione, ustalone receptury i szybki start</p>
-        </div>
-      </div>
-
       <div id="shelfToolbar" class="card col-xs hidden" style="padding:10px;">
-        <input id="shelfSearch" type="search" placeholder="Szukaj nazwy, palarni, kraju, odmiany, nut..." class="input" style="font-size:12px;" />
+        <div class="row" style="gap:6px;">
+          <input id="shelfSearch" type="search" placeholder="Szukaj nazwy, palarni, kraju, odmiany, nut..." class="input" style="font-size:12px; flex:1;" />
+          <span id="shelfCount" class="badge badge-muted mono" style="flex-shrink:0;">0</span>
+          <button id="btnClearShelfTop" type="button" class="btn btn-ghost btn-sm hidden" style="padding:6px 9px; flex-shrink:0;" title="Wyczyść aktywne filtry Półki">✕ Filtry</button>
+        </div>
         <div class="g2" style="gap:6px;">
           <select id="shelfRoaster" class="input" aria-label="Filtruj po palarni" style="font-size:11.5px; font-weight:700;">
             <option value="all">Palarnia: Wszystkie</option>
@@ -2708,6 +2723,15 @@
                 </div>
               </div>
               <div class="wrap" style="gap:5px; flex-shrink:0;">
+                <button id="btnRecipeSetActive" type="button" class="btn btn-sm" style="height:28px; padding:0 9px; font-size:11px; border-radius:8px;" title="Status aktywnej kawy" aria-label="Status aktywnej kawy">★ Aktywna</button>
+                <button id="btnRecipeShuffleActive" type="button" class="btn-icon btn-icon-sm hidden" title="Przełącz recepturę na aktywną kawę" aria-label="Przełącz recepturę na aktywną kawę">
+                  <svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="17 1 21 5 17 9"/>
+                    <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                    <polyline points="7 23 3 19 7 15"/>
+                    <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+                  </svg>
+                </button>
                 <button id="btnRecipeCopyText" type="button" class="btn-icon btn-icon-sm" title="Kopiuj przepis V60 do schowka" aria-label="Kopiuj przepis V60">
                   <svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
@@ -2729,7 +2753,7 @@
             <div id="recNotes" class="wrap"></div>
             <div class="hr"></div>
 
-            <button id="btnToggleStrat" type="button" class="row w100">
+            <button id="btnToggleStrat" type="button" data-toggle-flag="stratOpen" class="row w100">
               <span style="font-size:11.5px; font-weight:800; color:var(--accent);">✦ Strategia parzenia V60</span>
               <span id="stratChev" class="sub-xs">Rozwiń ▾</span>
             </button>
@@ -2737,7 +2761,7 @@
             <div class="hr"></div>
 
             <div class="col-xs">
-              <button id="btnToggleVer" type="button" class="row w100">
+              <button id="btnToggleVer" type="button" data-toggle-flag="verOpen" class="row w100">
                 <span class="wrap" style="gap:6px;">
                   <span class="lbl">Weryfikacja profilu i źródła</span>
                   <span id="recVerBadge" class="badge badge-muted">📝 Szacowane</span>
@@ -2846,7 +2870,9 @@
             </div>
           </div>
 
-          <button id="btnRecipeToBrew" type="button" class="btn btn-primary btn-lg w100">Przejdź do parzenia →</button>
+          <div id="recActionBtns" class="col-xs" style="gap:7px;">
+            <button id="btnRecipeToBrew" type="button" class="btn btn-primary btn-lg w100">Przejdź do parzenia →</button>
+          </div>
         </div>
       </section>
 
@@ -2870,7 +2896,7 @@
             </div>
             <div class="brew-pbar"><div id="chkBar" class="brew-pbar-fill" style="width:0%"></div></div>
             <div id="chkTipsBox" class="row-item chk-tips hidden">
-              <button id="btnToggleChkTips" type="button" class="row w100" aria-expanded="false" aria-controls="chkTipsBody">
+              <button id="btnToggleChkTips" type="button" data-toggle-flag="chkTipsOpen" class="row w100" aria-expanded="false" aria-controls="chkTipsBody">
                 <span class="badge badge-ai">✦ Wskazówki dla tego ziarna</span>
                 <span id="chkTipsChev" class="sub-xs">Rozwiń ▾</span>
               </button>
@@ -3275,7 +3301,7 @@
   <!-- ==================== MODAL 1: + DODAJ / AKTUALIZUJ KAWĘ (JSON + RĘCZNIE) ==================== -->
   <div id="modalAdd" class="modal-bg hidden" role="dialog" aria-modal="true" aria-labelledby="mAddT">
     <div class="modal-box">
-      <div class="card-head">
+      <div class="card-head modal-head">
         <div style="min-width:0; flex:1;">
           <h2 id="mAddT" style="font-size:16px; font-weight:800;" class="trunc">+ Dodaj kawę pod V60</h2>
           <p id="mAddSub" class="sub-xs">Wklej profil kawy w formacie JSON lub uzupełnij ręcznie</p>
@@ -3283,6 +3309,7 @@
         <button type="button" data-close-modal="modalAdd" class="btn-icon" aria-label="Zamknij">✕</button>
       </div>
 
+      <div class="modal-body">
       <!-- Przełącznik trybu (ukrywany podczas aktualizacji istniejącej kawy) -->
       <div id="addModeSeg" class="seg" role="tablist">
         <button id="addTabJson" type="button" role="tab" aria-selected="true" class="seg-btn active">
@@ -3350,13 +3377,14 @@
         <div id="manErr" class="val-box err hidden"></div>
         <button id="btnSaveManualCoffee" type="button" class="btn btn-primary btn-lg w100">✓ Dodaj kawę ręcznie</button>
       </div>
+      </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL 1B: + DODAJ WPIS PARZENIA DO HISTORII ==================== -->
+  <!-- ==================== MODAL 1B: + DODAJ / EDYTUJ WPIS PARZENIA W HISTORII ==================== -->
   <div id="modalAddLog" class="modal-bg hidden" role="dialog" aria-modal="true" aria-labelledby="mLogT">
     <div class="modal-box">
-      <div class="card-head">
+      <div class="card-head modal-head">
         <div style="min-width:0; flex:1;">
           <h2 id="mLogT" style="font-size:16px; font-weight:800;" class="trunc">+ Dodaj wpis parzenia V60</h2>
           <p id="mLogSub" class="sub-xs">Zapisz wcześniejsze lub zewnętrzne parzenie bezpośrednio do historii</p>
@@ -3364,6 +3392,7 @@
         <button type="button" data-close-modal="modalAddLog" class="btn-icon" aria-label="Zamknij">✕</button>
       </div>
 
+      <div class="modal-body">
       <div class="col-xs">
         <div class="row">
           <label for="mLogCoffeeSelect" class="lbl">Kawa z półki *</label>
@@ -3372,9 +3401,11 @@
         <select id="mLogCoffeeSelect" class="input" style="font-weight:700;"></select>
       </div>
 
-      <div class="row" style="gap:6px;">
-        <span class="sub-xs">Wyliczona proporcja (Ratio):</span>
+      <div class="row" style="gap:6px; flex-wrap:wrap;">
+        <span class="sub-xs">Proporcja (Ratio):</span>
         <span id="mLogRealRatio" class="badge badge-acc mono">1:15.6</span>
+        <span id="mLogModeBadge" class="badge badge-acc mono hidden">✋ Tryb ręczny</span>
+        <span id="mLogPlanBadge" class="badge badge-muted mono hidden"></span>
       </div>
 
       <div class="g3">
@@ -3428,11 +3459,46 @@
         </div>
       </div>
 
-      <textarea id="mLogNote" rows="2" placeholder="Notatki smakowe (np. zbalansowana słodycz, nuty orzechowe)..." class="input" style="font-size:12.5px;"></textarea>
+      <!-- Sekcja proponowanej korekty smaku i jej efektu -->
+      <div id="mLogFixSection" class="row-item col-xs fold-box is-collapsed" aria-hidden="true" style="align-items:stretch; border-color:var(--fix-bd); background:var(--fix-bg); gap:6px; padding:9px 10px;">
+        <div class="row">
+          <span class="badge badge-fix">💡 Korekta smaku i efekt</span>
+          <span id="mLogFixResultBadge" class="badge badge-muted hidden"></span>
+        </div>
+        <label class="col-xs" style="gap:3px;">
+          <span class="lbl" style="font-size:9px; color:var(--fix);">Proponowana / zastosowana korekta</span>
+          <input id="mLogFixSummaryInput" type="text" maxlength="200" placeholder="np. Gorzka / cierpka: Temperatura: 92°C → 90°C" class="input" style="font-size:11.5px; padding:6px 8px; border-color:var(--fix-bd);" />
+        </label>
+        <div class="col-xs" style="gap:4px;">
+          <span class="lbl" style="font-size:9px; color:var(--fix);">Efekt zastosowanej korekty</span>
+          <div class="g3" style="gap:5px;">
+            <button type="button" data-mfix-res="none" class="btn btn-ghost btn-sm" style="font-size:11px; padding:5px 6px;">Brak oceny</button>
+            <button type="button" data-mfix-res="helped" class="btn btn-ghost btn-sm" style="font-size:11px; padding:5px 6px;">✓ Pomogła</button>
+            <button type="button" data-mfix-res="not_helped" class="btn btn-ghost btn-sm" style="font-size:11px; padding:5px 6px;">✕ Nie pomogła</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sekcja czasów poszczególnych etapów w trybie ręcznym -->
+      <div id="mLogManualSplitsSection" class="row-item col-xs fold-box is-collapsed" aria-hidden="true" style="align-items:stretch; border-color:var(--accent-bd); background:var(--accent-bg); gap:5px; padding:9px 10px;">
+        <div class="row">
+          <span class="badge badge-acc">✋ Etapy w trybie ręcznym</span>
+        </div>
+        <label class="col-xs" style="gap:3px;">
+          <span class="lbl" style="font-size:9px; color:var(--accent);">Zarejestrowane czasy etapów</span>
+          <textarea id="mLogManualSplitsInput" rows="2" placeholder="np. Blooming: 0:40 (plan 0:35) · Zalanie 1: 0:45 (plan 0:40)..." class="input mono" style="font-size:11.5px; padding:6px 8px; border-color:var(--accent-bd);"></textarea>
+        </label>
+      </div>
+
+      <div class="col-xs" style="gap:3px;">
+        <label for="mLogNote" class="lbl">📝 Notatki osobiste</label>
+        <textarea id="mLogNote" rows="2" placeholder="Notatki smakowe (np. zbalansowana słodycz, nuty orzechowe)..." class="input" style="font-size:12.5px;"></textarea>
+      </div>
 
       <div class="row" style="gap:8px;">
         <button id="btnModalToggleDialed" type="button" class="btn log-circle-btn diag-dialed-toggle" title="Zapisz jako najlepsze ustawienia (🎯 wzorzec)" aria-label="Zapisz jako najlepsze ustawienia" aria-pressed="false">🎯</button>
         <button id="btnSaveModalLog" type="button" class="btn btn-primary btn-lg" style="flex:1;">✓ Dodaj wpis do historii</button>
+      </div>
       </div>
     </div>
   </div>
@@ -3440,7 +3506,7 @@
   <!-- ==================== MODAL 2: USTAWIENIA, MOTYWY, CHMURA I KOPIA MOBILNA ==================== -->
   <div id="modalSettings" class="modal-bg hidden" role="dialog" aria-modal="true" aria-labelledby="mSetT">
     <div class="modal-box">
-      <div class="card-head">
+      <div class="card-head modal-head">
         <div style="min-width:0; flex:1;">
           <h2 id="mSetT" style="font-size:16px; font-weight:800;">Ustawienia i Kopia Zapasowa</h2>
           <p class="sub-xs">Motyw aplikacji, preferencje stopera, chmura i eksport JSON</p>
@@ -3448,6 +3514,7 @@
         <button type="button" data-close-modal="modalSettings" class="btn-icon" aria-label="Zamknij">✕</button>
       </div>
 
+      <div class="modal-body">
       <!-- 1. Wygląd i interfejs -->
       <div class="col-xs">
         <div class="row">
@@ -3569,6 +3636,55 @@
           </div>
         </div>
       </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: O APLIKACJI (WERSJA 1.2 I DEDYKACJA) ==================== -->
+  <div id="modalAbout" class="modal-bg hidden" role="dialog" aria-modal="true" aria-labelledby="mAboutT">
+    <div class="modal-box" style="max-width:420px;">
+      <div class="card-head modal-head" style="align-items:center;">
+        <div class="wrap" style="gap:10px; min-width:0; flex:1;">
+          <div class="logo-btn" style="width:38px; height:38px; pointer-events:none;" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 512 512">
+              <rect width="512" height="512" rx="114" fill="url(#navLogoBg)"/>
+              <path d="M242 152c-10-28 10-56-4-84 20 20 26 52 4 84z" fill="#ffffff" opacity="0.92"/>
+              <path d="M236 196c10-50 32-96 78-96 38 0 64 26 98 16-23 17-46 20-70 16 25 14 50 16 76 8-29 19-60 21-90 4-29-15-53 12-56 52z" fill="#ffffff"/>
+              <ellipse cx="256" cy="186" rx="102" ry="18" fill="#f6e7d4"/>
+              <ellipse cx="256" cy="187" rx="88" ry="12" fill="#6d3716"/>
+              <path d="M350 208h17c26 0 40 18 35 41-3 20-19 33-42 33h-21l4-16h15c14 0 23-8 25-20 2-13-5-23-20-23h-17z" fill="#ffffff"/>
+              <path d="M154 188c0 10 46 18 102 18s102-8 102-18l-42 118H196z" fill="#ffffff"/>
+              <ellipse cx="256" cy="318" rx="86" ry="13" fill="#ffffff"/>
+              <path d="M188 335h134c7 0 10 7 7 14l-7 11 17 62c2 8-9 10-12 2l-13-40H210l-17 40c-3 8-14 6-11-2l19-62-14-11c-6-5-2-14 6-14z" fill="#ffffff"/>
+            </svg>
+          </div>
+          <div style="min-width:0; flex:1;">
+            <div class="wrap" style="gap:6px;">
+              <h2 id="mAboutT" style="font-size:16px; font-weight:800;">DripLab V60</h2>
+              <span class="badge badge-acc mono">Wersja 1.2</span>
+            </div>
+            <p class="sub-xs" style="margin-top:2px;">Osobisty asystent parzenia przelewowego</p>
+          </div>
+        </div>
+        <button type="button" data-close-modal="modalAbout" class="btn-icon" aria-label="Zamknij">✕</button>
+      </div>
+
+      <div class="modal-body" style="gap:14px;">
+        <div class="card col-xs" style="padding:16px 15px; border-color:var(--accent-bd); background:linear-gradient(160deg, var(--surface-2) 0%, var(--accent-bg) 100%); gap:9px; text-align:center;">
+          <span class="badge badge-acc" style="align-self:center;">☕ Z miłością • Dedykacja</span>
+          <strong style="font-size:15px; color:var(--text); letter-spacing:0.01em;">Dla mojej ukochanej Małżonki Małgosi</strong>
+          <p style="font-size:13px; line-height:1.65; color:var(--text); font-style:italic; margin-top:2px;">
+            „Każda kropla, co w ciszy przez filtr opada,<br/>
+            niech ciepłem poranka do serca Ci gada.<br/>
+            Bo najpiękniejszy aromat ma chwila,<br/>
+            gdy wspólna filiżanka nam dzień rozpoczyna.<br/>
+            Dla Ciebie, Małgosiu — z każdym łykiem i uśmiechem.”
+          </p>
+          <span class="sub-xs" style="margin-top:4px; color:var(--accent); font-weight:700;">♥ Zawsze Twoja poranna kawa</span>
+        </div>
+
+        <button type="button" data-close-modal="modalAbout" class="btn btn-primary w100">Zamknij</button>
+      </div>
     </div>
   </div>
 
@@ -3583,6 +3699,18 @@
       const LS_THEME = 'driplab_v60_theme_v1';
       const LS_STATE = 'driplab_v60_state_v1';
       const LS_GH_CFG = 'driplab_v60_gh_sync_v1';
+      const LIMITS = {
+        dose: [10, 35],
+        logDose: [5, 60],
+        water: [50, 1200],
+        ratio: [8, 25],
+        temp: [84, 99],
+        grindUm: [450, 1050],
+        milk: [10, 250],
+        logMilk: [0, 300],
+        kg79Clicks: [0, 15],
+        kg79Offset: [-2, 2],
+      };
       const THEMES = [
         { id: 'espresso', name: 'Espresso', desc: 'Ciemny klasyczny', sw: ['#120f0d', '#d99b52', '#38bdf8'] },
         { id: 'cappuccino', name: 'Cappuccino', desc: 'Ciepły jasny', sw: ['#f6efe6', '#b66824', '#0284c7'] },
@@ -3945,6 +4073,8 @@
         coffees: [],
         logs: [],
         activeCoffeeId: null,
+        recipeCoffeeId: null,
+        recipeShuffleReturnId: null,
         settings: { sound: true, toasts: false, brewAlwaysDark: true, slidersLocked: false, kg79Enabled: true, kg79Offset: 0, swManualMode: false },
 
         search: '',
@@ -3967,6 +4097,7 @@
         saveAsDialed: false,
         modalLogStars: 0,
         modalLogDialed: false,
+        modalLogFixResult: 'none',
         pendingFixId: null,
         delCoffeeId: null,
         delLogId: null,
@@ -3990,6 +4121,7 @@
         capturedWater: null,
         capturedMilkMl: null,
         capturedManualMode: false,
+        capturedManualSplitsSummary: null,
         draft: null,
 
         addTab: 'json',
@@ -4007,12 +4139,81 @@
       const fmtDose = (d) => { const n = +(Number(d) || 0).toFixed(1); return Number.isInteger(n) ? String(n) : n.toFixed(1); };
       const normMilkType = (raw) => MILK_TYPES.some((m) => m.id === raw) ? raw : 'none';
       const getMilkShort = (id) => MILK_TYPES.find((m) => m.id === id)?.short || 'mleko';
-      const formatMilk = (type, ml) => (type && type !== 'none' && Number(ml) > 0) ? `${Math.round(ml)} ml (${getMilkShort(type)})` : 'Bez mleka';
 
       function parseTimeToSec(str) {
-        const m = String(str || '').trim().match(/^(\d{1,2}):(\d{2})$/);
-        if (!m) return 0;
-        return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+        const s = String(str || '').trim();
+        if (!s) return 0;
+        const m = s.match(/^(\d{1,2}):(\d{1,2})$/);
+        if (m) return clamp(parseInt(m[1], 10) * 60 + parseInt(m[2], 10), 0, 3599);
+        const n = parseInt(s, 10);
+        return Number.isFinite(n) && n > 0 ? clamp(n, 0, 3599) : 0;
+      }
+
+      const DIAL_W = 146;
+      const DIAL_H = 228;
+      const DIAL_CX = 142;
+      const DIAL_CY = 114;
+      const DIAL_R = 88;
+      const DIAL_A_START = 112;
+      const DIAL_A_END = 248;
+
+      function dialPolar(deg, r) {
+        const rad = (deg * Math.PI) / 180;
+        return {
+          x: +(DIAL_CX + r * Math.cos(rad)).toFixed(2),
+          y: +(DIAL_CY + r * Math.sin(rad)).toFixed(2),
+        };
+      }
+
+      function extractEntryNotes(entry) {
+        const rawLines = String(entry?.notes || '').split('\n').map((l) => l.trim()).filter(Boolean);
+        const fixLines = rawLines.filter((l) => /^[✓✕]\s*Korekta\b/i.test(l));
+        const legacyManualLines = rawLines.filter((l) => /^⏱\s*Etapy\s*\(tryb ręczny\):/i.test(l));
+        const personalLines = rawLines.filter((l) => !/^[✓✕]\s*Korekta\b/i.test(l) && !/^⏱\s*Etapy\s*\(tryb ręczny\):/i.test(l));
+        const manualSplitsText = entry?.manualSplitsSummary
+          || (legacyManualLines.length ? legacyManualLines.join(' · ').replace(/^⏱\s*Etapy\s*\(tryb ręczny\):\s*/i, '').trim() : '');
+        return { fixLines, personalLines, manualSplitsText };
+      }
+
+      function populateRoasterSelect(selectEl, items, getRoaster, currentVal, totalCount) {
+        const counts = new Map();
+        items.forEach((item) => {
+          const r = getRoaster(item);
+          if (r) counts.set(r, (counts.get(r) || 0) + 1);
+        });
+        const sorted = Array.from(counts.keys()).sort((a, b) => a.localeCompare(b, 'pl'));
+        const safeVal = currentVal !== 'all' && !counts.has(currentVal) ? 'all' : currentVal;
+        selectEl.innerHTML =
+          `<option value="all">Palarnia: Wszystkie (${totalCount})</option>` +
+          sorted.map((r) => `<option value="${esc(r)}">${esc(r)} (${counts.get(r)})</option>`).join('');
+        selectEl.value = safeVal;
+        return safeVal;
+      }
+
+      function upsertExistingCoffee(coffeeId, nextNormalized, applySliders) {
+        const idx = state.coffees.findIndex((x) => x.id === coffeeId);
+        if (idx === -1) return false;
+        const prev = state.coffees[idx];
+        state.coffees[idx] = {
+          ...nextNormalized,
+          id: prev.id,
+          isFavorite: prev.isFavorite,
+          isArchived: prev.isArchived,
+          roastDate: nextNormalized.roastDate || prev.roastDate || null,
+          createdAt: prev.createdAt,
+          dialedIn: prev.dialedIn,
+          suggestedFix: prev.suggestedFix || null,
+          params: {
+            ...prev.params,
+            ratio: applySliders ? nextNormalized.ratioRecommended : prev.params.ratio,
+            exactWater: applySliders ? null : (prev.params.exactWater || null),
+            tempC: applySliders ? nextNormalized.tempRecommended : prev.params.tempC,
+            grindUm: applySliders ? nextNormalized.grindRecommendedUm : prev.params.grindUm,
+            profile: applySliders ? nextNormalized.pourProfile : prev.params.profile,
+          },
+        };
+        state.logs.forEach((l) => { if (l.coffeeId === prev.id) l.coffeeName = nextNormalized.name; });
+        return true;
       }
 
       function grindLabel(um) {
@@ -4149,18 +4350,15 @@
         return base < table.length ? table[base] : 450;
       }
 
-      /** Geometria powiększonego bocznego pokrętła SVG pod wygodną obsługę kciukiem na telefonie. */
-      const DIAL_W = 146;
-      const DIAL_H = 228;
-      const DIAL_CX = 142;
-      const DIAL_CY = 114;
-      const DIAL_R = 88;
-      const DIAL_A_START = -248; // dół (COARSE / 1050 µm)
-      const DIAL_A_END = -112;   // góra (FINE / 450 µm)
-
-      function dialPolar(deg, r) {
-        const rad = (deg * Math.PI) / 180;
-        return { x: +(DIAL_CX + r * Math.cos(rad)).toFixed(2), y: +(DIAL_CY + r * Math.sin(rad)).toFixed(2) };
+      /** Wspólne przeliczanie stanu mielenia (kliki KG79 vs µm) dla dowolnych nadpisań. */
+      function resolveGrindState(coffee, overrideUm = null, overrideGrinder = null) {
+        const off = clamp(Math.round(state.settings.kg79Offset || 0), ...LIMITS.kg79Offset);
+        const manualClicks = parseManualKg79Clicks(overrideGrinder);
+        const um = Number.isFinite(overrideUm)
+          ? clamp(Math.round(overrideUm), ...LIMITS.grindUm)
+          : (manualClicks !== null ? kg79ClicksToUm(manualClicks, off) : (coffee?.params?.grindUm || 700));
+        const clicks = manualClicks !== null ? manualClicks : mapUmToKg79(um, off).clicks;
+        return { clicks, um, label: formatKg79Short(clicks), off };
       }
 
       function dialArcPath(degA, degB, r) {
@@ -4210,9 +4408,7 @@
           }
 
           if (fix && (fix.grindUm !== null || fix.grinder)) {
-            const fixManual = parseManualKg79Clicks(fix.grinder);
-            const fixClicks = fixManual !== null ? fixManual : mapUmToKg79(fix.grindUm, off).clicks;
-            fixNorm = clamp(fixClicks / 15, 0, 1);
+            fixNorm = clamp(resolveGrindState(c, fix.grindUm, fix.grinder).clicks / 15, 0, 1);
           }
 
           centerTop = `${kg.clicks}`;
@@ -4553,6 +4749,7 @@
         const parsedRating = (rawRating !== undefined && rawRating !== null && rawRating !== '' && Number.isFinite(Number(rawRating)))
           ? clamp(Math.round(Number(rawRating)), 0, 5)
           : 0;
+        const fixResult = (raw.fixResult === 'helped' || raw.fixResult === 'not_helped') ? raw.fixResult : null;
         return {
           id: String(raw.id || `${Date.now()}-${Math.random().toString(36).slice(2, 5)}`),
           createdAt: Number(raw.createdAt) || Date.now(),
@@ -4574,11 +4771,14 @@
           rating: parsedRating,
           notes: String(raw.notes ?? raw.note ?? '').trim(),
           suggestedFixSummary: normNullableStr(raw.suggestedFixSummary),
+          fixResult,
           manualMode: Boolean(raw.manualMode),
+          manualSplitsSummary: normNullableStr(raw.manualSplitsSummary),
         };
       }
 
       const getActive = () => state.coffees.find((c) => c.id === state.activeCoffeeId) || null;
+      const getRecipeCoffee = () => state.coffees.find((c) => c.id === (state.recipeCoffeeId || state.activeCoffeeId)) || getActive();
       const getWater = (c) => {
         if (!c) return 0;
         if (c.params.exactWater && c.params.exactWater >= 50) return Math.round(c.params.exactWater);
@@ -4622,7 +4822,7 @@
         };
       }
 
-      /** Wspólne wczytywanie parametrów z wzorca 🎯 lub wpisu historii do aktynej kawy. */
+      /** Wspólne wczytywanie parametrów z wzorca 🎯 lub wpisu historii do aktywnej kawy. */
       function applySavedParams(target, src, keepGrinder = false) {
         const nextDose = clamp(src.dose, 10, 35);
         const milkType = src.milkType || 'none';
@@ -4965,6 +5165,7 @@
         }
         if (d.theme && THEMES.some((x) => x.id === d.theme)) state.theme = d.theme;
         state.activeCoffeeId = state.coffees.some((c) => c.id === d.activeCoffeeId) ? d.activeCoffeeId : (state.coffees[0]?.id || null);
+        state.recipeCoffeeId = state.coffees.some((c) => c.id === state.recipeCoffeeId) ? state.recipeCoffeeId : state.activeCoffeeId;
         state.updatedAt = Number(d.updatedAt) || Date.now();
         syncDraftFromCoffee(getActive(), state.capturedWater, state.capturedMilkMl);
       }
@@ -5776,7 +5977,7 @@
       function formatManualSplitsSummary(splits) {
         if (!Array.isArray(splits) || !splits.length) return '';
         const parts = splits.map((s) => `${s.name}: ${fmtMin(s.durSec)} (plan ${fmtMin(s.planSec)})`);
-        return `⏱ Etapy (tryb ręczny): ${parts.join(' · ')}`;
+        return parts.join(' · ');
       }
 
       function swNext(targetIdx = null) {
@@ -5862,7 +6063,7 @@
       function getVerBadgeInfo(c) {
         if (c.verificationStatus === 'web_verified') {
           const n = c.sources.length;
-          return { cls: 'badge-net', text: `🌐 Sieć${n ? ` (${n})` : ''}`, long: `🌐 Zweryfikowano w sieci${n ? ` (${n} źr.)` : ''}` };
+          return { cls: 'badge-ai', text: `🌐 Sieć${n ? ` (${n})` : ''}`, long: `🌐 Zweryfikowano w sieci${n ? ` (${n} źr.)` : ''}` };
         }
         if (c.verificationStatus === 'label_only') {
           return { cls: 'badge-muted', text: '🏷️ Etykieta', long: '🏷️ Odczytano z etykiety' };
@@ -5965,20 +6166,7 @@
         $('shelfFabDock').classList.toggle('hidden', state.tab !== 'shelf' || total === 0);
         syncShelfToolbarLayout();
         $('tab-shelf').classList.toggle('is-empty', total === 0);
-        // Dynamiczna lista producentów / palarni obecnych na Półce
-        const roasterCounts = new Map();
-        state.coffees.forEach((c) => {
-          const r = c.roaster || 'Palarnia';
-          roasterCounts.set(r, (roasterCounts.get(r) || 0) + 1);
-        });
-        const roasters = Array.from(roasterCounts.keys()).sort((a, b) => a.localeCompare(b, 'pl'));
-        if (state.roasterFilter !== 'all' && !roasterCounts.has(state.roasterFilter)) {
-          state.roasterFilter = 'all';
-        }
-        $('shelfRoaster').innerHTML =
-          `<option value="all">Palarnia: Wszystkie (${total})</option>` +
-          roasters.map((r) => `<option value="${esc(r)}">${esc(r)} (${roasterCounts.get(r)})</option>`).join('');
-        $('shelfRoaster').value = state.roasterFilter;
+        state.roasterFilter = populateRoasterSelect($('shelfRoaster'), state.coffees, (c) => c.roaster || 'Palarnia', state.roasterFilter, total);
 
         document.querySelectorAll('#shelfFilterChips .chip').forEach((el) => {
           el.classList.toggle('active', el.dataset.filter === state.filter);
@@ -6017,12 +6205,9 @@
           const active = c.id === state.activeCoffeeId;
           const delAsk = state.delCoffeeId === c.id;
           const p = c.params;
+          const dl = c.dialedIn;
           const rm = ROAST_META[c.roastLevel] || ROAST_META.medium;
-          const vb = getVerBadgeInfo(c);
           const fresh = getFreshnessInfo(c.roastDate);
-          const effGrinder = getEffectiveGrinderDisplay(c);
-          const clk = effGrinder ? ` · ${esc(effGrinder)}` : '';
-          const pMilk = (p.milkType && p.milkType !== 'none' && p.milkMl > 0) ? ` · +${p.milkMl}ml 🥛` : '';
           const scaBadge = c.scaScore !== null ? `<span class="badge badge-acc mono">SCA ${esc(c.scaScore)}</span>` : '';
           const freshBadge = fresh ? `<span class="badge ${fresh.cls} mono">${esc(fresh.label)}</span>` : '';
 
@@ -6035,47 +6220,60 @@
             ? `<button type="button" data-act="logs" class="badge badge-muted badge-link mono" title="Pokaż parzenia tej kawy w Dzienniku">☕ ${coffeeLogs.length}${avgRating ? ` · ★ ${avgRating}` : ''}</button>`
             : '';
 
-          const dMilk = (c.dialedIn?.milkType && c.dialedIn.milkType !== 'none' && c.dialedIn.milkMl > 0) ? ` · +${c.dialedIn.milkMl}ml 🥛` : '';
-          const dialedSummary = c.dialedIn
-            ? `<div class="row-item" style="padding:6px 9px; border-color:var(--dialed-bd); background:var(--dialed-bg);">
-                <span class="sub-xs mono" style="color:var(--dialed); font-weight:700; line-height:1.4;">🎯 Wzorzec: ${fmtDose(c.dialedIn.dose)}g/${c.dialedIn.water}ml (1:${c.dialedIn.ratio.toFixed(1)}) · ${c.dialedIn.temp}°C · ${c.dialedIn.grindUm}µm${c.dialedIn.grinderClicks ? ' · ' + esc(c.dialedIn.grinderClicks) : ''}${dMilk}</span>
-              </div>`
-            : '';
+          // Jeden zwarty wiersz parametrów: priorytetowo Wzorzec 🎯 (jeśli istnieje), w przeciwnym razie Aktywne
+          const src = dl || {
+            dose: p.dose,
+            water: getWater(c),
+            temp: p.tempC,
+            grinderClicks: getEffectiveGrinderDisplay(c),
+            grindUm: p.grindUm,
+            milkType: p.milkType,
+            milkMl: p.milkMl,
+          };
+          const compactGrind = src.grinderClicks
+            ? esc(String(src.grinderClicks).replace(/\s+od\s+(?:MAX\s+)?COARSE/i, ''))
+            : `${src.grindUm}µm`;
+          const compactMilk = (src.milkType && src.milkType !== 'none' && src.milkMl > 0) ? ` · +${src.milkMl}ml 🥛` : '';
+          const paramLine = `${dl ? '🎯 ' : ''}${fmtDose(src.dose)}g/${src.water}ml · ${src.temp}°C · ${compactGrind}${compactMilk}`;
+          const paramBoxStyle = dl
+            ? 'padding:5px 8px; border-radius:9px; border-color:var(--dialed-bd); background:var(--dialed-bg); color:var(--dialed); font-weight:700;'
+            : 'padding:5px 8px; border-radius:9px;';
 
           return `
             <article class="card coffee-card ${active ? 'active' : ''} ${c.isArchived ? 'is-finished' : ''}" data-id="${esc(c.id)}">
-              <div class="card-head">
-                <div style="min-width:0; flex:1;">
-                  <div class="wrap">
-                    <span class="badge ${rm.badge}">${esc(rm.short)}</span>
-                    ${freshBadge}
-                    ${c.dialedIn ? '<span class="badge badge-dialed">🎯 Ustalona receptura</span>' : ''}
-                    ${c.suggestedFix ? '<span class="badge badge-fix">💡 W trakcie korekty</span>' : ''}
-                    ${scaBadge}
-                    ${statsBadge}
-                    <span class="badge ${vb.cls}">${vb.text}</span>
-                    ${active && !c.isArchived ? '<span style="font-size:10px; font-weight:800; color:var(--ai);">● Aktywna</span>' : ''}
+              <div class="coffee-card-body" data-act="activate" title="${active ? 'Aktywna kawa' : 'Kliknij, aby ustawić jako aktywną kawę'}">
+                <div class="card-head" style="align-items:center;">
+                  <div style="min-width:0; flex:1;">
+                    <div class="wrap" style="gap:4px;">
+                      <span class="badge ${rm.badge}">${esc(rm.short)}</span>
+                      ${freshBadge}
+                      ${c.suggestedFix ? '<span class="badge badge-fix">💡 Korekta</span>' : ''}
+                      ${scaBadge}
+                      ${statsBadge}
+                    </div>
+                    <h3 style="font-size:14.5px; font-weight:800; margin-top:4px; line-height:1.2;" class="trunc">${dl ? '🎯 ' : ''}${esc(c.name)}</h3>
+                    <p class="sub-xs trunc" style="margin-top:1px;">${esc(c.roaster)} · ${esc(c.origin)}</p>
+                    ${c.tastingNotes?.length ? `<p class="sub-xs trunc" style="margin-top:2px; color:var(--accent-2); font-weight:600;">✦ ${c.tastingNotes.map(esc).join(' · ')}</p>` : ''}
                   </div>
-                  <h3 style="font-size:15px; font-weight:800; margin-top:4px;" class="trunc">${esc(c.name)}</h3>
-                  <p class="sub-xs trunc">${esc(c.roaster)} · ${esc(c.origin)} · ${esc(c.process)}</p>
+                  <button type="button" data-act="fav" class="btn-icon fav-btn ${c.isFavorite ? 'on' : ''}" title="Ulubiona" aria-label="Ulubiona">
+                    ${c.isFavorite ? '★' : '☆'}
+                  </button>
                 </div>
-                <button type="button" data-act="fav" class="btn-icon fav-btn ${c.isFavorite ? 'on' : ''}" title="Ulubiona" aria-label="Ulubiona">
-                  ${c.isFavorite ? '★' : '☆'}
-                </button>
+                <div class="row-item sub-xs mono" style="${paramBoxStyle}">
+                  <span class="trunc">${paramLine}</span>
+                </div>
               </div>
-              ${dialedSummary}
-              <div class="row-item sub-xs mono" style="padding:6px 9px; line-height:1.4; width:100%;">Aktywne: ${fmtDose(p.dose)}g/${getWater(c)}ml (1:${p.ratio.toFixed(1)}) · ${p.tempC}°C · ${p.grindUm} µm${clk}${pMilk}</div>
               <div class="coffee-card-actions">
-                <button type="button" data-act="brew" class="btn btn-primary btn-sm" style="flex:1 1 auto; min-width:74px;" ${c.isArchived ? 'disabled aria-disabled="true" title="Przywróć paczkę, aby parzyć"' : ''}>Parz →</button>
-                <button type="button" data-act="recipe" class="btn btn-ghost btn-sm" style="flex:1 1 auto; min-width:82px;">Receptura</button>
-                <button type="button" data-act="archive" class="btn ${c.isArchived ? 'finish-btn-on' : 'btn-ghost'} log-circle-btn" style="width:34px; height:34px; font-size:14px;" title="${c.isArchived ? 'Przywróć paczkę do aktywnych' : 'Oznacz paczkę jako skończoną'}" aria-label="${c.isArchived ? 'Przywróć paczkę' : 'Oznacz paczkę jako skończoną'}" aria-pressed="${Boolean(c.isArchived)}">🫙</button>
-                <button type="button" data-act="edit" class="btn btn-ghost log-circle-btn" style="width:34px; height:34px;" title="Edytuj / aktualizuj profil" aria-label="Edytuj profil kawy">
+                <button type="button" data-act="brew" class="btn btn-primary btn-sm" style="flex:1 1 auto; min-width:68px; padding:5px 9px;" ${c.isArchived ? 'disabled aria-disabled="true" title="Przywróć paczkę, aby parzyć"' : ''}>Parz →</button>
+                <button type="button" data-act="recipe" class="btn btn-ghost btn-sm" style="flex:1 1 auto; min-width:74px; padding:5px 9px;">Receptura</button>
+                <button type="button" data-act="archive" class="btn ${c.isArchived ? 'finish-btn-on' : 'btn-ghost'} log-circle-btn btn-circle-xs" title="${c.isArchived ? 'Przywróć paczkę do aktywnych' : 'Oznacz paczkę jako skończoną'}" aria-label="${c.isArchived ? 'Przywróć paczkę' : 'Oznacz paczkę jako skończoną'}" aria-pressed="${Boolean(c.isArchived)}">🫙</button>
+                <button type="button" data-act="edit" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Edytuj / aktualizuj profil" aria-label="Edytuj profil kawy">
                   ${ICONS.edit}
                 </button>
                 ${delAsk ? `
-                  <button type="button" data-act="del-yes" class="btn btn-del log-circle-btn" style="width:34px; height:34px; font-size:14px;" title="Potwierdź usunięcie" aria-label="Potwierdź usunięcie">✓</button>
-                  <button type="button" data-act="del-no" class="btn btn-ghost log-circle-btn" style="width:34px; height:34px; font-size:14px;" title="Anuluj" aria-label="Anuluj">✕</button>
-                ` : `<button type="button" data-act="del-ask" class="btn btn-ghost log-circle-btn" style="width:34px; height:34px;" title="Usuń kawę" aria-label="Usuń kawę">
+                  <button type="button" data-act="del-yes" class="btn btn-del log-circle-btn btn-circle-xs" title="Potwierdź usunięcie" aria-label="Potwierdź usunięcie">✓</button>
+                  <button type="button" data-act="del-no" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Anuluj" aria-label="Anuluj">✕</button>
+                ` : `<button type="button" data-act="del-ask" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Usuń kawę" aria-label="Usuń kawę">
                   ${ICONS.trash}
                 </button>`}
               </div>
@@ -6153,7 +6351,8 @@
       }
 
       function renderRecipe() {
-        const c = getActive();
+        const c = getRecipeCoffee();
+        const isDifferentFromActive = Boolean(c && c.id !== state.activeCoffeeId);
         $('tab-recipe').classList.toggle('is-empty', !c);
         $('recipeEmpty').classList.toggle('hidden', !!c);
         $('btnRecipeGoShelf').classList.toggle('hidden', !!c || state.coffees.length === 0);
@@ -6167,6 +6366,48 @@
         const fresh = getFreshnessInfo(c.roastDate);
 
         $('recName').textContent = c.name;
+        const activeC = getActive();
+        const shuffleBtn = $('btnRecipeShuffleActive');
+        if (shuffleBtn) {
+          const returnCoffee = state.recipeShuffleReturnId
+            ? state.coffees.find((x) => x.id === state.recipeShuffleReturnId)
+            : null;
+          if (!returnCoffee || returnCoffee.id === state.activeCoffeeId) {
+            state.recipeShuffleReturnId = null;
+          }
+          const canShowActive = Boolean(isDifferentFromActive && activeC);
+          const canReturnPrev = Boolean(!isDifferentFromActive && returnCoffee);
+          shuffleBtn.classList.toggle('hidden', !(canShowActive || canReturnPrev));
+          if (canShowActive) {
+            shuffleBtn.classList.remove('on');
+            shuffleBtn.title = `Pokaż recepturę aktywnej kawy (${activeC.name})`;
+            shuffleBtn.setAttribute('aria-label', shuffleBtn.title);
+          } else if (canReturnPrev) {
+            shuffleBtn.classList.add('on');
+            shuffleBtn.title = `Wróć do receptury: ${returnCoffee.name}`;
+            shuffleBtn.setAttribute('aria-label', shuffleBtn.title);
+          }
+        }
+        const setActiveBtn = $('btnRecipeSetActive');
+        if (c.isArchived) {
+          setActiveBtn.disabled = true;
+          setActiveBtn.className = 'btn btn-ghost btn-sm';
+          setActiveBtn.textContent = '🫙 Skończona';
+          setActiveBtn.title = 'Paczka oznaczona jako skończona';
+        } else if (isDifferentFromActive) {
+          setActiveBtn.disabled = false;
+          setActiveBtn.className = 'btn btn-sec btn-sm';
+          setActiveBtn.textContent = '☆ Aktywuj';
+          setActiveBtn.title = 'Ustaw tę kawę jako aktywną do parzenia';
+        } else {
+          setActiveBtn.disabled = false;
+          setActiveBtn.className = 'btn btn-primary btn-sm';
+          setActiveBtn.textContent = '★ Aktywna';
+          setActiveBtn.title = 'To jest obecnie aktywna kawa';
+        }
+        $('btnRecipeToBrew').textContent = isDifferentFromActive
+          ? 'Aktywuj i przejdź do parzenia →'
+          : 'Przejdź do parzenia →';
         $('recFreshBadge').classList.toggle('hidden', !fresh);
         if (fresh) {
           $('recFreshBadge').className = `badge ${fresh.cls} mono`;
@@ -6398,12 +6639,10 @@
             const fSnap = $(`snap-fx-${w.key}`);
             const hasGrindFix = Boolean(fix && (fix.grindUm !== null || fix.grinder));
             if (hasGrindFix) {
-              const fxManual = parseManualKg79Clicks(fix.grinder);
-              const fxVal = fix.grindUm !== null ? fix.grindUm : kg79ClicksToUm(fxManual ?? 2, off);
-              const fxKg = kgOn ? (fxManual !== null ? fxManual : mapUmToKg79(fxVal, off).clicks) : null;
+              const fxGrind = resolveGrindState(c, fix.grindUm, fix.grinder);
               fSnap.textContent = kgOn
-                ? `💡 Korekta: ${formatKg79Short(fxKg)}`
-                : `💡 Korekta: ${w.fmt(fxVal)}`;
+                ? `💡 Korekta: ${fxGrind.label}`
+                : `💡 Korekta: ${w.fmt(fxGrind.um)}`;
               fSnap.classList.remove('hidden');
             } else {
               fSnap.classList.add('hidden');
@@ -6411,7 +6650,7 @@
 
             const stEl = $(`st-${w.key}`);
             const isGrindFixMatch = hasGrindFix && (
-              (kgOn && getActiveKg79Info(c).clicks === (parseManualKg79Clicks(fix.grinder) ?? mapUmToKg79(fix.grindUm, off).clicks)) ||
+              (kgOn && getActiveKg79Info(c).clicks === resolveGrindState(c, fix.grindUm, fix.grinder).clicks) ||
               (!kgOn && fix.grindUm !== null && Math.abs(val - fix.grindUm) < 1)
             );
             if (isGrindFixMatch) { stEl.className = 'badge badge-fix'; stEl.textContent = '💡 Zastosowano korektę'; }
@@ -6725,69 +6964,10 @@
         const d = state.draft || { dose: c.params.dose, water: getWater(c), milkType: c.params.milkType || 'none' };
         const dose = Number(d.dose) > 0 ? Number(d.dose) : c.params.dose;
         const water = Number(d.water) > 0 ? Number(d.water) : getWater(c);
-        const ratio = clamp(+(water / dose).toFixed(1), 8, 25);
+        const ratio = clamp(+(water / dose).toFixed(1), ...LIMITS.ratio);
         $('diagRealRatio').textContent = `1:${ratio.toFixed(1)}`;
         const hasMilk = d.milkType && d.milkType !== 'none';
         setFoldOpen('diagMilkMlWrap', hasMilk);
-      }
-
-      function switchHistFilter(nextFilter) {
-        if (state.histFilter === nextFilter) return;
-        const listEl = $('historyList');
-        const oldRects = new Map();
-        const oldClones = new Map();
-
-        listEl.querySelectorAll('.log-card[data-log-id]').forEach((el) => {
-          const id = el.dataset.logId;
-          oldRects.set(id, el.getBoundingClientRect());
-          oldClones.set(id, el.cloneNode(true));
-        });
-
-        state.histFilter = nextFilter;
-        renderJournal();
-
-        const newIds = new Set();
-        listEl.querySelectorAll('.log-card[data-log-id]').forEach((el) => {
-          const id = el.dataset.logId;
-          newIds.add(id);
-          const prevRect = oldRects.get(id);
-          if (prevRect) {
-            const nextRect = el.getBoundingClientRect();
-            const dy = prevRect.top - nextRect.top;
-            if (Math.abs(dy) > 1) {
-              el.style.transform = `translateY(${dy}px)`;
-              el.style.transition = 'none';
-              requestAnimationFrame(() => {
-                el.style.transition = 'transform var(--dur-slow) var(--ease-out), background var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out)';
-                el.style.transform = '';
-                el.addEventListener('transitionend', function onEnd(ev) {
-                  if (ev.propertyName === 'transform') {
-                    el.style.transition = '';
-                    el.removeEventListener('transitionend', onEnd);
-                  }
-                });
-              });
-            }
-          } else {
-            el.classList.add('card-enter');
-            el.addEventListener('animationend', () => el.classList.remove('card-enter'), { once: true });
-          }
-        });
-
-        // Płynne zanikanie kart, które znikają przy zawężaniu filtra do aktywnej kawy
-        oldRects.forEach((rect, id) => {
-          if (newIds.has(id)) return;
-          const ghost = oldClones.get(id);
-          if (!ghost) return;
-          ghost.classList.add('card-exit');
-          ghost.style.position = 'fixed';
-          ghost.style.left = `${rect.left}px`;
-          ghost.style.top = `${rect.top}px`;
-          ghost.style.width = `${rect.width}px`;
-          ghost.style.zIndex = '25';
-          document.body.appendChild(ghost);
-          setTimeout(() => ghost.remove(), 260);
-        });
       }
 
       function getFilteredHistory() {
@@ -6811,7 +6991,7 @@
 
             if (!q) return true;
             const profName = PROFILES.find((pr) => pr.id === e.pourProfile)?.name || e.pourProfile;
-            return `${e.coffeeName} ${coffee?.roaster || ''} ${coffee?.origin || ''} ${profName} ${e.notes || ''}`.toLowerCase().includes(q);
+            return `${e.coffeeName} ${coffee?.roaster || ''} ${coffee?.origin || ''} ${profName} ${e.notes || ''} ${e.suggestedFixSummary || ''}`.toLowerCase().includes(q);
           })
           .sort((a, b) => {
             if (state.histSort === 'oldest') return (a.createdAt || 0) - (b.createdAt || 0);
@@ -6867,19 +7047,7 @@
         $('btnClearHistTop').classList.toggle('hidden', !(hasHistFilter && totalLogs > 0));
         syncHistToolbarLayout();
         const coffeeMap = new Map(state.coffees.map((x) => [x.id, x]));
-        const histRoasterCounts = new Map();
-        state.logs.forEach((l) => {
-          const r = coffeeMap.get(l.coffeeId)?.roaster;
-          if (r) histRoasterCounts.set(r, (histRoasterCounts.get(r) || 0) + 1);
-        });
-        const histRoasters = Array.from(histRoasterCounts.keys()).sort((a, b) => a.localeCompare(b, 'pl'));
-        if (state.histRoasterFilter !== 'all' && !histRoasterCounts.has(state.histRoasterFilter)) {
-          state.histRoasterFilter = 'all';
-        }
-        $('histRoaster').innerHTML =
-          `<option value="all">Palarnia: Wszystkie (${totalLogs})</option>` +
-          histRoasters.map((r) => `<option value="${esc(r)}">${esc(r)} (${histRoasterCounts.get(r)})</option>`).join('');
-        $('histRoaster').value = state.histRoasterFilter;
+        state.histRoasterFilter = populateRoasterSelect($('histRoaster'), state.logs, (l) => coffeeMap.get(l.coffeeId)?.roaster, state.histRoasterFilter, totalLogs);
         $('histSort').value = state.histSort;
         document.querySelectorAll('#histFilterChips .chip').forEach((el) =>
           el.classList.toggle('active', el.dataset.hfilter === state.histFilter)
@@ -6956,75 +7124,101 @@
           const hasMilk = e.milkType && e.milkType !== 'none' && e.milkMl > 0;
           const waterDiff = (e.plannedWater && e.plannedWater !== e.water) ? Math.round(e.water - e.plannedWater) : 0;
           const starsHtml = st > 0
-            ? `<span style="color:var(--accent); font-size:13px;">${'★'.repeat(st)}<span style="color:var(--border-2);">${'★'.repeat(5 - st)}</span></span>`
+            ? `<span style="color:var(--accent); font-size:12.5px; letter-spacing:-0.5px;">${'★'.repeat(st)}<span style="color:var(--border-2);">${'★'.repeat(5 - st)}</span></span>`
             : `<span class="sub-xs">Brak oceny</span>`;
+
+          // Zwarty 2-liniowy opis parametrów (zastępuje 6 osobnych kafelków + osobne pigułki mleka i klików)
+          const compactClicks = e.grinderClicks
+            ? esc(String(e.grinderClicks).replace(/\s+od\s+(?:MAX\s+)?COARSE/i, ''))
+            : '';
+          const grindSummary = compactClicks ? `⚙️ ${compactClicks} (${e.grindUm}µm)` : `${e.grindUm} µm`;
+          const milkSummary = hasMilk ? ` · +${e.milkMl}ml 🥛 (${esc(getMilkShort(e.milkType))})` : '';
+          const line1 = `${fmtDose(e.dose)}g/${e.water}ml (1:${e.ratio.toFixed(1)}) · ⏱ ${timeVal} · ${e.temp}°C`;
+          const line2 = `${grindSummary} · ${esc(profName)}${milkSummary}`;
+
           const extras = [];
-          if (e.manualMode) extras.push('<span class="badge badge-wrap badge-acc mono">✋ Ręczny</span>');
-          if (e.grinderClicks) extras.push(`<span class="badge badge-wrap badge-muted mono">⚙️ ${esc(e.grinderClicks)}</span>`);
-          if (hasMilk) extras.push(`<span class="badge badge-wrap badge-acc mono">🥛 ${e.milkMl} ml (${esc(getMilkShort(e.milkType))})</span>`);
           if (waterDiff !== 0) extras.push(`<span class="badge badge-wrap badge-muted mono">💧 Plan: ${e.plannedWater} ml (${waterDiff > 0 ? '+' : ''}${waterDiff} ml)</span>`);
-          if (e.suggestedFixSummary) extras.push(`<span class="badge badge-wrap badge-fix mono">💡 Korekta na kolejne: ${esc(e.suggestedFixSummary)}</span>`);
+
+          // Rozróżnienie notatki osobistej (📝), notatki z korekty (💡) oraz etapów trybu ręcznego (✋)
+          const { fixLines: fixNoteLines, personalLines: personalNoteLines, manualSplitsText } = extractEntryNotes(e);
+          const isManualEntry = Boolean(e.manualMode || manualSplitsText);
+          const hasFixNote = Boolean(fixNoteLines.length || e.suggestedFixSummary || e.fixResult);
+          const hasPersonalNote = personalNoteLines.length > 0;
+          const hasExpandableDrawer = hasPersonalNote || hasFixNote || Boolean(manualSplitsText);
+
+          const noteBadgesHtml = [
+            isManualEntry
+              ? (manualSplitsText
+                ? `<button type="button" data-log-act="toggle-note" class="badge badge-acc note-pill-btn" title="Tryb ręczny — kliknij, aby rozwinąć czasy etapów" aria-label="Pokaż etapy trybu ręcznego" aria-expanded="false">✋</button>`
+                : `<span class="badge badge-acc note-pill-btn" style="cursor:default;" title="Tryb ręczny" aria-label="Tryb ręczny">✋</span>`)
+              : '',
+            hasPersonalNote
+              ? `<button type="button" data-log-act="toggle-note" class="badge badge-acc note-pill-btn" title="Notatka osobista — kliknij, aby rozwinąć" aria-label="Pokaż notatkę osobistą" aria-expanded="false">📝</button>`
+              : '',
+            hasFixNote
+              ? `<button type="button" data-log-act="toggle-note" class="badge badge-fix note-pill-btn" title="Notatka z korekty — kliknij, aby rozwinąć" aria-label="Pokaż notatkę z korekty" aria-expanded="false">💡</button>`
+              : '',
+          ].filter(Boolean).join('');
+
+          const noteDrawerBlocks = [];
+          if (manualSplitsText) {
+            noteDrawerBlocks.push(`<p class="log-note mono" data-log-act="toggle-note" style="font-style:normal; font-size:11px;" title="Kliknij, aby zwinąć">✋ Etapy (tryb ręczny): ${esc(manualSplitsText)}</p>`);
+          }
+          if (hasPersonalNote) {
+            noteDrawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" title="Kliknij, aby zwinąć">📝 „${esc(personalNoteLines.join(' '))}”</p>`);
+          }
+          if (fixNoteLines.length) {
+            noteDrawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" style="border-left-color:var(--fix);" title="Kliknij, aby zwinąć">💡 ${esc(fixNoteLines.join(' · '))}</p>`);
+          } else if (e.suggestedFixSummary || e.fixResult) {
+            const resTxt = e.fixResult === 'helped'
+              ? '✓ Korekta pomogła'
+              : e.fixResult === 'not_helped'
+                ? '✕ Korekta nie pomogła'
+                : 'Zastosowano korektę';
+            const fixBody = e.suggestedFixSummary ? `${resTxt}: ${esc(e.suggestedFixSummary)}` : resTxt;
+            noteDrawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" style="border-left-color:var(--fix);" title="Kliknij, aby zwinąć">💡 ${fixBody}</p>`);
+          }
+
           const timeOverSec = (e.plannedTimeSec && e.brewTimeSec > 0) ? (e.brewTimeSec - e.plannedTimeSec) : 0;
           const clogBanner = (state.settings.kg79Enabled && timeOverSec >= 20 && coffee)
-            ? `<div class="row-item col-xs" style="padding:7px 9px; border-color:rgba(245, 158, 11, 0.45); background:var(--warn-bg); gap:5px;">
-                <span class="sub-xs" style="color:var(--warn); font-weight:700; line-height:1.35;">⚠️ Czas (${fmtMMSS(e.brewTimeSec)}) dłuższy o +${timeOverSec}s od celu (${fmtMMSS(e.plannedTimeSec)}) — możliwy pył (fines). Sugestia KG79: <strong>+1 klik w stronę COARSE</strong>.</span>
-                <button type="button" data-log-act="coarsen-kg79" class="btn btn-sec btn-sm w100" style="font-size:11px;">⚙️ Zastosuj i zmień o 1 klik → COARSE</button>
+            ? `<div class="row-item col-xs" style="padding:6px 8px; border-color:rgba(245, 158, 11, 0.45); background:var(--warn-bg); gap:4px;">
+                <span class="sub-xs" style="color:var(--warn); font-weight:700; line-height:1.3;">⚠️ Czas (${fmtMMSS(e.brewTimeSec)}) dłuższy o +${timeOverSec}s od planu (${fmtMMSS(e.plannedTimeSec)}) — możliwy pył.</span>
+                <button type="button" data-log-act="coarsen-kg79" class="btn btn-sec btn-sm w100" style="font-size:11px; padding:4px 8px;">⚙️ Zmień o 1 klik → COARSE</button>
               </div>`
             : '';
 
           return `
             <article class="card col-xs log-card ${isDialed ? 'is-dialed' : ''}" data-log-id="${esc(e.id)}">
-              <div class="row">
-                <div class="wrap" style="gap:6px;">
+              <div class="row" style="gap:6px;">
+                <div class="wrap" style="gap:5px; min-width:0; flex:1;">
                   ${e.date ? `<span class="sub-xs mono">${esc(e.date)}</span>` : ''}
                   ${starsHtml}
                 </div>
-                <div class="wrap" style="gap:5px;">
+                <div class="wrap" style="gap:4px; flex-shrink:0;">
+                  ${noteBadgesHtml}
                   <span class="badge badge-dialed dialed-pill-badge ${isDialed ? '' : 'is-off'}" aria-hidden="${!isDialed}">🎯 Wzorzec</span>
                 </div>
               </div>
-              <strong style="font-size:14px;">${esc(e.coffeeName)}</strong>
-              <div class="log-grid">
-                <div class="log-cell">
-                  <span class="lbl" style="font-size:9px;">Kawa / Woda</span>
-                  <span class="log-cell-val mono">${fmtDose(e.dose)}g / ${e.water}ml</span>
-                </div>
-                <div class="log-cell">
-                  <span class="lbl" style="font-size:9px;">Ratio</span>
-                  <span class="log-cell-val mono">1:${e.ratio.toFixed(1)}</span>
-                </div>
-                <div class="log-cell">
-                  <span class="lbl" style="font-size:9px;">Czas</span>
-                  <span class="log-cell-val mono">${timeVal}</span>
-                </div>
-                <div class="log-cell">
-                  <span class="lbl" style="font-size:9px;">Temp.</span>
-                  <span class="log-cell-val mono">${e.temp}°C</span>
-                </div>
-                <div class="log-cell">
-                  <span class="lbl" style="font-size:9px;">Mielenie</span>
-                  <span class="log-cell-val mono">${e.grindUm} µm</span>
-                </div>
-                <div class="log-cell">
-                  <span class="lbl" style="font-size:9px;">Profil</span>
-                  <span class="log-cell-val">${esc(profName)}</span>
-                </div>
+              <strong style="font-size:14px; line-height:1.2;" class="trunc">${esc(e.coffeeName)}</strong>
+              <div class="log-params-box mono">
+                <span class="trunc" style="font-weight:700; color:var(--text);">${line1}</span>
+                <span class="trunc" style="color:var(--muted);">${line2}</span>
               </div>
-              ${extras.length ? `<div class="wrap">${extras.join('')}</div>` : ''}
+              ${extras.length ? `<div class="wrap" style="gap:4px;">${extras.join('')}</div>` : ''}
               ${clogBanner}
-              ${e.notes ? `<p class="log-note">„${esc(e.notes)}”</p>` : ''}
-              <div class="row" style="justify-content:flex-end; gap:8px;">
-                <button type="button" data-log-act="load" class="btn btn-sec log-circle-btn" style="font-size:15px; color:var(--accent);" title="Wczytaj parametry" aria-label="Wczytaj parametry">↻</button>
+              ${hasExpandableDrawer ? `<div class="col-xs fold-box log-note-drawer is-collapsed" aria-hidden="true">${noteDrawerBlocks.join('')}</div>` : ''}
+              <div class="row" style="gap:5px; margin-top:1px;">
+                <button type="button" data-log-act="load" class="btn btn-sec btn-sm" style="flex:1; padding:5px 10px; color:var(--accent);">↻ Wczytaj</button>
                 ${coffee ? `
-                  <button type="button" data-log-act="toggle-dialed" class="btn log-circle-btn ${isDialed ? 'btn-dialed' : 'btn-ghost'}" title="${isDialed ? 'Najlepsze ustawienia (usuń wzorzec)' : 'Ustaw jako wzorzec'}" aria-label="${isDialed ? 'Najlepsze ustawienia' : 'Ustaw jako wzorzec'}">🎯</button>
+                  <button type="button" data-log-act="toggle-dialed" class="btn log-circle-btn btn-circle-xs ${isDialed ? 'btn-dialed' : 'btn-ghost'}" title="${isDialed ? 'Najlepsze ustawienia (usuń wzorzec)' : 'Ustaw jako wzorzec'}" aria-label="${isDialed ? 'Najlepsze ustawienia' : 'Ustaw jako wzorzec'}">🎯</button>
                 ` : ''}
-                <button type="button" data-log-act="edit" class="btn btn-sec log-circle-btn" title="Edytuj wpis" aria-label="Edytuj wpis">
+                <button type="button" data-log-act="edit" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Edytuj wpis" aria-label="Edytuj wpis">
                   ${ICONS.edit}
                 </button>
                 ${delAsk ? `
-                  <button type="button" data-log-act="del-yes" class="btn btn-del log-circle-btn" title="Potwierdź usunięcie" aria-label="Potwierdź usunięcie">✓</button>
-                  <button type="button" data-log-act="del-no" class="btn btn-ghost log-circle-btn" title="Anuluj" aria-label="Anuluj">✕</button>
-                ` : `<button type="button" data-log-act="del-ask" class="btn btn-ghost log-circle-btn" title="Usuń wpis" aria-label="Usuń wpis">
+                  <button type="button" data-log-act="del-yes" class="btn btn-del log-circle-btn btn-circle-xs" title="Potwierdź usunięcie" aria-label="Potwierdź usunięcie">✓</button>
+                  <button type="button" data-log-act="del-no" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Anuluj" aria-label="Anuluj">✕</button>
+                ` : `<button type="button" data-log-act="del-ask" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Usuń wpis" aria-label="Usuń wpis">
                   ${ICONS.trash}
                 </button>`}
               </div>
@@ -7098,7 +7292,7 @@
         $('appShell').classList.toggle('brew-mode', t === 'brew');
         ['shelf', 'recipe', 'brew', 'journal'].forEach((k) => $(`tab-${k}`).classList.toggle('hidden', k !== t));
         $('shelfFabDock').classList.toggle('hidden', t !== 'shelf' || state.coffees.length === 0);
-        $('recipeFabDock').classList.toggle('hidden', t !== 'recipe' || !getActive());
+        $('recipeFabDock').classList.toggle('hidden', t !== 'recipe' || !getRecipeCoffee());
         $('brewFabDock').classList.toggle('hidden', t !== 'brew' || state.brewSub !== 'chk' || !getActive());
         $('journalFabDock').classList.toggle('hidden', t !== 'journal' || state.journalSub !== 'hist' || state.coffees.length === 0);
         $('brewBottomDock').classList.toggle('hidden', t !== 'brew' || !getActive());
@@ -7210,6 +7404,36 @@
         const btn = $('btnModalToggleDialed');
         btn.classList.toggle('active', state.modalLogDialed);
         btn.setAttribute('aria-pressed', String(state.modalLogDialed));
+
+        const res = state.modalLogFixResult || 'none';
+        document.querySelectorAll('#mLogFixSection [data-mfix-res]').forEach((el) => {
+          const id = el.dataset.mfixRes;
+          const active = id === res;
+          el.classList.toggle('active', active);
+          el.classList.toggle('btn-ai-soft', active && id === 'helped');
+          el.classList.toggle('btn-sec', active && id !== 'helped');
+          el.classList.toggle('btn-ghost', !active);
+          if (active && id === 'not_helped') {
+            el.style.borderColor = 'var(--fix-bd)';
+            el.style.color = 'var(--fix)';
+          } else {
+            el.style.borderColor = '';
+            el.style.color = '';
+          }
+        });
+        const resBadge = $('mLogFixResultBadge');
+        if (resBadge) {
+          if (res === 'helped') {
+            resBadge.className = 'badge badge-ai';
+            resBadge.textContent = '✓ Pomogła';
+          } else if (res === 'not_helped') {
+            resBadge.className = 'badge badge-fix';
+            resBadge.textContent = '✕ Nie pomogła';
+          } else {
+            resBadge.className = 'badge badge-muted hidden';
+            resBadge.textContent = '';
+          }
+        }
       }
 
       function populateModalLogForCoffee(coffee) {
@@ -7240,9 +7464,9 @@
           return;
         }
         state.editingLogId = editEntry ? String(editEntry.id) : null;
-        $('mLogT').textContent = editEntry ? 'Edytuj wpis parzenia V60' : '+ Dodaj wpis parzenia V60';
+        $('mLogT').textContent = editEntry ? 'Szczegóły i edycja parzenia V60' : '+ Dodaj wpis parzenia V60';
         $('mLogSub').textContent = editEntry
-          ? 'Zmień parametry, ocenę, datę lub notatki zapisanego parzenia'
+          ? 'Pełny podgląd zapisanych parametrów, korekty smaku, oceny i notatek'
           : 'Zapisz wcześniejsze lub zewnętrzne parzenie bezpośrednio do historii';
         $('btnSaveModalLog').textContent = editEntry ? '✓ Zapisz zmiany' : '✓ Dodaj wpis do historii';
 
@@ -7275,9 +7499,7 @@
           $('mLogKg79Select').classList.toggle('hidden', !kgOn);
           $('mLogGrindUmInput').classList.toggle('hidden', kgOn);
           if (kgOn) {
-            const manual = parseManualKg79Clicks(editEntry.grinderClicks);
-            const clicks = manual !== null ? manual : mapUmToKg79(editEntry.grindUm, off).clicks;
-            $('mLogKg79Select').value = String(clicks);
+            $('mLogKg79Select').value = String(resolveGrindState(null, editEntry.grindUm, editEntry.grinderClicks).clicks);
           } else {
             $('mLogGrindUmInput').value = String(Math.round(editEntry.grindUm));
           }
@@ -7291,15 +7513,47 @@
           if (commaIdx !== -1) {
             $('mLogDateInput').value = rawDate.slice(0, commaIdx).trim();
             $('mLogHourInput').value = rawDate.slice(commaIdx + 1).trim();
-          } else if (/^\d{1,2}:\d{2}$/.test(rawDate)) {
-            $('mLogDateInput').value = '';
-            $('mLogHourInput').value = rawDate;
           } else {
             $('mLogDateInput').value = rawDate;
             $('mLogHourInput').value = '';
           }
 
-          $('mLogNote').value = editEntry.notes || '';
+          // Wyodrębnienie zapisanych informacji o korekcie oraz etapów trybu ręcznego
+          const { fixLines, personalLines, manualSplitsText: detectedManualSplits } = extractEntryNotes(editEntry);
+
+          let detectedFixSummary = editEntry.suggestedFixSummary || '';
+          let detectedFixResult = editEntry.fixResult || 'none';
+          if (fixLines.length) {
+            const firstFixLine = fixLines[0];
+            if (/^✓\s*Korekta pomogła:/i.test(firstFixLine)) {
+              detectedFixResult = 'helped';
+              if (!detectedFixSummary) detectedFixSummary = firstFixLine.replace(/^✓\s*Korekta pomogła:\s*/i, '').trim();
+            } else if (/^✕\s*Korekta nie pomogła:/i.test(firstFixLine)) {
+              detectedFixResult = 'not_helped';
+              if (!detectedFixSummary) detectedFixSummary = firstFixLine.replace(/^✕\s*Korekta nie pomogła:\s*/i, '').trim();
+            }
+          }
+
+          $('mLogFixSummaryInput').value = detectedFixSummary;
+          state.modalLogFixResult = detectedFixResult;
+          $('mLogManualSplitsInput').value = detectedManualSplits;
+          $('mLogNote').value = personalLines.join('\n');
+
+          // Dodatkowe odznaki kontekstowe (tryb ręczny, planowana woda / czas)
+          const showManual = Boolean(editEntry.manualMode || detectedManualSplits);
+          $('mLogModeBadge').classList.toggle('hidden', !showManual);
+          const planParts = [];
+          if (editEntry.plannedWater && editEntry.plannedWater !== editEntry.water) {
+            planParts.push(`💧 Plan: ${editEntry.plannedWater} ml`);
+          }
+          if (editEntry.plannedTimeSec && editEntry.brewTimeSec > 0 && editEntry.plannedTimeSec !== editEntry.brewTimeSec) {
+            planParts.push(`⏱ Plan: ${fmtMMSS(editEntry.plannedTimeSec)}`);
+          }
+          $('mLogPlanBadge').classList.toggle('hidden', !planParts.length);
+          $('mLogPlanBadge').textContent = planParts.join(' · ');
+
+          setFoldOpen('mLogFixSection', true);
+          setFoldOpen('mLogManualSplitsSection', showManual);
           state.modalLogStars = clamp(Number(editEntry.rating) || 0, 0, 5);
           state.modalLogDialed = Boolean(coffee?.dialedIn && String(coffee.dialedIn.logId) === String(editEntry.id));
           updateModalLogRatio();
@@ -7308,10 +7562,17 @@
           $('mLogCoffeeSelect').value = active.id;
           state.modalLogStars = 0;
           state.modalLogDialed = false;
+          state.modalLogFixResult = 'none';
+          $('mLogFixSummaryInput').value = '';
+          $('mLogManualSplitsInput').value = '';
           $('mLogTimeInput').value = '';
           $('mLogNote').value = '';
           $('mLogDateInput').value = '';
           $('mLogHourInput').value = '';
+          $('mLogModeBadge').classList.add('hidden');
+          $('mLogPlanBadge').classList.add('hidden');
+          setFoldOpen('mLogFixSection', false);
+          setFoldOpen('mLogManualSplitsSection', false);
           populateModalLogForCoffee(active);
         }
 
@@ -7359,6 +7620,24 @@
         const brewTimeSec = parseTimeToSec($('mLogTimeInput').value.trim());
         const customDate = [$('mLogDateInput').value.trim(), $('mLogHourInput').value.trim()].filter(Boolean).join(', ');
 
+        const editedFixSummary = existing
+          ? $('mLogFixSummaryInput').value.trim()
+          : (coffee?.suggestedFix ? `${coffee.suggestedFix.title}: ${coffee.suggestedFix.summary}` : '');
+        const editedFixResult = existing && (state.modalLogFixResult === 'helped' || state.modalLogFixResult === 'not_helped')
+          ? state.modalLogFixResult
+          : null;
+        const editedManualSplits = existing ? $('mLogManualSplitsInput').value.trim() : '';
+
+        const personalNotes = $('mLogNote').value.trim();
+        const mergedNotes = [
+          personalNotes,
+          editedFixResult === 'helped'
+            ? `✓ Korekta pomogła${editedFixSummary ? `: ${editedFixSummary}` : ''}`
+            : editedFixResult === 'not_helped'
+              ? `✕ Korekta nie pomogła${editedFixSummary ? `: ${editedFixSummary}` : ''}`
+              : '',
+        ].filter(Boolean).join('\n');
+
         const entry = normLog({
           id: existing ? existing.id : String(Date.now()),
           createdAt: existing ? existing.createdAt : Date.now(),
@@ -7378,11 +7657,11 @@
           brewTimeSec,
           plannedTimeSec: existing ? existing.plannedTimeSec : (coffee ? (getPlannedExtractionSec(coffee) || null) : null),
           rating: state.modalLogStars,
-          notes: $('mLogNote').value.trim(),
-          suggestedFixSummary: existing
-            ? existing.suggestedFixSummary
-            : (coffee?.suggestedFix ? `${coffee.suggestedFix.title}: ${coffee.suggestedFix.summary}` : null),
-          manualMode: existing ? existing.manualMode : false,
+          notes: mergedNotes,
+          suggestedFixSummary: editedFixSummary || null,
+          fixResult: editedFixResult,
+          manualMode: existing ? Boolean(existing.manualMode || editedManualSplits) : false,
+          manualSplitsSummary: editedManualSplits || null,
         });
 
         if (existing) {
@@ -7425,6 +7704,10 @@
 
       function selectCoffee(id, opts = {}) {
         state.activeCoffeeId = id;
+        if (!opts.keepRecipeTarget) {
+          state.recipeCoffeeId = id;
+          state.recipeShuffleReturnId = null;
+        }
         const c = getActive();
         if (opts.resetBrew) {
           state.chk = {};
@@ -7588,35 +7871,7 @@
         if (!parsed) return;
 
         if (state.editingCoffeeId) {
-          const idx = state.coffees.findIndex((x) => x.id === state.editingCoffeeId);
-          if (idx === -1) return;
-          const prev = state.coffees[idx];
-          const applySliders = $('tglUpdateApplySliders').checked;
-
-          state.coffees[idx] = {
-            ...parsed,
-            id: prev.id,
-            isFavorite: prev.isFavorite,
-            isArchived: prev.isArchived,
-            roastDate: parsed.roastDate || prev.roastDate || null,
-            createdAt: prev.createdAt,
-            dialedIn: prev.dialedIn,
-            suggestedFix: prev.suggestedFix || null,
-            params: {
-              dose: prev.params.dose,
-              grinder: prev.params.grinder,
-              milkType: prev.params.milkType || 'none',
-              milkMl: prev.params.milkMl || 0,
-              ratio: applySliders ? parsed.ratioRecommended : prev.params.ratio,
-              exactWater: applySliders ? null : (prev.params.exactWater || null),
-              tempC: applySliders ? parsed.tempRecommended : prev.params.tempC,
-              grindUm: applySliders ? parsed.grindRecommendedUm : prev.params.grindUm,
-              profile: applySliders ? parsed.pourProfile : prev.params.profile,
-            },
-          };
-
-          state.logs.forEach((l) => { if (l.coffeeId === prev.id) l.coffeeName = parsed.name; });
-
+          if (!upsertExistingCoffee(state.editingCoffeeId, parsed, $('tglUpdateApplySliders').checked)) return;
           state.editingCoffeeId = null;
           closeModal('modalAdd');
           persistState(true);
@@ -7652,7 +7907,7 @@
       }
 
       function copyActiveRecipeText() {
-        const c = getActive();
+        const c = state.tab === 'recipe' ? getRecipeCoffee() : getActive();
         if (!c) { toast('Wybierz najpierw kawę.', 'warn'); return; }
         const p = c.params;
         const water = getWater(c);
@@ -7755,6 +8010,7 @@
           }
           if (data.theme && THEMES.some((x) => x.id === data.theme)) applyTheme(data.theme, false);
           if (!state.activeCoffeeId && state.coffees.length) state.activeCoffeeId = state.coffees[0].id;
+          if (!state.recipeCoffeeId && state.activeCoffeeId) state.recipeCoffeeId = state.activeCoffeeId;
 
           syncDraftFromCoffee(getActive(), state.capturedWater, state.capturedMilkMl);
           persistState(true);
@@ -7772,14 +8028,25 @@
        * ---------------------------------------------------------------------- */
       function bindEvents() {
         document.querySelectorAll('.nav-item').forEach((b) => b.addEventListener('click', () => setTab(b.dataset.nav)));
-        $('btnLogoHome').addEventListener('click', () => setTab('shelf'));
+        $('btnLogoHome').addEventListener('click', () => {
+          setCtxDrawer(false);
+          openModal('modalAbout');
+        });
         $('btnCtxPill').addEventListener('click', (e) => {
           e.stopPropagation();
           if (!getActive()) return openAddCoffeeModal(null);
           setCtxDrawer(!state.ctxOpen);
         });
         $('btnCtxGoShelf').addEventListener('click', () => { setCtxDrawer(false); setTab('shelf'); });
-        $('btnCtxGoRecipe').addEventListener('click', () => { setCtxDrawer(false); setTab('recipe'); });
+        $('btnCtxGoRecipe').addEventListener('click', () => {
+          setCtxDrawer(false);
+          if (state.activeCoffeeId) {
+            state.recipeCoffeeId = state.activeCoffeeId;
+            state.recipeShuffleReturnId = null;
+            renderRecipe();
+          }
+          setTab('recipe');
+        });
         $('btnCtxCopyRecipe').addEventListener('click', () => { copyActiveRecipeText(); setCtxDrawer(false); });
         ['btnAddCoffeeTop', 'btnRecipeAdd', 'btnBrewAdd', 'btnDiagAddCoffee'].forEach((id) => $(id).addEventListener('click', () => openAddCoffeeModal(null)));
         ['btnRecipeGoShelf', 'btnBrewGoShelf', 'btnDiagGoShelf'].forEach((id) => $(id).addEventListener('click', () => setTab('shelf')));
@@ -7829,6 +8096,14 @@
           if (act === 'fav') {
             c.isFavorite = !c.isFavorite;
             persistState(); renderShelf();
+          } else if (act === 'activate') {
+            if (c.isArchived) {
+              toast('Ta paczka jest oznaczona jako skończona — przywróć ją ikoną 🫙 lub otwórz jej Recepturę.', 'info', 2800);
+              return;
+            }
+            if (state.activeCoffeeId === c.id) return;
+            selectCoffee(c.id, { resetBrew: true });
+            toast(`Aktywna kawa: ${c.name}`, 'ok', 2000);
           } else if (act === 'archive') {
             animateListFlip($('shelfList'), '.coffee-card[data-id]', 'data-id', () => {
               c.isArchived = !c.isArchived;
@@ -7855,7 +8130,9 @@
             setBrewSub('chk');
             setTab('brew');
           } else if (act === 'recipe') {
-            selectCoffee(c.id, { resetBrew: false });
+            state.recipeCoffeeId = c.id;
+            state.recipeShuffleReturnId = null;
+            renderRecipe();
             setTab('recipe');
           } else if (act === 'edit') {
             openAddCoffeeModal(c.id);
@@ -7869,6 +8146,9 @@
             if (state.activeCoffeeId === c.id) {
               state.activeCoffeeId = (state.coffees.find((x) => !x.isArchived) || state.coffees[0])?.id || null;
               syncDraftFromCoffee(getActive());
+            }
+            if (state.recipeCoffeeId === c.id) {
+              state.recipeCoffeeId = state.activeCoffeeId;
             }
             persistState(true); renderAll();
             toast(`Usunięto kawę: ${c.name}`, 'info');
@@ -7920,8 +8200,8 @@
         });
         // Receptura V60 (leniwie odświeża pozostałe zakładki przy przełączeniu)
         const syncRecipe = () => {
-          const c = getActive();
-          if (c) syncDraftFromCoffee(c, state.capturedWater, state.capturedMilkMl);
+          const activeC = getActive();
+          if (activeC) syncDraftFromCoffee(activeC, state.capturedWater, state.capturedMilkMl);
           persistState();
           renderActiveTab(true);
         };
@@ -7941,7 +8221,7 @@
         };
         $('recipeBody').addEventListener('touchstart', (e) => {
           if (!e.target.matches('input[type="range"].rng') || !e.touches.length) return;
-          const c = getActive(); if (!c || state.settings.slidersLocked) return;
+          const c = getRecipeCoffee(); if (!c || state.settings.slidersLocked) return;
           rngGuard = {
             el: e.target,
             x: e.touches[0].clientX,
@@ -7961,7 +8241,7 @@
             rngGuard.mode = 'scroll';
             rngGuard.el.value = rngGuard.val;
             if (rngGuard.didChange) {
-              const c = getActive();
+              const c = getRecipeCoffee();
               if (c) { Object.assign(c.params, rngGuard.prevParams); syncRecipe(); }
             }
           } else {
@@ -7974,7 +8254,7 @@
 
         // Dawka kawy i bezpośrednia edycja wody docelowej
         const setDose = (v) => {
-          const c = getActive(); if (!c) return;
+          const c = getRecipeCoffee(); if (!c) return;
           const prevWater = getWater(c);
           c.params.dose = clamp(+(Number(v) || 18).toFixed(1), 10, 35);
           if (c.params.exactWater) {
@@ -7983,11 +8263,11 @@
           syncRecipe();
         };
         $('doseSlider').addEventListener('input', (e) => { if (guardRangeInput(e)) return; setDose(parseFloat(e.target.value)); });
-        $('btnDoseMinus').addEventListener('click', () => setDose((getActive()?.params.dose || 18) - 0.5));
-        $('btnDosePlus').addEventListener('click', () => setDose((getActive()?.params.dose || 18) + 0.5));
+        $('btnDoseMinus').addEventListener('click', () => setDose((getRecipeCoffee()?.params.dose || 18) - 0.5));
+        $('btnDosePlus').addEventListener('click', () => setDose((getRecipeCoffee()?.params.dose || 18) + 0.5));
 
         $('waterInput').addEventListener('input', (e) => {
-          const c = getActive(); if (!c) return;
+          const c = getRecipeCoffee(); if (!c) return;
           const w = parseInt(e.target.value, 10);
           if (!Number.isFinite(w) || w < 50) return;
           const clampedW = clamp(w, 50, 1200);
@@ -7996,7 +8276,7 @@
           syncRecipe();
         });
         $('waterInput').addEventListener('blur', () => {
-          const c = getActive(); if (!c) return;
+          const c = getRecipeCoffee(); if (!c) return;
           const w = parseInt($('waterInput').value, 10);
           if (!Number.isFinite(w) || w < 50) {
             c.params.exactWater = null;
@@ -8021,7 +8301,7 @@
           setPresetMenu(!state.presetMenuOpen);
         });
         $('btnMatchProfile').addEventListener('click', () => {
-          const c = getActive(); if (!c) return;
+          const c = getRecipeCoffee(); if (!c) return;
           if (state.settings.kg79Enabled && c.grindRecommendedUm < 580) {
             const boostedTemp = clamp(c.tempRecommended + 2, 84, 99);
             const safeProfile = (c.pourProfile === 'three_pours' || c.pourProfile === 'method_46') ? 'two_pours' : c.pourProfile;
@@ -8035,13 +8315,13 @@
           toast('Dopasowano parametry V60 do rekomendacji profilu!');
         });
         $('btnKg79Switch2Pours').addEventListener('click', () => {
-          const c = getActive(); if (!c) return;
+          const c = getRecipeCoffee(); if (!c) return;
           c.params.profile = 'two_pours';
           syncRecipe();
           toast('Przełączono na schemat 2 zalań (blooming + 2 główne zalania).', 'ok', 2400);
         });
         $('btnKg79BoostTemp').addEventListener('click', () => {
-          const c = getActive(); if (!c) return;
+          const c = getRecipeCoffee(); if (!c) return;
           const off = clamp(Math.round(state.settings.kg79Offset || 0), -2, 2);
           const targetClicks = clamp(3 + off, 1, 4);
           c.params.grindUm = kg79ClicksToUm(targetClicks, off);
@@ -8051,7 +8331,7 @@
           toast(`Ustawiono ${c.params.grinder} (${c.params.grindUm} µm) i podbito temperaturę na ${c.params.tempC}°C!`, 'ok', 3200);
         });
         $('btnMatchDialed').addEventListener('click', () => {
-          const c = getActive();
+          const c = getRecipeCoffee();
           if (!c?.dialedIn) {
             toast('Brak zapisanego wzorca — oznacz parzenie w Dzienniku jako 🎯.', 'info', 3000);
             return;
@@ -8061,7 +8341,7 @@
           toast('Zastosowano 🎯 Mój wzorzec z historii!', 'dialed');
         });
         $('btnMatchFix').addEventListener('click', () => {
-          const c = getActive();
+          const c = getRecipeCoffee();
           const fix = c?.suggestedFix;
           if (!fix) {
             toast('Brak zapisanej korekty — wybierz problem smakowy w Dzienniku.', 'info', 3000);
@@ -8078,11 +8358,8 @@
           if (fix.grinder) {
             c.params.grinder = fix.grinder;
           }
-          if (Number.isFinite(fix.grindUm)) {
-            c.params.grindUm = clamp(fix.grindUm, 450, 1050);
-          } else if (fix.grinder) {
-            const manualClicks = parseManualKg79Clicks(fix.grinder);
-            if (manualClicks !== null) c.params.grindUm = kg79ClicksToUm(manualClicks, off);
+          if (Number.isFinite(fix.grindUm) || fix.grinder) {
+            c.params.grindUm = resolveGrindState(c, fix.grindUm, fix.grinder).um;
           }
           if (fix.profile) {
             c.params.profile = normProfile(fix.profile);
@@ -8094,7 +8371,7 @@
         // Dodatek mleka w Recepturze
         $('milkTypeChips').addEventListener('click', (e) => {
           const mt = e.target.closest('[data-milk]')?.dataset.milk;
-          const c = getActive();
+          const c = getRecipeCoffee();
           if (!mt || !c) return;
           c.params.milkType = mt;
           if (mt === 'none') c.params.milkMl = 0;
@@ -8102,23 +8379,23 @@
           syncRecipe();
         });
         const setMilkMl = (v) => {
-          const c = getActive(); if (!c) return;
+          const c = getRecipeCoffee(); if (!c) return;
           c.params.milkMl = clamp(Math.round(Number(v) || 60), 10, 250);
           if (c.params.milkType === 'none') c.params.milkType = 'cow';
           syncRecipe();
         };
         $('milkSlider').addEventListener('input', (e) => { if (guardRangeInput(e)) return; setMilkMl(parseInt(e.target.value, 10)); });
-        $('btnMilkMinus').addEventListener('click', () => setMilkMl((getActive()?.params.milkMl || 60) - 10));
-        $('btnMilkPlus').addEventListener('click', () => setMilkMl((getActive()?.params.milkMl || 60) + 10));
+        $('btnMilkMinus').addEventListener('click', () => setMilkMl((getRecipeCoffee()?.params.milkMl || 60) - 10));
+        $('btnMilkPlus').addEventListener('click', () => setMilkMl((getRecipeCoffee()?.params.milkMl || 60) + 10));
 
         $('profileGrid').addEventListener('click', (e) => {
           const pr = e.target.closest('[data-profile]')?.dataset.profile;
-          if (pr && getActive()) { getActive().params.profile = pr; syncRecipe(); }
+          if (pr && getRecipeCoffee()) { getRecipeCoffee().params.profile = pr; syncRecipe(); }
         });
 
         $('aiSlidersHost').addEventListener('input', (e) => {
           if (guardRangeInput(e)) return;
-          const k = e.target.dataset?.aiKey, c = getActive();
+          const k = e.target.dataset?.aiKey, c = getRecipeCoffee();
           if (!k || !c) return;
           if (k === 'ratio') {
             c.params.ratio = +parseFloat(e.target.value).toFixed(1);
@@ -8130,7 +8407,7 @@
         });
 
         $('aiSlidersHost').addEventListener('click', (e) => {
-          const c = getActive(); if (!c) return;
+          const c = getRecipeCoffee(); if (!c) return;
           const aiKey = e.target.closest('[data-snap-ai]')?.dataset.snapAi;
           if (aiKey) {
             const w = AI_WINDOWS.find((x) => x.key === aiKey);
@@ -8165,12 +8442,8 @@
             const fix = c.suggestedFix;
             if (w && (Number.isFinite(fix[w.key]) || (w.key === 'grindUm' && fix.grinder))) {
               if (w.key === 'grindUm') {
-                const off = clamp(Math.round(state.settings.kg79Offset || 0), -2, 2);
-                const manualClicks = parseManualKg79Clicks(fix.grinder);
                 if (fix.grinder) c.params.grinder = fix.grinder;
-                c.params.grindUm = fix.grindUm !== null
-                  ? clamp(fix.grindUm, w.absMin ?? w.min, w.absMax ?? w.max)
-                  : kg79ClicksToUm(manualClicks ?? 2, off);
+                c.params.grindUm = resolveGrindState(c, fix.grindUm, fix.grinder).um;
                 syncRecipe();
                 toast(`Zastosowano korektę mielenia: ${state.settings.kg79Enabled ? getActiveKg79Info(c).shortLabel : w.fmt(c.params.grindUm)}`, 'info', 2000);
               } else {
@@ -8185,7 +8458,7 @@
 
         // Interaktywne pokrętło SVG grubości mielenia (działa w trybie KG79 oraz w trybie mikronów µm)
         const applyGrindChange = (kgClicks, umVal) => {
-          const c = getActive();
+          const c = getRecipeCoffee();
           if (!c || state.settings.slidersLocked) return;
           if (state.settings.kg79Enabled) {
             const clicks = clamp(Math.round(kgClicks), 0, 15);
@@ -8207,7 +8480,7 @@
         };
 
         const stepGrindDial = (dir) => {
-          const c = getActive();
+          const c = getRecipeCoffee();
           if (!c) return;
           applyGrindChange(getActiveKg79Info(c).clicks + dir, c.params.grindUm - dir * 10);
         };
@@ -8244,7 +8517,7 @@
         };
 
         const getCurrentDialNorm = () => {
-          const c = getActive();
+          const c = getRecipeCoffee();
           if (!c) return 0.5;
           if (state.settings.kg79Enabled) {
             return clamp(getActiveKg79Info(c).clicks / 15, 0, 1);
@@ -8307,9 +8580,54 @@
         dialTouch.addEventListener('pointerup', stopDialDrag);
         dialTouch.addEventListener('pointercancel', stopDialDrag);
 
-        $('btnRecipeToBrew').addEventListener('click', () => { setBrewSub('chk'); setTab('brew'); });
+        $('btnRecipeShuffleActive').addEventListener('click', () => {
+          const curRecipe = getRecipeCoffee();
+          const activeC = getActive();
+          if (!curRecipe || !activeC) return;
+
+          if (curRecipe.id !== activeC.id) {
+            state.recipeShuffleReturnId = curRecipe.id;
+            state.recipeCoffeeId = activeC.id;
+            renderRecipe();
+            toast(`Receptura aktywnej kawy: ${activeC.name}`, 'info', 2000);
+          } else if (state.recipeShuffleReturnId) {
+            const prevCoffee = state.coffees.find((x) => x.id === state.recipeShuffleReturnId);
+            if (!prevCoffee) {
+              state.recipeShuffleReturnId = null;
+              renderRecipe();
+              return;
+            }
+            state.recipeCoffeeId = prevCoffee.id;
+            state.recipeShuffleReturnId = null;
+            renderRecipe();
+            toast(`Powrót do receptury: ${prevCoffee.name}`, 'info', 2000);
+          }
+        });
+
+        $('btnRecipeSetActive').addEventListener('click', () => {
+          const c = getRecipeCoffee();
+          if (!c || c.isArchived) return;
+          if (c.id === state.activeCoffeeId) {
+            toast(`„${c.name}” jest już aktywną kawą.`, 'info', 1800);
+            return;
+          }
+          selectCoffee(c.id, { resetBrew: true });
+          toast(`Aktywna kawa: ${c.name}`, 'ok', 2200);
+        });
+        $('btnRecipeToBrew').addEventListener('click', () => {
+          const c = getRecipeCoffee();
+          if (c && c.id !== state.activeCoffeeId) {
+            if (c.isArchived) {
+              toast('Ta paczka jest oznaczona jako skończona — przywróć ją na Półce.', 'warn', 2800);
+              return;
+            }
+            selectCoffee(c.id, { resetBrew: true });
+          }
+          setBrewSub('chk');
+          setTab('brew');
+        });
         $('btnRecipeEditCoffee').addEventListener('click', () => {
-          const c = getActive();
+          const c = getRecipeCoffee();
           if (c) openAddCoffeeModal(c.id);
         });
 
@@ -8417,12 +8735,7 @@
             state.capturedMilkMl = null;
           }
           if (c) syncDraftFromCoffee(c, state.capturedWater, state.capturedMilkMl);
-          const splitsLine = formatManualSplitsSummary(state.swManualSplits);
-          if (splitsLine) {
-            const curNote = $('logNote').value.trim();
-            if (!curNote) $('logNote').value = splitsLine;
-            else if (!curNote.includes('⏱ Etapy (tryb ręczny):')) $('logNote').value = `${curNote}\n${splitsLine}`;
-          }
+          state.capturedManualSplitsSummary = formatManualSplitsSummary(state.swManualSplits) || null;
           state.diagSaveOpen = true;
           swReset(false);
           setBrewSub('chk');
@@ -8535,19 +8848,28 @@
           const c = state.coffees.find((x) => x.id === e.target.value);
           if (c) populateModalLogForCoffee(c);
         });
-        $('mLogStarsBox').addEventListener('click', (e) => {
-          const btn = e.target.closest('[data-mstar]');
-          if (!btn) return;
-          const s = Number(btn.dataset.mstar);
-          state.modalLogStars = (s > 0 && state.modalLogStars === s) ? 0 : s;
-          renderModalLogControls();
-        });
+        const bindStarPicker = (boxId, attrName, getVal, setVal, onRender) => {
+          $(boxId).addEventListener('click', (e) => {
+            const btn = e.target.closest(`[${attrName}]`);
+            if (!btn) return;
+            const s = Number(btn.getAttribute(attrName));
+            setVal((s > 0 && getVal() === s) ? 0 : s);
+            onRender();
+          });
+        };
+        bindStarPicker('mLogStarsBox', 'data-mstar', () => state.modalLogStars, (v) => { state.modalLogStars = v; }, renderModalLogControls);
         $('mLogDoseInput').addEventListener('input', updateModalLogRatio);
         $('mLogWaterInput').addEventListener('input', updateModalLogRatio);
         $('mLogMilkType').addEventListener('change', () => {
           if ($('mLogMilkType').value === 'none') $('mLogMilkMl').value = '0';
           else if ((parseInt($('mLogMilkMl').value, 10) || 0) < 10) $('mLogMilkMl').value = '60';
           updateModalLogRatio();
+        });
+        $('mLogFixSection').addEventListener('click', (e) => {
+          const res = e.target.closest('[data-mfix-res]')?.dataset.mfixRes;
+          if (!res) return;
+          state.modalLogFixResult = res;
+          renderModalLogControls();
         });
         $('btnModalToggleDialed').addEventListener('click', () => {
           state.modalLogDialed = !state.modalLogDialed;
@@ -8578,13 +8900,7 @@
           if (f) switchHistFilter(f);
         });
 
-        $('starsBox').addEventListener('click', (e) => {
-          const btn = e.target.closest('[data-star]');
-          if (!btn) return;
-          const s = Number(btn.dataset.star);
-          state.stars = (s > 0 && state.stars === s) ? 0 : s;
-          renderJournal();
-        });
+        bindStarPicker('starsBox', 'data-star', () => state.stars, (v) => { state.stars = v; }, renderJournal);
 
         // Rzeczywiste wartości w formularzu Dziennika (kawa, woda, mleko)
         const ensureDraft = () => {
@@ -8744,6 +9060,12 @@
           const brewTimeSec = parseTimeToSec(rawTime) || (state.capturedSec || 0);
           const plannedTimeSec = getPlannedExtractionSec(c) || null;
           const markDialed = Boolean(state.saveAsDialed);
+          const noteText = $('logNote').value.trim();
+          const detectedFixResult = /(?:^|\n)✓\s*Korekta pomogła:/i.test(noteText)
+            ? 'helped'
+            : /(?:^|\n)✕\s*Korekta nie pomogła:/i.test(noteText)
+              ? 'not_helped'
+              : null;
 
           const entry = normLog({
             id: String(Date.now()),
@@ -8763,9 +9085,11 @@
             brewTimeSec,
             plannedTimeSec,
             rating: state.stars,
-            notes: $('logNote').value.trim(),
+            notes: noteText,
             suggestedFixSummary: c.suggestedFix ? `${c.suggestedFix.title}: ${c.suggestedFix.summary}` : null,
+            fixResult: detectedFixResult,
             manualMode: Boolean(state.capturedManualMode),
+            manualSplitsSummary: state.capturedManualSplitsSummary || null,
           });
 
           state.logs.unshift(entry);
@@ -8779,6 +9103,7 @@
           state.capturedMilkMl = null;
           state.capturedSec = null;
           state.capturedManualMode = false;
+          state.capturedManualSplitsSummary = null;
           state.diagSaveOpen = false;
           syncDraftFromCoffee(c, null, null);
           $('diagTimeInput').value = '';
@@ -8814,6 +9139,19 @@
           const btn = e.target.closest('[data-log-act]');
           if (!btn) return;
           const act = btn.dataset.logAct;
+          if (act === 'toggle-note') {
+            const card = btn.closest('.log-card');
+            const drawer = card?.querySelector('.log-note-drawer');
+            if (!drawer) return;
+            const willOpen = drawer.classList.contains('is-collapsed');
+            drawer.classList.toggle('is-collapsed', !willOpen);
+            drawer.setAttribute('aria-hidden', String(!willOpen));
+            card.querySelectorAll('.note-pill-btn').forEach((p) => {
+              p.classList.toggle('is-open', willOpen);
+              p.setAttribute('aria-expanded', String(willOpen));
+            });
+            return;
+          }
           const id = btn.closest('[data-log-id]')?.dataset.logId;
           const entry = state.logs.find((j) => String(j.id) === String(id));
           if (act === 'edit') {
@@ -8974,28 +9312,9 @@
           };
 
           if (state.editingCoffeeId) {
-            const idx = state.coffees.findIndex((x) => x.id === state.editingCoffeeId);
-            if (idx === -1) return;
-            const prev = state.coffees[idx];
-            const applySliders = $('tglUpdateApplySliders').checked;
-            state.coffees[idx] = {
-              ...normCoffee(payload),
-              id: prev.id,
-              isFavorite: prev.isFavorite,
-              isArchived: prev.isArchived,
-              createdAt: prev.createdAt,
-              dialedIn: prev.dialedIn,
-              suggestedFix: prev.suggestedFix || null,
-              params: {
-                ...prev.params,
-                ratio: applySliders ? def.ratioRecommended : prev.params.ratio,
-                exactWater: applySliders ? null : (prev.params.exactWater || null),
-                tempC: applySliders ? def.tempRecommended : prev.params.tempC,
-                grindUm: applySliders ? def.grindRecommendedUm : prev.params.grindUm,
-                profile: applySliders ? def.pourProfile : prev.params.profile,
-              },
-            };
-            state.logs.forEach((l) => { if (l.coffeeId === prev.id) l.coffeeName = name; });
+            const def = ROAST_DEFAULTS[rl] || ROAST_DEFAULTS.medium;
+            const normalizedManual = normCoffee({ ...payload, ...def });
+            if (!upsertExistingCoffee(state.editingCoffeeId, normalizedManual, $('tglUpdateApplySliders').checked)) return;
             state.editingCoffeeId = null;
             closeModal('modalAdd');
             persistState(true);
