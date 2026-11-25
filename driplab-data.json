@@ -258,6 +258,31 @@
   ],
   "logs": [
     {
+      "id": "1795633994721",
+      "createdAt": 1795633994721,
+      "coffeeId": "c-1795442370251",
+      "coffeeName": "Meksyk Swiss Water (Decaf)",
+      "date": "25.11, 20:13",
+      "dose": 12,
+      "water": 250,
+      "plannedWater": 250,
+      "ratio": 20.8,
+      "temp": 87,
+      "grindUm": 710,
+      "grinderClicks": "2 kliki od COARSE",
+      "pourProfile": "single_pour",
+      "milkType": "cow",
+      "milkMl": 100,
+      "brewTimeSec": 128,
+      "plannedTimeSec": 130,
+      "rating": 3,
+      "notes": "",
+      "suggestedFixSummary": null,
+      "fixResult": null,
+      "manualMode": true,
+      "manualSplitsSummary": "Blooming: 0:26 (plan 0:35) · Zalanie ciągłe: 1:03 (plan 0:55) · Przelanie: 0:40 (plan 0:40) · 🥛 Dolej mleko: 0:12 (plan 0:15)"
+    },
+    {
       "id": "1795633780745",
       "createdAt": 1795633780745,
       "coffeeId": "c-1795442370251",
@@ -483,5 +508,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795633784156
+  "updatedAt": 1795633994721
 }
