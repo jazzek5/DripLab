@@ -11,7 +11,7 @@
     "slidersLocked": false,
     "kg79Enabled": true,
     "kg79Offset": 2,
-    "swManualMode": true
+    "swManualMode": false
   },
   "coffees": [
     {
@@ -55,7 +55,21 @@
         "Nie mieszaj agresywnie i ogranicz kręcenie dripperem, ponieważ ziarna wypalone pod espresso produkują więcej drobnego pyłu (fines).",
         "Celuj w krótszy czas parzenia (ok. 2:15–2:35), aby ograniczyć ekstrakcję ciężkich, gorzkich związków w końcówce przelewu."
       ],
-      "dialedIn": null,
+      "dialedIn": {
+        "logId": "1795605979069",
+        "dose": 18,
+        "water": 270,
+        "ratio": 15,
+        "temp": 88,
+        "grindUm": 810,
+        "grinderClicks": "1 klik od COARSE",
+        "pourProfile": "two_pours",
+        "milkType": "none",
+        "milkMl": 0,
+        "brewTimeSec": 0,
+        "rating": 0,
+        "updatedAt": 1795613755905
+      },
       "suggestedFix": null,
       "params": {
         "dose": 18,
@@ -428,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795613755083
+  "updatedAt": 1795613911676
 }
