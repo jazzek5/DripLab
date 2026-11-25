@@ -146,19 +146,19 @@
         "Jeśli parzysz wersję fabrycznie mieloną widoczną na zdjęciu zamiast świeżo mielonych ziaren, zejdź z temperaturą do 86 °C i zastosuj jedno spokojne zalanie."
       ],
       "dialedIn": {
-        "logId": "1795442851100",
+        "logId": "1795635395662",
         "dose": 19,
-        "water": 295,
-        "ratio": 15.5,
+        "water": 300,
+        "ratio": 15.8,
         "temp": 88,
         "grindUm": 820,
-        "grinderClicks": "",
+        "grinderClicks": "3 kliki od COARSE",
         "pourProfile": "two_pours",
         "milkType": "cow",
         "milkMl": 100,
-        "brewTimeSec": 0,
+        "brewTimeSec": 244,
         "rating": 4,
-        "updatedAt": 1795442857198
+        "updatedAt": 1795635427501
       },
       "suggestedFix": null,
       "params": {
@@ -533,5 +533,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795635395667
+  "updatedAt": 1795635427501
 }
