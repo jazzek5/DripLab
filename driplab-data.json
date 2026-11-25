@@ -86,7 +86,7 @@
     {
       "schemaVersion": 1,
       "id": "c-1795442811163",
-      "isFavorite": false,
+      "isFavorite": true,
       "isArchived": false,
       "roastDate": null,
       "createdAt": 1795442811163,
@@ -442,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795613615679
+  "updatedAt": 1795613618621
 }
