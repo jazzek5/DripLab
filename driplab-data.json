@@ -258,6 +258,29 @@
   ],
   "logs": [
     {
+      "id": "1795606275513",
+      "createdAt": 1795606275513,
+      "coffeeId": "c-1795601761792",
+      "coffeeName": "Brothers' Coffee",
+      "date": "25.11, 12:31",
+      "dose": 18,
+      "water": 270,
+      "plannedWater": 270,
+      "ratio": 15,
+      "temp": 88,
+      "grindUm": 710,
+      "grinderClicks": "2 kliki od COARSE",
+      "pourProfile": "three_pours",
+      "milkType": "none",
+      "milkMl": 0,
+      "brewTimeSec": 2,
+      "plannedTimeSec": 165,
+      "rating": 5,
+      "notes": "⏱ Etapy (tryb ręczny):  ·  ·  ·  · Przelanie: 0:02 (plan 0:40)\n✓ Korekta pomogła: Za szybki spływ (KG79: 1 klik od COARSE → 2 kliki od COARSE · Profil: 2 zalania → 3 zalania)",
+      "suggestedFixSummary": null,
+      "manualMode": true
+    },
+    {
       "id": "1795606244728",
       "createdAt": 1795606244728,
       "coffeeId": "c-1795601761792",
@@ -419,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795606273192
+  "updatedAt": 1795606275514
 }
