@@ -9,7 +9,7 @@
     "toasts": false,
     "brewAlwaysDark": true,
     "slidersLocked": false,
-    "kg79Enabled": true,
+    "kg79Enabled": false,
     "kg79Offset": 2,
     "swManualMode": true
   },
@@ -533,5 +533,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795637238043
+  "updatedAt": 1795639944145
 }
