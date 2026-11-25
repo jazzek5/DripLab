@@ -18,7 +18,7 @@
       "schemaVersion": 1,
       "id": "c-1795601761792",
       "isFavorite": false,
-      "isArchived": true,
+      "isArchived": false,
       "roastDate": null,
       "createdAt": 1795601761792,
       "name": "Brothers' Coffee",
@@ -442,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795606471038
+  "updatedAt": 1795607501978
 }
