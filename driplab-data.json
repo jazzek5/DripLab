@@ -3,7 +3,7 @@
   "version": 11,
   "method": "V60",
   "theme": "cappuccino",
-  "activeCoffeeId": "c-1795601761792",
+  "activeCoffeeId": "c-1795442811163",
   "settings": {
     "sound": false,
     "toasts": false,
@@ -18,7 +18,7 @@
       "schemaVersion": 1,
       "id": "c-1795601761792",
       "isFavorite": false,
-      "isArchived": false,
+      "isArchived": true,
       "roastDate": null,
       "createdAt": 1795601761792,
       "name": "Brothers' Coffee",
@@ -442,5 +442,5 @@
       "manualMode": false
     }
   ],
-  "updatedAt": 1795606326741
+  "updatedAt": 1795606348597
 }
