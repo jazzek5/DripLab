@@ -7,7 +7,7 @@
   "settings": {
     "sound": true,
     "toasts": false,
-    "brewAlwaysDark": true,
+    "brewAlwaysDark": false,
     "slidersLocked": false,
     "ratioLocked": true,
     "kg79Enabled": true,
@@ -570,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795812232082
+  "updatedAt": 1795812265017
 }
