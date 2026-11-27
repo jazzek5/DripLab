@@ -252,8 +252,8 @@
         "grindUm": 710,
         "profile": "single_pour",
         "grinder": "2 kliki od COARSE",
-        "milkType": "none",
-        "milkMl": 0
+        "milkType": "cow",
+        "milkMl": 60
       }
     }
   ],
@@ -534,5 +534,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795774722643
+  "updatedAt": 1795774732982
 }
