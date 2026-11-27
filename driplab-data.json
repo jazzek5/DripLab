@@ -238,8 +238,8 @@
         "grindUm": 950,
         "profile": "single_pour",
         "grinder": "",
-        "milkType": "cow",
-        "milkMl": 100
+        "milkType": "none",
+        "milkMl": 0
       }
     }
   ],
@@ -570,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795812180653
+  "updatedAt": 1795812188491
 }
