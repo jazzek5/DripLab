@@ -10,7 +10,7 @@
     "brewAlwaysDark": true,
     "slidersLocked": false,
     "ratioLocked": false,
-    "kg79Enabled": false,
+    "kg79Enabled": true,
     "kg79Offset": 2,
     "swManualMode": true
   },
@@ -153,9 +153,9 @@
         "ratio": 16.9,
         "exactWater": 355,
         "tempC": 88,
-        "grindUm": 820,
+        "grindUm": 450,
         "profile": "two_pours",
-        "grinder": "3 kliki od COARSE",
+        "grinder": "11 klików od COARSE",
         "milkType": "none",
         "milkMl": 0
       }
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795781053394
+  "updatedAt": 1795781096304
 }
