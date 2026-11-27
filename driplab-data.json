@@ -155,7 +155,7 @@
         "tempC": 88,
         "grindUm": 450,
         "profile": "two_pours",
-        "grinder": "11 klików od COARSE",
+        "grinder": "12 klików od COARSE",
         "milkType": "none",
         "milkMl": 0
       }
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795781096304
+  "updatedAt": 1795781098770
 }
