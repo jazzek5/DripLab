@@ -156,7 +156,7 @@
         "grindUm": 820,
         "profile": "two_pours",
         "grinder": "3 kliki od COARSE",
-        "milkType": "cow",
+        "milkType": "oat",
         "milkMl": 100
       }
     },
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795780999643
+  "updatedAt": 1795781011383
 }
