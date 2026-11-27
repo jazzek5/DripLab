@@ -150,8 +150,8 @@
       "suggestedFix": null,
       "params": {
         "dose": 15,
-        "ratio": 24.7,
-        "exactWater": 370,
+        "ratio": 15.8,
+        "exactWater": null,
         "tempC": 88,
         "grindUm": 810,
         "profile": "two_pours",
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795800290620
+  "updatedAt": 1795800294908
 }
