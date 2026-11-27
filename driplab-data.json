@@ -234,7 +234,7 @@
         "dose": 10,
         "ratio": 14.5,
         "exactWater": 145,
-        "tempC": 88,
+        "tempC": 87,
         "grindUm": 950,
         "profile": "single_pour",
         "grinder": "",
@@ -570,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795812206672
+  "updatedAt": 1795812209005
 }
