@@ -3,13 +3,13 @@
   "version": 11,
   "method": "V60",
   "theme": "cappuccino",
-  "activeCoffeeId": "c-1795442370251",
+  "activeCoffeeId": "c-1795442811163",
   "settings": {
     "sound": true,
     "toasts": false,
     "brewAlwaysDark": true,
     "slidersLocked": false,
-    "ratioLocked": true,
+    "ratioLocked": false,
     "kg79Enabled": true,
     "kg79Offset": 2,
     "swManualMode": true
@@ -151,7 +151,7 @@
       "params": {
         "dose": 19,
         "ratio": 15.8,
-        "exactWater": 300,
+        "exactWater": null,
         "tempC": 88,
         "grindUm": 920,
         "profile": "two_pours",
@@ -229,33 +229,17 @@
         "rating": 0,
         "updatedAt": 1795633784156
       },
-      "suggestedFix": {
-        "fixId": "sour",
-        "title": "Kwaśna / ostra",
-        "reason": "Niedoparzenie — ekstrakcja zatrzymała się zbyt wcześnie na kwasowości. Gorętsza woda i większa energia parzenia podbiją słodycz.",
-        "summary": "Temperatura: 87°C → 89°C · KG79: 1 klik od COARSE → 2 kliki od COARSE",
-        "steps": [
-          "Temperatura: 87°C → 89°C",
-          "KG79: 1 klik od COARSE → 2 kliki od COARSE"
-        ],
-        "ratio": null,
-        "tempC": 89,
-        "grindUm": 920,
-        "grinder": "2 kliki od COARSE",
-        "profile": null,
-        "createdAt": 1795812342789,
-        "forNextBrew": true
-      },
+      "suggestedFix": null,
       "params": {
-        "dose": 10,
+        "dose": 12,
         "ratio": 14.5,
-        "exactWater": 145,
-        "tempC": 89,
-        "grindUm": 920,
+        "exactWater": null,
+        "tempC": 85,
+        "grindUm": 950,
         "profile": "single_pour",
-        "grinder": "2 kliki od COARSE",
+        "grinder": "",
         "milkType": "cow",
-        "milkMl": 60
+        "milkMl": 100
       }
     }
   ],
@@ -586,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795812350838
+  "updatedAt": 1795812636874
 }
