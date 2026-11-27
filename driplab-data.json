@@ -149,8 +149,8 @@
       },
       "suggestedFix": null,
       "params": {
-        "dose": 35,
-        "ratio": 8,
+        "dose": 14,
+        "ratio": 20,
         "exactWater": 280,
         "tempC": 88,
         "grindUm": 810,
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795800402554
+  "updatedAt": 1795800407072
 }
