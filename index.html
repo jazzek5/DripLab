@@ -120,7 +120,7 @@
   --bar-bg: rgba(246, 239, 230, 0.96); --nav-bg: rgba(255, 253, 249, 0.98); --backdrop: rgba(42, 30, 22, 0.56);
   --track: #ddd0bf; --thumb: #fffdf9;
   --shadow: 0 10px 28px -10px rgba(42, 30, 22, 0.16);
-  --grain: radial-gradient(rgba(42, 30, 22, 0.042) 1px, transparent 0);
+  --grain: radial-gradient(rgba(42, 30, 22, 0.022) 1px, transparent 0);
   color-scheme: light;
 }
 
@@ -174,13 +174,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .lh12 { line-height: 1.2; } .lh14 { line-height: 1.4; }
 .mt1 { margin-top: 1px; } .mt2 { margin-top: 2px; } .mt4 { margin-top: 4px; }
 .p10 { padding: 10px; } .br9 { border-radius: 9px; }
-.c-txt { color: var(--text); } .c-acc { color: var(--accent); } .c-acc2 { color: var(--accent-2); }
-.c-ai { color: var(--ai); } .c-fix { color: var(--fix); } .c-warn { color: var(--warn); }
-.c-bad { color: var(--danger); } .c-mut { color: var(--muted); } .c-dl { color: var(--dialed); }
 .hr { height: 1px; background: var(--border); width: 100%; }
 .lbl { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
 .muted { font-size: 12.5px; color: var(--muted); }
 .sub-xs { font-size: 11px; color: var(--muted); }
+.c-txt { color: var(--text); } .c-acc { color: var(--accent); } .c-acc2 { color: var(--accent-2); }
+.c-ai { color: var(--ai); } .c-fix { color: var(--fix); } .c-warn { color: var(--warn); }
+.c-bad { color: var(--danger); } .c-mut { color: var(--muted); } .c-dl { color: var(--dialed); }
 .warn-banner { align-items: stretch; border-color: rgba(245, 158, 11, 0.5); background: var(--warn-bg); gap: 6px; }
 .fix-banner { align-items: stretch; border-color: var(--fix-bd); background: var(--fix-bg); gap: 6px; padding: 9px 10px; }
 .acc-banner { align-items: stretch; border-color: var(--accent-bd); background: var(--accent-bg); gap: 6px; padding: 9px 10px; }
@@ -220,7 +220,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .shell, .brew-bottom-dock, .journal-bottom-dock { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
   .shell { box-shadow: var(--shadow); }
 }
-.main { flex: 1; width: 100%; display: flex; flex-direction: column; padding: calc(var(--top-h) + 10px) 12px calc(var(--nav-h) + 14px); }
+.main { flex: 1; width: 100%; display: flex; flex-direction: column; padding: calc(var(--top-h) + 10px) 12px calc(var(--nav-h) + 46px); }
+.nw { white-space: nowrap; flex-shrink: 0; }
 .shell.brew-mode { height: 100dvh; overflow: hidden; background-color: #161210; border-color: #362c26; }
 .shell.brew-mode .main { padding: var(--top-h) 0 0; overflow: hidden; flex: 1; min-height: 0; }
 .shell.brew-mode:not(.brew-dark-active) { background-color: var(--bg); border-color: var(--border); }
@@ -253,6 +254,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .btn:active:not(:disabled) { transform: scale(0.96); }
 .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--on-accent); font-weight: 800; }
+.btn-active-soft { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-bd); font-weight: 800; }
 .btn-sec { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
 .btn-sec:hover:not(:disabled) { border-color: var(--border-2); }
 .btn-ghost, .diag-dialed-toggle { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
@@ -269,10 +271,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .btn-icon:active:not(:disabled) { transform: scale(0.94); }
 .btn-icon:hover:not(:disabled), .brew-fab-clear:hover { color: var(--text); border-color: var(--accent-bd); background: var(--surface-2); }
-.btn-icon.on, .badge-acc, .fav-btn.on { background: var(--accent-bg); border-color: var(--accent-bd); color: var(--accent); }
+.btn-icon.on, .fav-btn.on { background: var(--accent-bg); border-color: var(--accent-bd); color: var(--accent); }
 .btn-icon-sm { width: 28px; height: 28px; }
-
-.ctx-pill.open, .coffee-card.active, .theme-tile.active { border-color: var(--accent); background: var(--surface-2); }
 
 .seg {
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 3px;
@@ -302,13 +302,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .chip.active { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 800; }
 .chip.chip-dialed.active { background: var(--dialed); border-color: var(--dialed); color: var(--on-dialed); }
 .chip.chip-fix-pill.active { background: var(--fix); border-color: var(--fix); color: var(--on-fix); }
-.chip.chip-fix { border-radius: 12px; padding: 8px 10px; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; white-space: normal; color: var(--text); }
+.chip.chip-fix { border-radius: 12px; padding: 8px 10px; flex-direction: column; align-items: flex-start; text-align: left; gap: 2px; width: 100%; white-space: normal; color: var(--text); }
+.chip.chip-fix.active { color: var(--on-accent); }
+.chip.chip-fix.active .sub-xs { color: var(--on-accent); opacity: 0.78; }
 
 .badge {
   display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 999px;
   font-size: 10px; font-weight: 700; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); white-space: nowrap;
 }
 .badge-wrap { white-space: normal; overflow-wrap: anywhere; text-align: left; line-height: 1.3; }
+.badge-acc { background: var(--accent-bg); border-color: var(--accent-bd); color: var(--accent); }
 .badge-ai { background: var(--ai-bg); border-color: var(--ai-bd); color: var(--ai); }
 .badge-dialed { background: var(--dialed-bg); border-color: var(--dialed-bd); color: var(--dialed); font-weight: 500; }
 .badge-fix { background: var(--fix-bg); border-color: var(--fix-bd); color: var(--fix); font-weight: 600; }
@@ -319,6 +322,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 8px 10px; font-size: 13px; color: var(--text); outline: none; }
 .input:focus { border-color: var(--accent); }
 .input::placeholder { color: var(--muted); opacity: 0.72; }
+select.input { padding: 7px 8px; }
 textarea.input { resize: vertical; }
 .p-compact { padding: 6px 9px; }
 .diag-cell { padding: 6px 8px; gap: 2px; align-items: flex-start; }
@@ -349,19 +353,17 @@ textarea.input { resize: vertical; }
   background: linear-gradient(135deg, #0f636a, #9f5616); display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
 }
 .ctx-pill {
-  flex: 1; min-width: 0; height: 40px; display: flex; align-items: center; justify-content: space-between; gap: 6px;
-  padding: 0 11px; border-radius: 11px; background: var(--surface); border: 1px solid var(--border); text-align: left;
+  flex: 1; min-width: 0; height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 6px;
+  padding: 4px 10px; border-radius: 11px; background: var(--surface); border: 1px solid var(--border); text-align: left;
   transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 .ctx-pill:active { transform: scale(0.985); }
 .ctx-pill:hover { border-color: var(--accent-bd); background: var(--surface-2); }
-.ctx-left { display: flex; align-items: center; gap: 5px; min-width: 0; flex: 1; font-size: 13px; }
-.sync-btn {
-  height: 40px; padding: 0 10px; border-radius: 11px; background: var(--surface); border: 1px solid var(--border);
-  display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: var(--muted); flex-shrink: 0;
-}
-.sync-txt-hide { display: none; }
-@media (min-width: 410px) { .sync-txt-hide { display: inline; } }
+.ctx-left { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1px; min-width: 0; flex: 1; }
+.ctx-title-row { display: flex; align-items: center; gap: 4px; width: 100%; min-width: 0; font-size: 12.5px; line-height: 1.15; }
+.ctx-stats-line { font-size: 10px; line-height: 1.15; opacity: 0.88; width: 100%; }
+.btn-icon-sync { position: relative; }
+.sync-corner-dot { position: absolute; top: 5px; right: 5px; width: 7px; height: 7px; border-radius: 50%; box-shadow: 0 0 0 2px var(--surface); pointer-events: none; }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0; display: inline-block; }
 .dot.ok { background: var(--ai); }
 .dot.busy { background: var(--accent); animation: pulse 1.2s infinite; }
@@ -383,17 +385,17 @@ textarea.input { resize: vertical; }
 .nav-item.active { color: var(--accent); background: var(--accent-bg); }
 .nav-item.active:not(.nav-brew) .icon-svg { transform: translateY(-1px) scale(1.05); }
 .nav-item.nav-brew .icon-svg, .nav-item.nav-brew.is-running span { transform: none !important; animation: none !important; }
-.shell.brew-dark-active .nav-item.nav-brew { background: linear-gradient(180deg, #2b221c, #1e1814); border: 1px solid rgba(200, 141, 85, 0.42); color: #d6a16d; box-shadow: inset 0 1px 0 rgba(255, 240, 224, 0.06); }
-.shell.brew-dark-active .nav-item.nav-brew:hover { border-color: rgba(214, 161, 109, 0.65); color: #e6b98a; }
-.shell.brew-dark-active .nav-item.nav-brew.active { background: linear-gradient(135deg, #c88d55, #b47740); border-color: #d6a16d; color: #161210; box-shadow: 0 4px 12px -4px rgba(200, 141, 85, 0.45); }
-.shell:not(.brew-dark-active) .nav-item.nav-brew { background: var(--surface-2); border: 1px solid var(--accent-bd); color: var(--accent); }
-.shell:not(.brew-dark-active) .nav-item.nav-brew:hover { border-color: var(--accent); }
-.shell:not(.brew-dark-active) .nav-item.nav-brew.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 4px 12px -4px var(--accent-bd); }
 .nav-item.nav-brew {
-  overflow: hidden; transform: none !important;
+  overflow: hidden; transform: none !important; background: var(--surface-2); border: 1px solid var(--accent-bd); color: var(--accent);
   box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0), 0 0 0 0 rgba(217, 155, 82, 0);
   transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out);
 }
+.nav-item.nav-brew:hover { border-color: var(--accent); }
+.nav-item.nav-brew.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 4px 12px -4px var(--accent-bd); }
+.shell.brew-mode.brew-dark-active .nav-item.nav-brew { background: linear-gradient(180deg, #2b221c, #1e1814); border: 1px solid rgba(200, 141, 85, 0.42); color: #d6a16d; box-shadow: inset 0 1px 0 rgba(255, 240, 224, 0.06); }
+.shell.brew-mode.brew-dark-active .nav-item.nav-brew:hover { border-color: rgba(214, 161, 109, 0.65); color: #e6b98a; }
+.shell.brew-mode.brew-dark-active .nav-item.nav-brew.active { background: linear-gradient(135deg, #c88d55, #b47740); border-color: #d6a16d; color: #161210; box-shadow: 0 4px 12px -4px rgba(200, 141, 85, 0.45); }
+#navBrewLabel.is-timer { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 800; letter-spacing: -0.02em; }
 .nav-item.nav-brew::after {
   content: ""; position: absolute; top: -30%; bottom: -30%; left: -80%; width: 55%;
   background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 32%, rgba(255, 255, 255, 0.42) 50%, rgba(255, 255, 255, 0.08) 68%, transparent 100%);
@@ -523,7 +525,13 @@ input[type="range"].rng::-moz-range-thumb {
 .chk-row input[type="checkbox"] { width: 20px; height: 20px; flex: 0 0 20px; margin: 2px 0 0; accent-color: var(--ai); cursor: pointer; }
 .chk-row.done .chk-txt { text-decoration: line-through; color: var(--muted); opacity: 0.78; }
 
-.brew-hero { padding: 13px; flex-shrink: 0; display: grid; grid-template-columns: 154px minmax(0, 1fr); gap: 14px; align-items: center; }
+.brew-hero { position: relative; padding: 13px; flex-shrink: 0; display: grid; grid-template-columns: 154px minmax(0, 1fr); gap: 14px; align-items: center; }
+.brew-sound-btn {
+  position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; padding: 0; border-radius: 9px;
+  display: inline-grid; place-items: center; z-index: 2; border: 1px solid var(--border);
+  transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.brew-sound-btn:active { transform: scale(0.92); }
 .v60-visual { width: 154px; height: 154px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--bg); border: 1px solid var(--border); border-radius: 15px; }
 .v60-dripper { transition: opacity 0.3s ease, transform 0.35s ease; }
 .v60-dripper.off { opacity: 0; transform: translateY(-18px); }
@@ -533,11 +541,11 @@ input[type="range"].rng::-moz-range-thumb {
 .v60-anim-drip { animation: dash 0.72s linear infinite; }
 
 .hero-right { min-width: 0; height: 154px; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; }
-.hero-top { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; min-height: 0; }
+.hero-top { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; min-height: 0; padding-top: 10px; }
 .hero-clock-box { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-width: 0; width: 100%; }
 .hero-clock-box > .wrap { justify-content: center; }
 .brew-clock { font-size: clamp(2.85rem, 11vw, 3.7rem); font-weight: 800; font-variant-numeric: tabular-nums; line-height: 0.94; letter-spacing: -0.03em; white-space: nowrap; color: var(--text); margin-top: 8px; text-align: center; }
-.hero-status-pill { font-size: 11.5px; padding: 4px 10px; border-radius: 999px; font-weight: 800; }
+.hero-status-pill { font-size: 11px; padding: 3px 9px; border-radius: 999px; font-weight: 800; }
 .brew-stage-split { display: grid; grid-template-columns: minmax(0, 1fr) 94px; gap: 8px; align-items: stretch; flex-shrink: 0; }
 .brew-stage-split.is-finished { grid-template-columns: minmax(0, 1fr); }
 .stage-weight-card {
@@ -554,7 +562,7 @@ input[type="range"].rng::-moz-range-thumb {
 .brew-stage-card.milk-stage { border-left-color: #dcd0bf; background: rgba(220, 208, 191, 0.07); }
 .brew-stage-card.finished { border-color: var(--ai-bd); border-left-color: var(--ai); background: var(--ai-bg); padding: 13px 12px; }
 .brew-actuals-box { padding: 9px 11px; border-radius: 13px; background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; }
-.brew-bottom-controls { display: flex; align-items: center; justify-content: flex-end; gap: 9px; width: 100%; }
+.brew-bottom-controls { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; }
 .brew-save-journal-btn { flex: 1; height: 54px; border-radius: 27px; font-size: 14px; box-shadow: var(--shadow); }
 .brew-circle-btn {
   width: 54px; height: 54px; padding: 0; border-radius: 50%; flex-shrink: 0;
@@ -571,6 +579,7 @@ input[type="range"].rng::-moz-range-thumb {
 .brew-tip-2l::-webkit-scrollbar { display: none; }
 .brew-tip-2l.has-more-b { -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 14px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 14px), transparent); }
 .stage-grid { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; align-content: start; overflow-y: auto; }
+.stage-grid > .stage-tile:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .stage-tile {
   padding: 8px 10px; border-radius: 11px; background: var(--surface); border: 1px solid var(--border);
   display: flex; flex-direction: column; justify-content: center; gap: 3px; user-select: none; touch-action: manipulation;
@@ -677,7 +686,7 @@ input[type="range"].rng::-moz-range-thumb {
 
 /* FAB doki */
 .fab-circle {
-  pointer-events: auto; width: 54px; height: 54px; padding: 0; border-radius: 50%;
+  pointer-events: auto; width: 48px; height: 48px; padding: 0; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center; line-height: 1; box-shadow: var(--shadow);
 }
 .fab-circle:active { transform: scale(0.94); }
@@ -686,20 +695,28 @@ input[type="range"].rng::-moz-range-thumb {
   display: flex; flex-direction: column; pointer-events: none;
 }
 .recipe-fab-dock { bottom: calc(var(--nav-h) + 12px); align-items: flex-end; gap: 8px; }
-.journal-fab-dock { bottom: calc(var(--nav-h) + 64px); z-index: 36; align-items: center; justify-content: flex-end; gap: 9px; }
+.journal-fab-dock { bottom: calc(var(--nav-h) + 64px); z-index: 36; align-items: center; justify-content: flex-end; gap: 8px; }
 .journal-fab-menu, .recipe-fab-menu {
-  display: flex; flex-direction: column; align-items: center; gap: 9px; opacity: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 1;
   transform: translateY(0) scale(1); pointer-events: auto;
   transition: max-height var(--dur-med) var(--ease-out), opacity var(--dur-fast) var(--ease-out), margin var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring);
 }
 .journal-fab-menu { max-height: 220px; }
 .recipe-fab-menu { max-height: 280px; }
 .journal-fab-menu.is-collapsed, .recipe-fab-menu.is-collapsed { max-height: 0; opacity: 0; overflow: hidden; transform: translateY(10px) scale(0.92); pointer-events: none; }
-.journal-fab-menu.is-collapsed { margin-bottom: -9px; }
-.journal-fab-trigger, .recipe-fab-trigger { background: var(--surface-2); color: var(--accent); border: 1.5px solid var(--accent-bd); font-size: 20px; font-weight: 800; }
+.journal-fab-menu.is-collapsed { margin-bottom: -8px; }
+.journal-fab-trigger, .recipe-fab-trigger { position: relative; background: var(--surface-2); color: var(--accent); border: 1.5px solid var(--accent-bd); font-size: 19px; font-weight: 800; }
 .journal-fab-trigger.open, .recipe-fab-trigger.open { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .journal-fab-trigger.has-filter:not(.open) { border-color: var(--accent); box-shadow: var(--shadow), 0 0 0 2px var(--accent-bg); }
-.journal-fab-add, .shelf-fab-add { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--on-accent); border: 1.5px solid var(--accent-bd); font-size: 28px; font-weight: 800; }
+.fab-status-dot {
+  position: absolute; top: 2px; right: 2px; width: 10px; height: 10px; border-radius: 50%;
+  border: 2px solid var(--surface-2); pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-spring);
+}
+.fab-status-dot.dialed { background: var(--dialed); }
+.fab-status-dot.fix { background: var(--fix); }
+.recipe-fab-trigger.open .fab-status-dot { opacity: 0; transform: scale(0.5); }
+.journal-fab-add, .shelf-fab-add { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--on-accent); border: 1.5px solid var(--accent-bd); font-size: 24px; font-weight: 800; }
 .journal-fab-btn, .recipe-fab.lock { background: var(--surface-2); color: var(--muted); border: 1.5px solid var(--border-2); }
 .journal-fab-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--on-accent); border-color: var(--accent-bd); }
 
@@ -732,6 +749,7 @@ input[type="range"].rng::-moz-range-thumb {
   transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
 }
 .theme-tile:active { transform: scale(0.96); }
+.ctx-pill.open, .coffee-card.active, .theme-tile.active { border-color: var(--accent); background: var(--surface-2); }
 .sw { width: 15px; height: 15px; border-radius: 50%; border: 1px solid rgba(128, 128, 128, 0.35); display: inline-block; }
 
 .toast {
@@ -810,7 +828,7 @@ input[type="range"].rng::-moz-range-thumb {
 .journal-bottom-dock:not(.hidden), .brew-bottom-dock:not(.hidden) { animation: dockSlideUp var(--dur-med) var(--ease-out) both; }
 
 /* 8. POKRĘTŁO MIELENIA, FILIŻANKA SVG I PRESETY FAB */
-.grind-dial-card { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 218px; padding: 2px 0; overflow: hidden; }
+.grind-dial-card { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 218px; padding: 2px 0; overflow: clip; }
 .grind-dial-info { flex: 1; min-width: 0; max-width: calc(100% - 140px); display: flex; flex-direction: column; justify-content: space-between; gap: 7px; z-index: 2; }
 .grind-readout { padding: 7px 8px; border-radius: 11px; background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: stretch; gap: 5px; }
 .grind-dial-dock { position: relative; width: 146px; flex: 0 0 146px; margin-right: -12px; display: flex; align-items: center; justify-content: flex-end; user-select: none; touch-action: pan-y; cursor: grab; }
@@ -880,6 +898,10 @@ input[type="range"].rng::-moz-range-thumb {
     <symbol id="icoMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
     <symbol id="icoSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
     <symbol id="icoDrop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol>
+    <symbol id="icoVolOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
+    <symbol id="icoVolOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
+    <symbol id="icoRuler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/></symbol>
+    <symbol id="icoHand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v4"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.7-2.7L3.3 15a2 2 0 0 1 3-2.6L8 14"/></symbol>
     <symbol id="appLogoArt" viewBox="0 0 512 512"><rect width="512" height="512" rx="114" fill="url(#navLogoBg)"/></symbol>
   </defs>
 </svg>
@@ -901,26 +923,23 @@ input[type="range"].rng::-moz-range-thumb {
     </button>
 
     <button id="btnCtxPill" type="button" class="ctx-pill" aria-expanded="false" aria-controls="ctxDrawer">
-      <div class="ctx-left trunc">
-        <span id="ctxDialedIcon" class="hidden fs12 f0" title="Ustalone parametry">🎯</span>
-        <strong id="ctxName" class="trunc">Dodaj pierwszą kawę →</strong>
-        <span id="ctxStats" class="sub-xs mono trunc hidden"></span>
+      <div class="ctx-left">
+        <div class="ctx-title-row">
+          <span id="ctxDialedIcon" class="hidden fs11 f0" title="Ustalone parametry">🎯</span>
+          <strong id="ctxName" class="trunc">Dodaj pierwszą kawę →</strong>
+        </div>
+        <span id="ctxStats" class="sub-xs mono trunc ctx-stats-line hidden"></span>
       </div>
-      <span class="badge badge-acc mono fs9" style="padding:1px 5px">V60</span>
       <span id="ctxChev" class="ctx-chev hidden" aria-hidden="true">▾</span>
-    </button>
-
-    <button id="btnSyncPill" type="button" data-open-modal="modalSettings" class="sync-btn" title="Status synchronizacji w chmurze">
-      <span id="cloudDot" class="dot busy"></span>
-      <span id="cloudTxt" class="sync-txt-hide">Łączenie</span>
     </button>
 
     <button id="btnCycleTheme" type="button" class="btn-icon" title="Zmień motyw (Espresso / Cappuccino / Cold Brew)" aria-label="Zmień motyw">
       <svg id="themeBtnIcon" class="icon-svg" width="16" height="16" aria-hidden="true"><use href="#icoMoon"/></svg>
     </button>
 
-    <button id="btnOpenSettings" type="button" data-open-modal="modalSettings" class="btn-icon" title="Ustawienia i kopia zapasowa" aria-label="Ustawienia">
+    <button id="btnOpenSettings" type="button" data-open-modal="modalSettings" class="btn-icon btn-icon-sync" title="Ustawienia i kopia zapasowa" aria-label="Ustawienia">
       <svg class="icon-svg" width="16" height="16" aria-hidden="true"><use href="#icoGear"/></svg>
+      <span id="cloudDot" class="dot busy sync-corner-dot" aria-hidden="true"></span>
     </button>
   </header>
 
@@ -955,10 +974,10 @@ input[type="range"].rng::-moz-range-thumb {
       </div>
       <div class="g2 gap6">
         <select id="shelfRoaster" class="input fs11 fw7" aria-label="Filtruj po palarni">
-          <option value="all">Palarnia: Wszystkie</option>
+          <option value="all">Wszystkie palarnie</option>
         </select>
         <select id="shelfSort" class="input fs11 fw7" aria-label="Sortowanie kaw">
-          <option value="fav">Ulubione najpierw</option>
+          <option value="fav">★ Ulubione</option>
           <option value="newest">Najnowsze</option>
           <option value="name">Nazwa (A–Z)</option>
           <option value="roast_asc">Palenie: najjaśniejsze</option>
@@ -977,7 +996,7 @@ input[type="range"].rng::-moz-range-thumb {
     </div>
     <div class="g2 gap6">
       <select id="histRoaster" class="input fs11 fw7" aria-label="Filtruj historię po palarni">
-        <option value="all">Palarnia: Wszystkie</option>
+        <option value="all">Wszystkie palarnie</option>
       </select>
       <select id="histSort" class="input fs11 fw7" aria-label="Sortowanie historii">
         <option value="newest">Najnowsze</option>
@@ -1036,9 +1055,9 @@ input[type="range"].rng::-moz-range-thumb {
           <div id="recNotes" class="wrap"></div>
 
           <div class="col-xs gap4 mt2">
-            <button id="btnToggleStrat" type="button" class="row w100 ta-l" aria-expanded="false" aria-controls="recStrategy">
+            <button id="btnToggleStrat" type="button" class="row w100 ta-l gap6" aria-expanded="false" aria-controls="recStrategy">
               <span class="lbl c-acc">✦ Strategia parzenia V60</span>
-              <span id="stratChev" class="sub-xs fw7">Rozwiń ▾</span>
+              <span id="stratChev" class="sub-xs fw7 nw">Rozwiń ▾</span>
             </button>
             <p id="recStrategy" class="muted strat-body fs12 lh14"></p>
           </div>
@@ -1046,12 +1065,12 @@ input[type="range"].rng::-moz-range-thumb {
           <div class="hr"></div>
 
           <div class="col-xs gap4">
-            <button id="btnToggleVer" type="button" class="row w100 ta-l" aria-expanded="false" aria-controls="recVerBody">
-              <div class="wrap gap6">
+            <button id="btnToggleVer" type="button" class="row w100 ta-l gap6" aria-expanded="false" aria-controls="recVerBody">
+              <div class="wrap gap6 min0">
                 <span class="lbl">Weryfikacja profilu i źródła</span>
                 <span id="recVerBadge" class="badge badge-ai">🌐 Sieć</span>
               </div>
-              <span id="verChev" class="sub-xs fw7">Rozwiń ▾</span>
+              <span id="verChev" class="sub-xs fw7 nw">Rozwiń ▾</span>
             </button>
             <div id="recVerBody" class="col-xs fold-box is-collapsed" aria-hidden="true">
               <p id="recVerNote" class="sub-xs lh14"></p>
@@ -1063,7 +1082,10 @@ input[type="range"].rng::-moz-range-thumb {
         <!-- Parametry parzenia + żywa filiżanka -->
         <div class="card col-xs">
           <div class="row ai-c">
-            <span class="lbl">Parametry parzenia</span>
+            <div class="row gap6 ai-c f0">
+              <span class="lbl">Parametry parzenia</span>
+              <span id="recLiveRatio" class="badge badge-acc mono" title="Bieżąca proporcja kawy do wody">1:15.6</span>
+            </div>
             <button id="btnLockRatio" type="button" class="btn-icon btn-icon-sm" style="position:relative;z-index:2" title="Zablokuj ratio (dawka i woda przeliczają się proporcjonalnie)" aria-label="Zablokuj ratio" aria-pressed="false">
               <svg id="lockRatioIcon" class="icon-svg" width="14" height="14" aria-hidden="true"><use href="#icoLock"/></svg>
             </button>
@@ -1072,7 +1094,7 @@ input[type="range"].rng::-moz-range-thumb {
             <div class="brew-params-controls">
               <div class="col-xs gap3">
                 <div class="row gap6">
-                  <span class="lbl fs9">Dawka kawy</span>
+                  <span class="lbl fs9 nw">Dawka</span>
                   <div class="wrap gap5 ai-c f0">
                     <button id="btnDoseMinus" type="button" class="btn-icon btn-icon-sm br9" aria-label="Zmniejsz dawkę">−</button>
                     <span id="doseReadout" class="mono ta-c fs15 fw8" style="min-width:64px;white-space:nowrap">
@@ -1091,7 +1113,7 @@ input[type="range"].rng::-moz-range-thumb {
 
               <div class="col-xs gap3">
                 <div class="row gap6">
-                  <span class="lbl fs9">Woda docelowa</span>
+                  <span class="lbl fs9 nw">Woda</span>
                   <div class="wrap gap5 ai-c f0">
                     <button id="btnWaterMinus" type="button" class="btn-icon btn-icon-sm br9" aria-label="Zmniejsz ilość wody">−</button>
                     <label class="wrap jc-c gap2" style="min-width:64px;align-items:baseline;cursor:text;white-space:nowrap">
@@ -1211,9 +1233,9 @@ input[type="range"].rng::-moz-range-thumb {
       <div id="brewBody">
         <div id="brewChecklistView">
           <div id="chkTipsBox" class="card chk-tips hidden">
-            <button id="btnToggleChkTips" type="button" class="row w100 ta-l" aria-expanded="false" aria-controls="chkTipsBody">
+            <button id="btnToggleChkTips" type="button" class="row w100 ta-l gap6" aria-expanded="false" aria-controls="chkTipsBody">
               <span class="lbl c-ai">✦ Wskazówki dla tego ziarna</span>
-              <span id="chkTipsChev" class="sub-xs c-ai fw7">Rozwiń ▾</span>
+              <span id="chkTipsChev" class="sub-xs c-ai fw7 nw">Rozwiń ▾</span>
             </button>
             <div id="chkTipsBody" class="fold-box is-collapsed w100" aria-hidden="true">
               <ul id="chkTipsList" class="chk-tips-list"></ul>
@@ -1228,6 +1250,9 @@ input[type="range"].rng::-moz-range-thumb {
 
         <div id="brewStopwatchView" class="hidden">
           <div class="card brew-hero">
+            <button id="btnSwSoundQuick" type="button" class="brew-sound-btn badge-ai" title="Dźwięki stopera" aria-label="Przełącz dźwięk stopera">
+              <svg class="icon-svg" width="15" height="15" aria-hidden="true"><use href="#icoVolOn"/></svg>
+            </button>
             <div class="v60-visual" aria-hidden="true">
               <svg width="142" height="142" viewBox="0 0 112 146" fill="none">
                 <defs>
@@ -1261,8 +1286,7 @@ input[type="range"].rng::-moz-range-thumb {
                 <div class="hero-clock-box">
                   <div class="wrap gap6">
                     <span class="lbl fs10">Czas V60</span>
-                    <span id="swModeBadge" class="badge badge-muted mono hero-status-pill">⏱ Auto</span>
-                    <button id="btnSwSoundQuick" type="button" class="badge badge-ai mono hero-status-pill" title="Dźwięki stopera" aria-label="Przełącz dźwięk stopera">🔊</button>
+                    <span id="swModeBadge" class="badge badge-muted mono hero-status-pill"><svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoClock"/></svg><span>Auto</span></span>
                     <span id="swCount" class="badge badge-acc mono hero-status-pill hidden">3s</span>
                   </div>
                   <div id="swTime" class="brew-clock mono">00:00</div>
@@ -1325,11 +1349,13 @@ input[type="range"].rng::-moz-range-thumb {
             </div>
             <div id="quickFixGrid" class="g2"></div>
             <div id="quickFixProposal" class="row-item col-xs fold-box is-collapsed acc-banner" aria-hidden="true">
-              <div class="row">
-                <strong id="fixPropTitle" class="fs13"></strong>
-                <button id="btnCloseFixProp" type="button" class="sub-xs" aria-label="Zamknij propozycję" style="padding:2px 6px">✕</button>
+              <div class="row gap8 w100">
+                <strong id="fixPropTitle" class="fs13 ta-l min0 f1"></strong>
+                <button id="btnCloseFixProp" type="button" class="btn-icon btn-icon-sm f0" aria-label="Zamknij propozycję">
+                  <svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoClose"/></svg>
+                </button>
               </div>
-              <p id="fixPropReason" class="muted c-txt"></p>
+              <p id="fixPropReason" class="muted c-txt ta-l"></p>
               <div id="fixPropPreview" class="col-xs gap3"></div>
               <button id="btnSaveSuggestedFix" type="button" class="btn btn-primary btn-sm w100 mt2">💡 Zapisz korektę na następne parzenie</button>
             </div>
@@ -1344,11 +1370,13 @@ input[type="range"].rng::-moz-range-thumb {
           </div>
 
           <div id="diagSaveCard" class="card col-xs fold-box is-collapsed" aria-hidden="true">
-            <div class="row">
-              <span class="lbl c-ai">Zapisz bieżące parzenie V60</span>
-              <div class="wrap gap4">
-                <div id="starsBox" class="wrap gap2"></div>
-                <button id="btnCloseDiagSave" type="button" class="btn-icon btn-icon-sm" title="Zwiń formularz zapisu" aria-label="Zwiń formularz zapisu">✕</button>
+            <div class="row gap6">
+              <span class="lbl c-ai trunc">Zapisz bieżące parzenie</span>
+              <div class="row gap4 f0" style="flex-wrap:nowrap">
+                <div id="starsBox" class="row gap2 f0" style="flex-wrap:nowrap"></div>
+                <button id="btnCloseDiagSave" type="button" class="btn-icon btn-icon-sm f0" title="Zwiń formularz zapisu" aria-label="Zwiń formularz zapisu">
+                  <svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoClose"/></svg>
+                </button>
               </div>
             </div>
             <div class="row gap6">
@@ -1405,18 +1433,18 @@ input[type="range"].rng::-moz-range-thumb {
 
   <div id="journalFabDock" class="journal-fab-dock hidden">
     <button id="btnHistFilterFab" type="button" class="fab-circle recipe-fab-trigger shelf-filter-fab is-offscreen" title="Pokaż filtrowanie i sortowanie" aria-label="Pokaż filtrowanie i sortowanie" aria-hidden="true" tabindex="-1">
-      <svg class="icon-svg" width="21" height="21" aria-hidden="true"><use href="#icoFilter"/></svg>
+      <svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoFilter"/></svg>
     </button>
     <div id="journalFabMenu" class="journal-fab-menu is-collapsed" aria-hidden="true" role="group" aria-label="Akcje Historii">
       <button id="btnAddLogModalMenu" type="button" class="fab-circle journal-fab-add journal-fab-item" title="Dodaj wpis parzenia do historii" aria-label="Dodaj wpis parzenia do historii">
-        <svg class="icon-svg" width="24" height="24" aria-hidden="true"><use href="#icoPlus"/></svg>
+        <svg class="icon-svg" width="22" height="22" aria-hidden="true"><use href="#icoPlus"/></svg>
       </button>
       <button id="btnHistActiveCoffee" type="button" class="fab-circle journal-fab-btn journal-fab-item" title="Pokaż tylko aktywną kawę" aria-label="Pokaż tylko aktywną kawę" aria-pressed="false">
-        <svg class="icon-svg" width="21" height="21" aria-hidden="true"><use href="#icoCup"/></svg>
+        <svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoCup"/></svg>
       </button>
     </div>
     <button id="btnToggleJournalMenu" type="button" class="fab-circle journal-fab-trigger hidden" title="Akcje Historii" aria-label="Akcje Historii" aria-expanded="false" aria-controls="journalFabMenu">
-      <svg id="journalMenuIcon" class="icon-svg" width="22" height="22" aria-hidden="true"><use href="#icoDots"/></svg>
+      <svg id="journalMenuIcon" class="icon-svg" width="20" height="20" aria-hidden="true"><use href="#icoDots"/></svg>
     </button>
   </div>
 
@@ -1442,7 +1470,7 @@ input[type="range"].rng::-moz-range-thumb {
       <button id="btnSwPrev" type="button" class="brew-circle-btn next hidden" title="Poprzedni etap" aria-label="Poprzedni etap">⏮</button>
       <button id="btnSwNext" type="button" class="brew-circle-btn next" title="Następny etap" aria-label="Następny etap">⏭</button>
       <button id="btnSwReset" type="button" class="brew-circle-btn reset" title="Resetuj stoper" aria-label="Resetuj stoper">↺</button>
-      <button id="btnSwModeToggle" type="button" class="brew-circle-btn mode" title="Tryb automatyczny (kliknij, aby przełączyć na ręczny)" aria-label="Tryb stopera: Automatyczny" aria-pressed="false">⏱</button>
+      <button id="btnSwModeToggle" type="button" class="brew-circle-btn mode" title="Tryb automatyczny (kliknij, aby przełączyć na ręczny)" aria-label="Tryb stopera: Automatyczny" aria-pressed="false"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoClock"/></svg></button>
     </div>
     <div class="seg" role="tablist">
       <button id="subChkBtn" type="button" role="tab" aria-selected="true" class="seg-btn active"><span>Check-lista</span><span id="subChkCnt" class="mono">(0/4)</span></button>
@@ -1452,10 +1480,10 @@ input[type="range"].rng::-moz-range-thumb {
 
   <div id="shelfFabDock" class="recipe-fab-dock ai-c">
     <button id="btnShelfFilterFab" type="button" class="fab-circle recipe-fab-trigger shelf-filter-fab is-offscreen" title="Pokaż filtrowanie i sortowanie" aria-label="Pokaż filtrowanie i sortowanie" aria-hidden="true" tabindex="-1">
-      <svg class="icon-svg" width="21" height="21" aria-hidden="true"><use href="#icoFilter"/></svg>
+      <svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoFilter"/></svg>
     </button>
     <button id="btnAddCoffeeTop" type="button" data-open-add="1" class="fab-circle shelf-fab-add" title="Dodaj nową kawę" aria-label="Dodaj nową kawę">
-      <svg class="icon-svg" width="24" height="24" aria-hidden="true"><use href="#icoPlus"/></svg>
+      <svg class="icon-svg" width="22" height="22" aria-hidden="true"><use href="#icoPlus"/></svg>
     </button>
   </div>
 
@@ -1467,16 +1495,17 @@ input[type="range"].rng::-moz-range-thumb {
       <button id="btnLockSliders" type="button" class="fab-circle recipe-fab lock" title="Zablokuj suwaki" aria-label="Zablokuj suwaki">🔓</button>
     </div>
     <button id="btnTogglePresetMenu" type="button" class="fab-circle recipe-fab-trigger" title="Szybkie presety" aria-label="Szybkie presety" aria-expanded="false" aria-controls="recipePresetMenu">
-      <svg id="presetMenuIcon" class="icon-svg" width="22" height="22" aria-hidden="true"><use href="#icoBolt"/></svg>
+      <svg id="presetMenuIcon" class="icon-svg" width="20" height="20" aria-hidden="true"><use href="#icoBolt"/></svg>
+      <span id="presetStatusDot" class="fab-status-dot hidden" aria-hidden="true"></span>
     </button>
   </div>
 
   <div id="brewFabDock" class="recipe-fab-dock brew-fab-dock hidden">
     <button id="btnChkCheckAll" type="button" class="fab-circle brew-fab-clear" title="Zaznacz wszystkie punkty check-listy" aria-label="Zaznacz wszystkie punkty check-listy">
-      <svg class="icon-svg" width="21" height="21" aria-hidden="true"><use href="#icoCheck"/></svg>
+      <svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoCheck"/></svg>
     </button>
     <button id="btnChkReset" type="button" class="fab-circle brew-fab-clear" title="Wyczyść check-listę" aria-label="Wyczyść check-listę">
-      <svg class="icon-svg" width="20" height="20" aria-hidden="true"><use href="#icoTrash"/></svg>
+      <svg class="icon-svg" width="18" height="18" aria-hidden="true"><use href="#icoTrash"/></svg>
     </button>
   </div>
 
@@ -1484,7 +1513,7 @@ input[type="range"].rng::-moz-range-thumb {
   <nav class="bnav" aria-label="Nawigacja główna">
     <button type="button" data-nav="shelf" class="nav-item active"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoCup"/></svg><span>Półka</span></button>
     <button type="button" data-nav="recipe" class="nav-item"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoSliders"/></svg><span>Receptura</span></button>
-    <button type="button" data-nav="brew" id="navBrewBtn" class="nav-item nav-brew"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoClock"/></svg><span>Parzenie</span></button>
+    <button type="button" data-nav="brew" id="navBrewBtn" class="nav-item nav-brew"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoClock"/></svg><span id="navBrewLabel">Parzenie</span></button>
     <button type="button" data-nav="journal" class="nav-item"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoBook"/></svg><span>Dziennik</span></button>
   </nav>
 </div>
@@ -2035,7 +2064,7 @@ input[type="range"].rng::-moz-range-thumb {
     }
     const sorted = Array.from(counts.keys()).sort((a, b) => a.localeCompare(b, 'pl'));
     const safeVal = currentVal !== 'all' && !counts.has(currentVal) ? 'all' : currentVal;
-    const html = `<option value="all">Palarnia: Wszystkie (${totalCount})</option>` +
+    const html = `<option value="all">Palarnie (${totalCount})</option>` +
       sorted.map((r) => `<option value="${esc(r)}">${esc(r)} (${counts.get(r)})</option>`).join('');
     if (selectEl._lastHtml !== html) {
       selectEl.innerHTML = html;
@@ -2848,6 +2877,7 @@ input[type="range"].rng::-moz-range-thumb {
     step: [[659.25, 0, 0.12], [880, 0.13, 0.2]],
     tick: [[740, 0, 0.07]],
   };
+  const haptic = (p = 8) => { try { navigator.vibrate?.(p); } catch (e) {} };
   function soundCue(type = 'tick') {
     if (!state.settings.sound) return;
     try {
@@ -2941,9 +2971,13 @@ input[type="range"].rng::-moz-range-thumb {
       conn: { cls: 'dot busy', txt: 'Łączenie', msg: detail || (isGh ? `Łączenie z ${ghCfg.repo}...` : 'Łączenie z chmurą w tle...') },
       local: { cls: 'dot', txt: 'Lokalnie', msg: detail || 'Zapis lokalny — podaj repozytorium i token GitHub poniżej, aby zapisywać do pliku.' },
     }[mode];
-    $('cloudDot').className = $('setCloudDot').className = cfg.cls;
-    $('cloudTxt').textContent = $('setCloudTxt').textContent = cfg.txt;
+    const dot = $('cloudDot');
+    if (dot) dot.className = `${cfg.cls} sync-corner-dot`;
+    $('setCloudDot').className = cfg.cls;
+    $('setCloudTxt').textContent = cfg.txt;
     $('setCloudDetail').textContent = cfg.msg;
+    const setBtn = $('btnOpenSettings');
+    if (setBtn) setBtn.title = `Ustawienia • Synchronizacja: ${cfg.txt}`;
   }
 
   const ghApiUrl = (bust = false) =>
@@ -3278,8 +3312,8 @@ input[type="range"].rng::-moz-range-thumb {
             <div class="wrap gap4"><span id="st-${w.key}" class="badge badge-ai">✓ W oknie</span><span id="kg79ZoneBadge" class="badge badge-ai">Złoty środek</span></div>
           </div>
           <div class="seg" role="group" aria-label="Wybór młynka" style="padding:2px">
-            <button id="btnModeKg79" type="button" class="seg-btn active fs10" style="min-height:25px;padding:2px 4px">⚙️ KG79</button>
-            <button id="btnModeUm" type="button" class="seg-btn fs10" style="min-height:25px;padding:2px 4px">📏 µm</button>
+            <button id="btnModeKg79" type="button" class="seg-btn active fs10" style="min-height:25px;padding:2px 4px"><svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoGear"/></svg><span>KG79</span></button>
+            <button id="btnModeUm" type="button" class="seg-btn fs10" style="min-height:25px;padding:2px 4px"><svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoRuler"/></svg><span>µm</span></button>
           </div>
           <div class="grind-readout">
             <div class="min0">
@@ -3468,13 +3502,14 @@ input[type="range"].rng::-moz-range-thumb {
       const keyIdx = done ? 999 : idx;
       if (keyIdx !== state.swChimedIdx) {
         if (st.isMilk && state.swExtractionSec === null) state.swExtractionSec = Math.floor(st.start);
-        if (state.swChimedIdx !== -1) soundCue(done ? 'finish' : 'step');
+        if (state.swChimedIdx !== -1) { soundCue(done ? 'finish' : 'step'); haptic(done ? [14, 45, 18] : 10); }
         state.swChimedIdx = keyIdx;
         forceGrid = true;
       }
     } else if (state.swRun && isManual && isManualStepReady && state.swManualRemindedIdx !== idx) {
       state.swManualRemindedIdx = idx;
       soundCue('tick');
+      haptic(8);
     }
 
     const remSec = isFinished ? 0 : Math.max(0, Math.ceil(isManual ? (stagePlanDur - stageElapsedSec) : (st.end - sec)));
@@ -3488,6 +3523,13 @@ input[type="range"].rng::-moz-range-thumb {
 
     const timeStr = fmtMMSS(sec);
     if (swPrev.time !== timeStr) { $('swTime').textContent = timeStr; swPrev.time = timeStr; }
+    const navLbl = $('navBrewLabel');
+    if (navLbl) {
+      const showNavTimer = Boolean((state.swRun || sec > 0) && !isFinished);
+      const nextNavTxt = showNavTimer ? timeStr : 'Parzenie';
+      if (navLbl.textContent !== nextNavTxt) navLbl.textContent = nextNavTxt;
+      navLbl.classList.toggle('is-timer', showNavTimer);
+    }
     const planStr = `Plan: ${fmtMMSS(extPlanSec)}${milkOn ? ' + 🥛' : ''}`;
     if (swPrev.plan !== planStr) { $('swPlan').textContent = planStr; swPrev.plan = planStr; }
 
@@ -3680,11 +3722,13 @@ input[type="range"].rng::-moz-range-thumb {
       state.swFinishGreeting = BREW_GREETINGS[Math.floor(Math.random() * BREW_GREETINGS.length)];
       state.swChimedIdx = 999;
       soundCue('finish');
+      haptic([14, 45, 18]);
     } else {
       if (stages[nextIdx].isMilk && state.swExtractionSec === null && sec > 0) state.swExtractionSec = Math.floor(sec);
       if (isManual) { state.swManualIdx = nextIdx; state.swManualStageStartSec = sec; state.swManualRemindedIdx = -1; }
       else { state.swAccMs = stages[nextIdx].start * 1000; if (state.swRun) state.swStart = Date.now(); state.swChimedIdx = nextIdx; state.swTickKey = null; }
       soundCue('step');
+      haptic(10);
     }
     renderStopwatch(true);
   }
@@ -3720,7 +3764,7 @@ input[type="range"].rng::-moz-range-thumb {
     show('ctxDialedIcon', Boolean(c.dialedIn));
     show('ctxChev', true); show('ctxStats', true);
     $('ctxName').textContent = c.name;
-    $('ctxStats').textContent = `· ${fmtDose(p.dose)}g/${w}ml · ${p.tempC}°C${milkOn ? ` · +${p.milkMl}ml🥛` : ''}`;
+    $('ctxStats').textContent = `${fmtDose(p.dose)}g/${w}ml · ${p.tempC}°C · 1:${p.ratio.toFixed(1)}${milkOn ? ` · +${p.milkMl}ml🥛` : ''}`;
 
     const fresh = getFreshnessInfo(c.roastDate);
     $('ctxDrawerRoast').className = `badge ${rm.badge}`;
@@ -3815,18 +3859,18 @@ input[type="range"].rng::-moz-range-thumb {
 
       return `<article class="card coffee-card ${active ? 'active' : ''} ${c.isArchived ? 'is-finished' : ''}" data-id="${esc(c.id)}">
         <div class="coffee-card-body" data-act="activate" title="${c.isArchived ? '' : (active ? 'Kliknij, aby otworzyć recepturę aktywnej kawy' : 'Kliknij, aby ustawić jako aktywną kawę')}">
-          <div class="card-head ai-c">
+          <div class="card-head ai-s">
             <div class="min0 f1">
-              <div class="wrap gap4">
+              <h3 class="fs15 fw8 lh12 trunc">${dl ? '🎯 ' : ''}${esc(c.name)}</h3>
+              <p class="sub-xs trunc mt1">${esc(c.roaster)} · ${esc(c.origin)}</p>
+              ${c.tastingNotes?.length ? `<p class="sub-xs trunc mt2 c-acc2 fw6">✦ ${c.tastingNotes.map(esc).join(' · ')}</p>` : ''}
+              <div class="wrap gap4 mt4">
                 <span class="badge ${rm.badge}">${esc(rm.short)}</span>
                 ${fresh ? `<span class="badge ${fresh.cls} mono">${esc(fresh.label)}</span>` : ''}
                 ${c.suggestedFix ? '<span class="badge badge-fix">💡 Korekta</span>' : ''}
                 ${c.scaScore !== null ? `<span class="badge badge-acc mono">SCA ${esc(c.scaScore)}</span>` : ''}
                 ${st ? `<button type="button" data-act="logs" class="badge badge-muted badge-link mono" title="Pokaż parzenia tej kawy w Dzienniku">☕ ${st.count}${avg ? ` · ★ ${avg}` : ''}</button>` : ''}
               </div>
-              <h3 class="fs14 fw8 mt4 lh12 trunc">${dl ? '🎯 ' : ''}${esc(c.name)}</h3>
-              <p class="sub-xs trunc mt1">${esc(c.roaster)} · ${esc(c.origin)}</p>
-              ${c.tastingNotes?.length ? `<p class="sub-xs trunc mt2 c-acc2 fw6">✦ ${c.tastingNotes.map(esc).join(' · ')}</p>` : ''}
             </div>
             <button type="button" data-act="fav" class="btn-icon fav-btn ${c.isFavorite ? 'on' : ''}" title="Ulubiona" aria-label="Ulubiona">${c.isFavorite ? '★' : '☆'}</button>
           </div>
@@ -3924,10 +3968,10 @@ input[type="range"].rng::-moz-range-thumb {
       setActiveBtn.disabled = true; setActiveBtn.className = 'btn btn-ghost btn-sm';
       setActiveBtn.textContent = '🫙 Skończona'; setActiveBtn.title = 'Paczka oznaczona jako skończona';
     } else if (isDiff) {
-      setActiveBtn.disabled = false; setActiveBtn.className = 'btn btn-sec btn-sm';
+      setActiveBtn.disabled = false; setActiveBtn.className = 'btn btn-primary btn-sm';
       setActiveBtn.textContent = '☆ Aktywuj'; setActiveBtn.title = 'Ustaw tę kawę jako aktywną do parzenia';
     } else {
-      setActiveBtn.disabled = false; setActiveBtn.className = 'btn btn-primary btn-sm';
+      setActiveBtn.disabled = false; setActiveBtn.className = 'btn btn-active-soft btn-sm';
       setActiveBtn.textContent = '★ Aktywna'; setActiveBtn.title = 'To jest obecnie aktywna kawa';
     }
     show('btnRecipeToBrew', !c.isArchived);
@@ -4041,8 +4085,16 @@ input[type="range"].rng::-moz-range-thumb {
       $(id).classList.toggle('selected', on);
       $(id).setAttribute('aria-pressed', String(on));
     });
+    const presetDot = $('presetStatusDot');
+    if (presetDot) presetDot.className = `fab-status-dot${isFixSelected ? ' fix' : (isDialedSelected ? ' dialed' : ' hidden')}`;
 
     const curWater = getWater(c);
+    const liveRatioEl = $('recLiveRatio');
+    if (liveRatioEl) {
+      const isRatioDl = Boolean(dl && Math.abs(p.ratio - dl.ratio) < 0.06);
+      liveRatioEl.textContent = `1:${p.ratio.toFixed(1)}`;
+      liveRatioEl.className = `badge ${isRatioDl ? 'badge-dialed' : 'badge-acc'} mono`;
+    }
     $('doseVal').textContent = fmtDose(p.dose);
     $('doseSlider').value = p.dose;
     $('doseFill').style.width = `${pct(p.dose, 10, 35)}%`;
@@ -4086,18 +4138,18 @@ input[type="range"].rng::-moz-range-thumb {
         const kg = kgOn ? getActiveKg79Info(c) : null;
         $(`val-${w.key}`).textContent = kgOn ? kg.shortLabel : w.fmt(val);
         $('dialSubCaption').textContent = kgOn ? `≈ ${Math.round(val)} µm • ${grindLabel(val)}` : `${grindLabel(val)} (450–1050 µm)`;
-        $(`snap-ai-${w.key}`).textContent = kgOn ? `✦ Profil: ${formatKg79Short(mapUmToKg79(recW, off).clicks)} (${recW} µm)` : `✦ Profil: ${w.fmt(recW)}`;
+        $(`snap-ai-${w.key}`).textContent = kgOn ? `✦ ${compactClicksText(formatKg79Short(mapUmToKg79(recW, off).clicks))} (${recW} µm)` : `✦ Profil: ${w.fmt(recW)}`;
 
         const dSnap = $(`snap-dl-${w.key}`);
         show(dSnap, Boolean(dl));
         if (dl) {
           const m = parseManualKg79Clicks(dl.grinderClicks);
-          dSnap.textContent = kgOn ? `🎯 Wzorzec: ${formatKg79Short(m !== null ? m : mapUmToKg79(dl[w.dKey], off).clicks)}` : `🎯 Wzorzec: ${w.fmt(dl[w.dKey])}`;
+          dSnap.textContent = kgOn ? `🎯 ${compactClicksText(formatKg79Short(m !== null ? m : mapUmToKg79(dl[w.dKey], off).clicks))}` : `🎯 Wzorzec: ${w.fmt(dl[w.dKey])}`;
         }
         const fSnap = $(`snap-fx-${w.key}`), hasGFix = Boolean(fix && (fix.grindUm !== null || fix.grinder));
         show(fSnap, hasGFix);
         const fxG = hasGFix ? resolveGrindState(c, fix.grindUm, fix.grinder) : null;
-        if (fxG) fSnap.textContent = kgOn ? `💡 Korekta: ${fxG.label}` : `💡 Korekta: ${w.fmt(fxG.um)}`;
+        if (fxG) fSnap.textContent = kgOn ? `💡 ${compactClicksText(fxG.label)}` : `💡 Korekta: ${w.fmt(fxG.um)}`;
 
         const stEl = $(`st-${w.key}`);
         const isGFixMatch = fxG && ((kgOn && kg.clicks === fxG.clicks) || (!kgOn && fix.grindUm !== null && Math.abs(val - fix.grindUm) < 1));
@@ -4265,18 +4317,21 @@ input[type="range"].rng::-moz-range-thumb {
     const isManual = Boolean(state.settings.swManualMode), btn = $('btnSwModeToggle');
     if (btn) {
       btn.classList.toggle('manual', isManual);
-      btn.textContent = isManual ? '✋' : '⏱';
+      btn.innerHTML = `<svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="${isManual ? '#icoHand' : '#icoClock'}"/></svg>`;
       btn.title = isManual ? 'Tryb ręczny (przeskakujesz kroki przyciskiem ⏭ — kliknij, aby włączyć Auto)' : 'Tryb automatyczny (kliknij, aby przełączyć na ręczny)';
       btn.setAttribute('aria-label', isManual ? 'Tryb stopera: Ręczny' : 'Tryb stopera: Automatyczny');
       btn.setAttribute('aria-pressed', String(isManual));
     }
     const badge = $('swModeBadge');
-    if (badge) { badge.className = `badge ${isManual ? 'badge-acc' : 'badge-muted'} mono hero-status-pill`; badge.textContent = isManual ? '✋ Ręczny' : '⏱ Auto'; }
+    if (badge) {
+      badge.className = `badge ${isManual ? 'badge-acc' : 'badge-muted'} mono hero-status-pill`;
+      badge.innerHTML = `<svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="${isManual ? '#icoHand' : '#icoClock'}"/></svg><span>${isManual ? 'Ręczny' : 'Auto'}</span>`;
+    }
     const sndBtn = $('btnSwSoundQuick');
     if (sndBtn) {
       const sndOn = Boolean(state.settings.sound);
-      sndBtn.className = `badge ${sndOn ? 'badge-ai' : 'badge-muted'} mono hero-status-pill`;
-      sndBtn.textContent = sndOn ? '🔊' : '🔇';
+      sndBtn.className = `brew-sound-btn ${sndOn ? 'badge-ai' : 'badge-muted'}`;
+      sndBtn.innerHTML = `<svg class="icon-svg" width="15" height="15" aria-hidden="true"><use href="${sndOn ? '#icoVolOn' : '#icoVolOff'}"/></svg>`;
       sndBtn.title = sndOn ? 'Dźwięki stopera włączone (kliknij, aby wyciszyć)' : 'Dźwięki stopera wyciszone (kliknij, aby włączyć)';
     }
   }
@@ -5099,10 +5154,12 @@ input[type="range"].rng::-moz-range-thumb {
         const nextUm = kg79ClicksToUm(clicks, kgOff());
         if (c.params.grinder === nextLabel && c.params.grindUm === nextUm) return;
         c.params.grinder = nextLabel; c.params.grindUm = nextUm;
+        haptic(6);
       } else {
         const um = clamp(Math.round((1050 - t * 600) / 10) * 10, ...LIMITS.grindUm);
         if (c.params.grindUm === um && !c.params.grinder) return;
         c.params.grindUm = um; c.params.grinder = '';
+        haptic(5);
       }
       commitRecipeChange(c, false);
     };
@@ -5426,6 +5483,7 @@ input[type="range"].rng::-moz-range-thumb {
           const nextC = clamp(getActiveKg79Info(c).clicks + dir, 0, 15);
           c.params.grinder = formatKg79Short(nextC); c.params.grindUm = kg79ClicksToUm(nextC, kgOff());
         } else c.params.grindUm = clamp(c.params.grindUm - dir * 10, ...LIMITS.grindUm);
+        haptic(6);
         commitRecipeChange(c, false); return;
       }
       if (state.settings.slidersLocked) return;
@@ -5692,7 +5750,7 @@ input[type="range"].rng::-moz-range-thumb {
       if (Math.abs(dx) < 56 && !(Math.abs(dx) >= 34 && dt <= 260)) return;
       const dir = dx < 0 ? 1 : -1;
       const nextIdx = TAB_ORDER.indexOf(state.tab) + dir;
-      if (nextIdx >= 0 && nextIdx < TAB_ORDER.length) setTab(TAB_ORDER[nextIdx], dir);
+      if (nextIdx >= 0 && nextIdx < TAB_ORDER.length) { haptic(8); setTab(TAB_ORDER[nextIdx], dir); }
     }, { passive: true });
 
     shell.addEventListener('touchcancel', () => { active = false; axis = null; }, { passive: true });
