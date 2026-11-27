@@ -150,12 +150,12 @@
       "suggestedFix": null,
       "params": {
         "dose": 19,
-        "ratio": 16.1,
-        "exactWater": 305,
+        "ratio": 15.8,
+        "exactWater": 300,
         "tempC": 88,
-        "grindUm": 810,
+        "grindUm": 470,
         "profile": "two_pours",
-        "grinder": "3 kliki od COARSE",
+        "grinder": "8 klików od COARSE",
         "milkType": "none",
         "milkMl": 0
       }
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795800417799
+  "updatedAt": 1795800430547
 }
