@@ -6,7 +6,7 @@
   "activeCoffeeId": "c-1795442811163",
   "settings": {
     "sound": true,
-    "toasts": true,
+    "toasts": false,
     "brewAlwaysDark": true,
     "slidersLocked": false,
     "ratioLocked": false,
@@ -150,8 +150,8 @@
       "suggestedFix": null,
       "params": {
         "dose": 19,
-        "ratio": 15.8,
-        "exactWater": 300,
+        "ratio": 13.9,
+        "exactWater": 265,
         "tempC": 88,
         "grindUm": 920,
         "profile": "two_pours",
@@ -570,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795811889603
+  "updatedAt": 1795811905625
 }
