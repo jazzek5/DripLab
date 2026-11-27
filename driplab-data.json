@@ -151,7 +151,7 @@
       "params": {
         "dose": 20.5,
         "ratio": 15.2,
-        "exactWater": 315,
+        "exactWater": null,
         "tempC": 88,
         "grindUm": 820,
         "profile": "two_pours",
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795780971453
+  "updatedAt": 1795780995440
 }
