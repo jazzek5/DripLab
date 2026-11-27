@@ -9,7 +9,7 @@
     "toasts": false,
     "brewAlwaysDark": true,
     "slidersLocked": false,
-    "ratioLocked": true,
+    "ratioLocked": false,
     "kg79Enabled": false,
     "kg79Offset": 2,
     "swManualMode": true
@@ -149,15 +149,15 @@
       },
       "suggestedFix": null,
       "params": {
-        "dose": 18.5,
-        "ratio": 15.3,
-        "exactWater": 285,
+        "dose": 35,
+        "ratio": 8,
+        "exactWater": 115,
         "tempC": 88,
         "grindUm": 820,
         "profile": "two_pours",
         "grinder": "3 kliki od COARSE",
-        "milkType": "oat",
-        "milkMl": 100
+        "milkType": "none",
+        "milkMl": 0
       }
     },
     {
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795781027693
+  "updatedAt": 1795781035890
 }
