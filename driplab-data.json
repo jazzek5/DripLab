@@ -145,7 +145,7 @@
         "milkMl": 100,
         "brewTimeSec": 244,
         "rating": 4,
-        "updatedAt": 1795635427501
+        "updatedAt": 1795800255156
       },
       "suggestedFix": null,
       "params": {
@@ -520,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795793667968
+  "updatedAt": 1795800255156
 }
