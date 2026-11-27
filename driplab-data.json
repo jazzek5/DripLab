@@ -3,7 +3,7 @@
   "version": 11,
   "method": "V60",
   "theme": "cappuccino",
-  "activeCoffeeId": "c-1795442370251",
+  "activeCoffeeId": "c-1795442811163",
   "settings": {
     "sound": false,
     "toasts": false,
@@ -247,7 +247,7 @@
       "params": {
         "dose": 16.5,
         "ratio": 20.8,
-        "exactWater": 345,
+        "exactWater": 340,
         "tempC": 87,
         "grindUm": 710,
         "profile": "single_pour",
@@ -534,5 +534,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795774750460
+  "updatedAt": 1795774756412
 }
