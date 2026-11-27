@@ -155,7 +155,7 @@
         "tempC": 88,
         "grindUm": 920,
         "profile": "two_pours",
-        "grinder": "0 klików (MAX COARSE)",
+        "grinder": "2 kliki od COARSE",
         "milkType": "cow",
         "milkMl": 100
       }
@@ -570,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795812655161
+  "updatedAt": 1795812657369
 }
