@@ -57,19 +57,19 @@
         "Celuj w krótszy czas parzenia (ok. 2:15–2:35), aby ograniczyć ekstrakcję ciężkich, gorzkich związków w końcówce przelewu."
       ],
       "dialedIn": {
-        "logId": "1795605979069",
+        "logId": "1795606275513",
         "dose": 18,
         "water": 270,
         "ratio": 15,
         "temp": 88,
-        "grindUm": 810,
-        "grinderClicks": "1 klik od COARSE",
-        "pourProfile": "two_pours",
+        "grindUm": 710,
+        "grinderClicks": "2 kliki od COARSE",
+        "pourProfile": "three_pours",
         "milkType": "none",
         "milkMl": 0,
-        "brewTimeSec": 0,
-        "rating": 0,
-        "updatedAt": 1795605979070
+        "brewTimeSec": 2,
+        "rating": 5,
+        "updatedAt": 1795775427972
       },
       "suggestedFix": null,
       "params": {
@@ -534,5 +534,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795775370552
+  "updatedAt": 1795775427972
 }
