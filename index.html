@@ -91,7 +91,7 @@
   --fix: #c084fc; --fix-bg: rgba(192, 132, 252, 0.16); --fix-bd: rgba(192, 132, 252, 0.52); --on-fix: #1e0b36;
   --warn: #f59e0b; --warn-bg: rgba(245, 158, 11, 0.16);
   --danger: #f87171; --danger-bg: rgba(248, 113, 113, 0.16);
-  --bar-bg: rgba(18, 15, 13, 0.96); --nav-bg: rgba(28, 23, 20, 0.98); --backdrop: rgba(8, 6, 5, 0.78);
+  --bar-bg: rgba(18, 15, 13, 0.82); --nav-bg: rgba(28, 23, 20, 0.84); --backdrop: rgba(8, 6, 5, 0.78);
   --track: #342b25; --thumb: #f5efe9;
   --shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.65);
   --grain: radial-gradient(rgba(255, 240, 224, 0.032) 1px, transparent 0);
@@ -117,7 +117,7 @@
   --fix: #7e22ce; --fix-bg: rgba(126, 34, 206, 0.11); --fix-bd: rgba(126, 34, 206, 0.42); --on-fix: #ffffff;
   --warn: #b45309; --warn-bg: rgba(180, 83, 9, 0.12);
   --danger: #b91c1c; --danger-bg: rgba(185, 28, 28, 0.11);
-  --bar-bg: rgba(246, 239, 230, 0.96); --nav-bg: rgba(255, 253, 249, 0.98); --backdrop: rgba(42, 30, 22, 0.56);
+  --bar-bg: rgba(246, 239, 230, 0.84); --nav-bg: rgba(255, 253, 249, 0.86); --backdrop: rgba(42, 30, 22, 0.56);
   --track: #ddd0bf; --thumb: #fffdf9;
   --shadow: 0 10px 28px -10px rgba(42, 30, 22, 0.16);
   --grain: radial-gradient(rgba(42, 30, 22, 0.022) 1px, transparent 0);
@@ -130,7 +130,7 @@
   --text: #edf2f7; --muted: #94a3b8;
   --accent: #e09c52; --accent-2: #f0b16a;
   --accent-bg: rgba(224, 156, 82, 0.16); --accent-bd: rgba(224, 156, 82, 0.48); --on-accent: #0e141b;
-  --bar-bg: rgba(14, 20, 27, 0.96); --nav-bg: rgba(23, 32, 43, 0.98); --backdrop: rgba(6, 10, 15, 0.78);
+  --bar-bg: rgba(14, 20, 27, 0.82); --nav-bg: rgba(23, 32, 43, 0.84); --backdrop: rgba(6, 10, 15, 0.78);
   --track: #2a384a; --thumb: #edf2f7;
   --shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.72);
 }
@@ -149,7 +149,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 h1, h2, h3, h4, p { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
-.icon-svg { flex-shrink: 0; display: inline-block; vertical-align: middle; }
+.icon-svg { flex-shrink: 0; display: inline-block; vertical-align: -0.15em; }
 .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
 .w100 { width: 100%; }
 .f1 { flex: 1; }
@@ -192,17 +192,23 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;
 }
 .trunc::-webkit-scrollbar { display: none; }
-.trunc.has-more-r { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); }
-.trunc.has-more-l { -webkit-mask-image: linear-gradient(to right, transparent, #000 18px, #000); mask-image: linear-gradient(to right, transparent, #000 18px, #000); }
-.trunc.has-more-l.has-more-r { -webkit-mask-image: linear-gradient(to right, transparent, #000 18px, #000 calc(100% - 22px), transparent); mask-image: linear-gradient(to right, transparent, #000 18px, #000 calc(100% - 22px), transparent); }
+.trunc.has-more-r, .chips-scroll.has-more-r { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); }
+.trunc.has-more-l, .chips-scroll.has-more-l { -webkit-mask-image: linear-gradient(to right, transparent, #000 18px, #000); mask-image: linear-gradient(to right, transparent, #000 18px, #000); }
+.trunc.has-more-l.has-more-r, .chips-scroll.has-more-l.has-more-r { -webkit-mask-image: linear-gradient(to right, transparent, #000 18px, #000 calc(100% - 22px), transparent); mask-image: linear-gradient(to right, transparent, #000 18px, #000 calc(100% - 22px), transparent); }
 .ctx-pill .trunc { overflow: hidden; text-overflow: ellipsis; pointer-events: none; -webkit-mask-image: none !important; mask-image: none !important; }
 .ctx-chev { font-size: 10px; color: var(--muted); flex-shrink: 0; transition: transform var(--dur-med) var(--ease-out), color var(--dur-fast) var(--ease-out); }
 .ctx-pill.open .ctx-chev { transform: rotate(180deg); color: var(--accent); }
+.ctx-backdrop {
+  position: fixed; inset: 0; top: var(--top-h); z-index: 38; background: var(--backdrop);
+  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) var(--ease-out);
+}
+.ctx-backdrop.open { opacity: 1; pointer-events: auto; }
 .ctx-drawer {
   position: fixed; top: calc(var(--top-h) + 6px); left: 50%; transform: translateX(-50%);
   width: calc(100% - 20px); max-width: 500px; z-index: 39; background: var(--surface);
   border: 1px solid var(--accent-bd); border-radius: 16px; padding: 11px 12px; box-shadow: var(--shadow);
-  max-height: 320px; opacity: 1; overflow: hidden;
+  max-height: 340px; opacity: 1; overflow: hidden;
   transition: max-height var(--dur-med) var(--ease-out), opacity var(--dur-fast) var(--ease-out), padding var(--dur-med) var(--ease-out), border-width var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
 }
 .ctx-drawer.is-collapsed {
@@ -319,19 +325,31 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .badge-warn { background: var(--warn-bg); border-color: rgba(245, 158, 11, 0.42); color: var(--warn); }
 .badge-bad { background: var(--danger-bg); border-color: rgba(248, 113, 113, 0.42); color: var(--danger); }
 
-.input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 8px 10px; font-size: 13px; color: var(--text); outline: none; }
+.input { width: 100%; min-height: 38px; background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 8px 10px; font-size: 13px; color: var(--text); outline: none; }
 .input:focus { border-color: var(--accent); }
 .input::placeholder { color: var(--muted); opacity: 0.72; }
 select.input { padding: 7px 8px; }
-textarea.input { resize: vertical; }
+input[type="date"].input { padding: 6px 8px; }
+textarea.input { min-height: 0; resize: vertical; }
 .p-compact { padding: 6px 9px; }
 .diag-cell { padding: 6px 8px; gap: 2px; align-items: flex-start; }
 .in-bare { width: 100%; border: 0; background: transparent; outline: none; font-size: 13.5px; font-weight: 800; color: var(--text); }
 .in-bare.acc { color: var(--accent); }
 .in-mini { padding: 2px 4px; border-radius: 7px; background: var(--bg); font-size: 12px; font-weight: 800; text-align: center; outline: none; }
 .in-water-inline { width: 40px; border: 0; border-bottom: 1px dashed var(--accent-bd); background: transparent; color: var(--accent); font-weight: 800; font-size: 15px; text-align: right; outline: none; padding: 0; }
-.chk-box { width: 18px; height: 18px; accent-color: var(--accent); flex-shrink: 0; }
-.chk-box.dialed { accent-color: var(--dialed); }
+.chk-box {
+  appearance: none; -webkit-appearance: none; position: relative; width: 42px; height: 24px; flex-shrink: 0;
+  border-radius: 999px; background: var(--track); border: 1px solid var(--border-2); cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.chk-box::after {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--thumb); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+.chk-box:checked { background: var(--accent); border-color: var(--accent); }
+.chk-box:checked::after { transform: translateX(18px); }
+.chk-box.dialed:checked { background: var(--dialed); border-color: var(--dialed); }
 .star-btn { font-size: 21px; color: var(--border-2); padding: 2px; line-height: 1; transition: transform var(--dur-fast) var(--ease-spring), color var(--dur-fast) var(--ease-out); }
 .star-btn:active { transform: scale(0.85); }
 .star-btn.on { color: var(--accent); }
@@ -346,6 +364,7 @@ textarea.input { resize: vertical; }
 .topbar {
   position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 520px; z-index: 40;
   height: var(--top-h); flex-shrink: 0; background: var(--bar-bg); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   padding: 0 10px; display: flex; align-items: center; gap: 7px;
 }
 .logo-btn {
@@ -371,6 +390,7 @@ textarea.input { resize: vertical; }
 .bnav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 520px;
   height: var(--nav-h); z-index: 40; background: var(--nav-bg); border-top: 1px solid var(--border);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   padding: 6px 8px env(safe-area-inset-bottom, 0px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; align-items: center;
 }
 .nav-item {
@@ -383,6 +403,11 @@ textarea.input { resize: vertical; }
   transform-box: fill-box; transform-origin: center; transition: transform var(--dur-fast) var(--ease-spring);
 }
 .nav-item.active { color: var(--accent); background: var(--accent-bg); }
+.nav-item.active::before {
+  content: ""; position: absolute; top: 0; left: 26%; right: 26%; height: 2.5px;
+  border-radius: 0 0 99px 99px; background: var(--accent); box-shadow: 0 1px 6px var(--accent-bd);
+}
+.nav-item.nav-brew.active::before { background: rgba(255, 255, 255, 0.58); box-shadow: none; }
 .nav-item.active:not(.nav-brew) .icon-svg { transform: translateY(-1px) scale(1.05); }
 .nav-item.nav-brew .icon-svg, .nav-item.nav-brew.is-running span { transform: none !important; animation: none !important; }
 .nav-item.nav-brew {
@@ -461,7 +486,7 @@ input[type="range"].rng::-moz-range-thumb {
 .sliders-locked input[type="range"].rng::-webkit-slider-thumb,
 .sliders-locked input[type="range"].rng::-moz-range-thumb { pointer-events: none !important; }
 
-.snap-link { font-size: 10.5px; font-weight: 500; padding: 2px 6px; border-radius: 6px; transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out); white-space: nowrap; }
+.snap-link { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 500; padding: 2px 6px; border-radius: 6px; transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out); white-space: nowrap; }
 .snap-link.ai { color: var(--ai); background: var(--ai-bg); font-weight: 700; }
 .snap-link.dialed { color: var(--dialed); background: var(--dialed-bg); }
 .snap-link.fix { color: var(--fix); background: var(--fix-bg); font-weight: 700; }
@@ -522,8 +547,24 @@ input[type="range"].rng::-moz-range-thumb {
 .chk-row.milk-step { border-color: rgba(220, 208, 191, 0.36); background: rgba(220, 208, 191, 0.06); }
 .badge-milk { background: rgba(220, 208, 191, 0.14); border-color: rgba(220, 208, 191, 0.4); color: #e8ded1; margin-bottom: 3px; }
 .chk-row.done { border-color: var(--ai-bd); background: var(--ai-bg); }
-.chk-row input[type="checkbox"] { width: 20px; height: 20px; flex: 0 0 20px; margin: 2px 0 0; accent-color: var(--ai); cursor: pointer; }
+.chk-row input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none; position: relative; width: 22px; height: 22px; flex: 0 0 22px; margin: 1px 0 0;
+  border-radius: 50%; border: 1.8px solid var(--border-2); background: var(--bg); cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-spring);
+}
+.chk-row input[type="checkbox"]:active { transform: scale(0.88); }
+.chk-row input[type="checkbox"]:checked { background: var(--ai); border-color: var(--ai); }
+.chk-row input[type="checkbox"]:checked::after {
+  content: ""; position: absolute; left: 6.5px; top: 3px; width: 5.5px; height: 10px;
+  border: solid var(--on-ai); border-width: 0 2.2px 2.2px 0; transform: rotate(42deg);
+}
 .chk-row.done .chk-txt { text-decoration: line-through; color: var(--muted); opacity: 0.78; }
+.prof-dot { display: inline-grid; place-items: center; width: 20px; height: 20px; padding: 0; border-radius: 50%; }
+.hist-stats-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px;
+  border-radius: 13px; background: var(--surface); border: 1px solid var(--border); font-size: 11.5px; color: var(--muted);
+}
+.hist-stats-item { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
 
 .brew-hero { position: relative; padding: 13px; flex-shrink: 0; display: grid; grid-template-columns: 154px minmax(0, 1fr); gap: 14px; align-items: center; }
 .brew-sound-btn {
@@ -720,25 +761,38 @@ input[type="range"].rng::-moz-range-thumb {
 .journal-fab-btn, .recipe-fab.lock { background: var(--surface-2); color: var(--muted); border: 1.5px solid var(--border-2); }
 .journal-fab-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--on-accent); border-color: var(--accent-bd); }
 
-/* Modale, motywy, toasty */
+/* Modale (Bottom Sheet na mobile, okno centralne >= 520px), motywy, toasty */
+.log-note-preview {
+  font-size: 11.5px; line-height: 1.38; color: var(--muted); font-style: italic;
+  padding: 5px 9px; border-left: 2px solid var(--accent-bd); border-radius: 0 8px 8px 0;
+  background: color-mix(in srgb, var(--surface-2) 55%, transparent); cursor: pointer;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.log-note-preview.is-open { display: none; }
 .modal-bg {
   position: fixed; inset: 0; z-index: 60; background: var(--backdrop);
   backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center; padding: 12px;
+  display: flex; align-items: flex-end; justify-content: center; padding: 0;
   overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
   animation: viewFade var(--dur-fast) var(--ease-out) both;
 }
 .modal-box {
-  width: 100%; max-width: 490px; max-height: calc(100dvh - 24px); margin: auto; overflow: hidden;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
-  display: flex; flex-direction: column; box-shadow: var(--shadow); animation: modalEnter var(--dur-med) var(--ease-spring) both;
+  width: 100%; max-width: 520px; max-height: 90dvh; margin: 0 auto; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border); border-bottom: 0; border-radius: 22px 22px 0 0;
+  display: flex; flex-direction: column; box-shadow: var(--shadow); animation: sheetEnter var(--dur-med) var(--ease-out) both;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-.modal-head { flex-shrink: 0; padding: 15px 14px 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.modal-box::before {
+  content: ""; display: block; width: 38px; height: 4px; border-radius: 99px;
+  background: var(--border-2); margin: 8px auto 0; flex-shrink: 0;
+}
+.modal-head { flex-shrink: 0; padding: 11px 14px 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .modal-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; padding: 12px 14px 16px; display: flex; flex-direction: column; gap: 12px; }
 .modal-body > * { flex-shrink: 0; }
 @media (min-width: 520px) {
-  .modal-bg { padding: 16px; }
-  .modal-box { max-height: calc(100dvh - 32px); border-radius: 22px; }
+  .modal-bg { align-items: center; padding: 16px; }
+  .modal-box { max-width: 490px; max-height: calc(100dvh - 32px); margin: auto; border-bottom: 1px solid var(--border); border-radius: 22px; padding-bottom: 0; animation: modalEnter var(--dur-med) var(--ease-spring) both; }
+  .modal-box::before { display: none; }
   .modal-head { padding: 17px 18px 13px; }
   .modal-body { padding: 14px 18px 18px; }
 }
@@ -768,6 +822,7 @@ input[type="range"].rng::-moz-range-thumb {
 @keyframes slideFromRight { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes slideFromLeft { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes modalEnter { from { opacity: 0; transform: translateY(14px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes sheetEnter { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes popIn { from { opacity: 0; transform: translateY(8px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes fabDockIn { from { opacity: 0; transform: translateY(10px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes dockSlideUp { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
@@ -902,6 +957,28 @@ input[type="range"].rng::-moz-range-thumb {
     <symbol id="icoVolOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
     <symbol id="icoRuler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/></symbol>
     <symbol id="icoHand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v4"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.7-2.7L3.3 15a2 2 0 0 1 3-2.6L8 14"/></symbol>
+    <symbol id="icoArchive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></symbol>
+    <symbol id="icoNote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+    <symbol id="icoTarget" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icoBulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></symbol>
+    <symbol id="icoSparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2z"/></symbol>
+    <symbol id="icoMilk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8"/><path d="M9 2v3.5L6.5 9A2 2 0 0 0 6 10.3V20a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-9.7a2 2 0 0 0-.5-1.3L15 5.5V2"/><path d="M6 14c2-1 4 1 6 0s4 1 6 0"/></symbol>
+    <symbol id="icoLeaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></symbol>
+    <symbol id="icoGlobe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></symbol>
+    <symbol id="icoTag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icoCopy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="icoAlert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+    <symbol id="icoShare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></symbol>
+    <symbol id="icoDownload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="icoUpload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
+    <symbol id="icoShield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="icoFlask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v6.5L4.5 19A2 2 0 0 0 6.2 22h11.6a2 2 0 0 0 1.7-3L14 9.5V3"/><path d="M7.5 15h9"/></symbol>
+    <symbol id="icoThermo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/></symbol>
+    <symbol id="icoPlay" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><polygon points="7 4.5 19.5 12 7 19.5 7 4.5"/></symbol>
+    <symbol id="icoPause" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4.5" width="4.2" height="15" rx="1.4"/><rect x="13.8" y="4.5" width="4.2" height="15" rx="1.4"/></symbol>
+    <symbol id="icoSkipNext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 5.5 14.5 12 5 18.5 5 5.5" fill="currentColor"/><line x1="18.5" y1="5.5" x2="18.5" y2="18.5"/></symbol>
+    <symbol id="icoSkipPrev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 5.5 9.5 12 19 18.5 19 5.5" fill="currentColor"/><line x1="5.5" y1="5.5" x2="5.5" y2="18.5"/></symbol>
+    <symbol id="icoReset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><polyline points="3 3 3 8 8 8"/></symbol>
     <symbol id="appLogoArt" viewBox="0 0 512 512"><rect width="512" height="512" rx="114" fill="url(#navLogoBg)"/></symbol>
   </defs>
 </svg>
@@ -918,14 +995,14 @@ input[type="range"].rng::-moz-range-thumb {
 <div id="appShell" class="shell">
   <!-- GÓRNY PASEK KONTEKSTOWY -->
   <header class="topbar">
-    <button id="btnLogoHome" type="button" data-open-modal="modalAbout" class="logo-btn" title="DripLab V60 — O aplikacji (v1.3)" aria-label="O aplikacji DripLab V60">
+    <button id="btnLogoHome" type="button" data-open-modal="modalAbout" class="logo-btn" title="DripLab V60 — O aplikacji (v1.4)" aria-label="O aplikacji DripLab V60">
       <svg width="36" height="36" viewBox="0 0 512 512" aria-hidden="true"><use href="#appLogoArt"/></svg>
     </button>
 
     <button id="btnCtxPill" type="button" class="ctx-pill" aria-expanded="false" aria-controls="ctxDrawer">
       <div class="ctx-left">
         <div class="ctx-title-row">
-          <span id="ctxDialedIcon" class="hidden fs11 f0" title="Ustalone parametry">🎯</span>
+          <span id="ctxDialedIcon" class="hidden f0 c-dl" title="Ustalone parametry"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoTarget"/></svg></span>
           <strong id="ctxName" class="trunc">Dodaj pierwszą kawę →</strong>
         </div>
         <span id="ctxStats" class="sub-xs mono trunc ctx-stats-line hidden"></span>
@@ -944,23 +1021,24 @@ input[type="range"].rng::-moz-range-thumb {
   </header>
 
   <!-- Rozwijana karta aktywnej kawy -->
+  <div id="ctxBackdrop" class="ctx-backdrop" aria-hidden="true"></div>
   <section id="ctxDrawer" class="ctx-drawer col-xs is-collapsed" aria-hidden="true" aria-label="Szczegóły aktywnej kawy">
     <div class="min0">
-      <div class="wrap gap5">
+      <h2 id="ctxDrawerName" class="fs15 fw8 lh12"></h2>
+      <p id="ctxDrawerOrigin" class="sub-xs trunc mt1"></p>
+      <div class="wrap gap5 mt4">
         <span id="ctxDrawerRoast" class="badge badge-acc"></span>
         <span id="ctxDrawerFresh" class="badge badge-ai hidden"></span>
-        <span id="ctxDrawerDialed" class="badge badge-dialed hidden">🎯 Wzorzec</span>
+        <span id="ctxDrawerDialed" class="badge badge-dialed hidden"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoTarget"/></svg> Wzorzec</span>
         <span id="ctxDrawerSca" class="badge badge-muted mono hidden"></span>
       </div>
-      <h2 id="ctxDrawerName" class="fs15 fw8 mt4 lh12"></h2>
-      <p id="ctxDrawerOrigin" class="sub-xs trunc mt1"></p>
     </div>
     <div id="ctxDrawerNotes" class="wrap"></div>
     <div id="ctxDrawerParams" class="row-item sub-xs mono lh14" style="padding:7px 9px;flex-wrap:wrap"></div>
     <div class="g3 gap6 mt2">
       <button id="btnCtxGoShelf" type="button" class="btn btn-sec btn-sm">Zmień kawę</button>
       <button id="btnCtxGoRecipe" type="button" class="btn btn-sec btn-sm">Receptura</button>
-      <button id="btnCtxCopyRecipe" type="button" class="btn btn-ghost btn-sm">📋 Przepis</button>
+      <button id="btnCtxCopyRecipe" type="button" class="btn btn-ghost btn-sm"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoCopy"/></svg> Przepis</button>
     </div>
   </section>
 
@@ -1047,8 +1125,8 @@ input[type="range"].rng::-moz-range-thumb {
           <div class="wrap gap5">
             <span id="recRoastBadge" class="badge badge-muted"></span>
             <span id="recFreshBadge" class="badge badge-ai mono hidden"></span>
-            <span id="recDialedBadge" class="badge badge-dialed hidden">🎯 Parametry ustalone</span>
-            <span id="recFixBadge" class="badge badge-fix hidden">💡 Dostępna korekta</span>
+            <span id="recDialedBadge" class="badge badge-dialed hidden"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoTarget"/></svg> Parametry ustalone</span>
+            <span id="recFixBadge" class="badge badge-fix hidden"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoBulb"/></svg> Dostępna korekta</span>
           </div>
 
           <div id="recMetaGrid" class="meta-grid"></div>
@@ -1068,7 +1146,7 @@ input[type="range"].rng::-moz-range-thumb {
             <button id="btnToggleVer" type="button" class="row w100 ta-l gap6" aria-expanded="false" aria-controls="recVerBody">
               <div class="wrap gap6 min0">
                 <span class="lbl">Weryfikacja profilu i źródła</span>
-                <span id="recVerBadge" class="badge badge-ai">🌐 Sieć</span>
+                <span id="recVerBadge" class="badge badge-ai"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoGlobe"/></svg> Sieć</span>
               </div>
               <span id="verChev" class="sub-xs fw7 nw">Rozwiń ▾</span>
             </button>
@@ -1098,7 +1176,7 @@ input[type="range"].rng::-moz-range-thumb {
                   <div class="wrap gap5 ai-c f0">
                     <button id="btnDoseMinus" type="button" class="btn-icon btn-icon-sm br9" aria-label="Zmniejsz dawkę">−</button>
                     <span id="doseReadout" class="mono ta-c fs15 fw8" style="min-width:64px;white-space:nowrap">
-                      <span id="doseDialedIcon" class="hidden fs12" title="Zgodne z wzorcem">🎯 </span><span id="doseVal">18</span> g
+                      <span id="doseDialedIcon" class="hidden c-dl" title="Zgodne z wzorcem"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoTarget"/></svg> </span><span id="doseVal">18</span> g
                     </span>
                     <button id="btnDosePlus" type="button" class="btn-icon btn-icon-sm br9" aria-label="Zwiększ dawkę">+</button>
                   </div>
@@ -1117,7 +1195,7 @@ input[type="range"].rng::-moz-range-thumb {
                   <div class="wrap gap5 ai-c f0">
                     <button id="btnWaterMinus" type="button" class="btn-icon btn-icon-sm br9" aria-label="Zmniejsz ilość wody">−</button>
                     <label class="wrap jc-c gap2" style="min-width:64px;align-items:baseline;cursor:text;white-space:nowrap">
-                      <span id="waterDialedIcon" class="hidden fs12" title="Zgodne z wzorcem">🎯</span>
+                      <span id="waterDialedIcon" class="hidden c-dl" title="Zgodne z wzorcem"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoTarget"/></svg></span>
                       <input id="waterInput" type="number" inputmode="numeric" min="50" max="1200" step="1" class="mono in-water-inline" aria-label="Woda docelowa w ml" />
                       <span class="sub-xs fw7">ml</span>
                     </label>
@@ -1159,7 +1237,7 @@ input[type="range"].rng::-moz-range-thumb {
           </div>
 
           <div class="hr mt2"></div>
-          <div class="row"><span class="lbl">🥛 Dodatek mleka</span></div>
+          <div class="row"><span class="lbl"><svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoMilk"/></svg> Dodatek mleka</span></div>
           <div id="milkTypeChips" class="chips-scroll" role="group" aria-label="Rodzaj mleka"></div>
           <div id="milkAmountBox" class="col-xs fold-box is-collapsed" aria-hidden="true">
             <div class="row mt2">
@@ -1186,12 +1264,12 @@ input[type="range"].rng::-moz-range-thumb {
             <span class="c-ai wrap gap4"><span style="display:inline-block;width:12px;height:4px;border-radius:2px;background:var(--ai)"></span>Okno profilu</span>
             <span class="c-mut">|</span>
             <span class="c-ai">✦ Profil</span>
-            <span id="legendDialedTop" class="hidden c-dl">| 🎯 Wzorzec</span>
-            <span id="legendFixTop" class="hidden c-fix">| 💡 Korekta</span>
+            <span id="legendDialedTop" class="hidden c-dl">| <svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoTarget"/></svg> Wzorzec</span>
+            <span id="legendFixTop" class="hidden c-fix">| <svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoBulb"/></svg> Korekta</span>
           </div>
           <div id="aiSlidersHost" class="col"></div>
           <div id="kg79WarnBox" class="row-item col-xs fold-box is-collapsed warn-banner" aria-hidden="true">
-            <strong class="fs12 c-warn">⚠️ Granica pyłu KG79 (≥ 4 kliki)</strong>
+            <strong class="fs12 c-warn"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoAlert"/></svg> Granica pyłu KG79 (≥ 4 kliki)</strong>
             <p class="sub-xs c-txt lh14">Młynek KG79 przy 4 i więcej klikach generuje sporo drobnego pyłu (fines), który może przytkać filtr V60. Bezpieczniej jest zostać na 3 klikach i podbić temperaturę wody.</p>
             <button id="btnKg79BoostTemp" type="button" class="btn btn-sec btn-sm w100 hidden b-warn"></button>
           </div>
@@ -1203,13 +1281,13 @@ input[type="range"].rng::-moz-range-thumb {
             <span class="lbl">Profil zalewania Hario V60</span>
             <div class="wrap gap6 fs10 fw7">
               <span class="c-mut">✦ Profil</span>
-              <span id="legendProfileDialed" class="hidden c-dl">🎯 Wzorzec</span>
-              <span id="legendProfileFix" class="hidden c-fix">💡 Korekta</span>
+              <span id="legendProfileDialed" class="hidden c-dl"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoTarget"/></svg> Wzorzec</span>
+              <span id="legendProfileFix" class="hidden c-fix"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoBulb"/></svg> Korekta</span>
             </div>
           </div>
           <div id="profileGrid" class="seg seg-grid"></div>
           <div id="kg79PourWarn" class="row-item col-xs fold-box is-collapsed warn-banner" aria-hidden="true">
-            <span class="sub-xs c-txt lh14">💡 Przy młynku KG79 wielokrotne zalewanie (3 zalania / 4:6) mocniej wzburza pył. Jeśli napar staje się gorzki lub długo spływa, przełącz na <strong>2 zalania</strong>.</span>
+            <span class="sub-xs c-txt lh14"><svg class="icon-svg c-warn" width="13" height="13" aria-hidden="true"><use href="#icoBulb"/></svg> Przy młynku KG79 wielokrotne zalewanie (3 zalania / 4:6) mocniej wzburza pył. Jeśli napar staje się gorzki lub długo spływa, przełącz na <strong>2 zalania</strong>.</span>
             <button id="btnKg79Switch2Pours" type="button" class="btn btn-sec btn-sm w100">Przełącz na 2 zalania</button>
           </div>
         </div>
@@ -1221,7 +1299,7 @@ input[type="range"].rng::-moz-range-thumb {
     <!-- 3. PARZENIE V60 -->
     <section id="tab-brew" class="tab brew-locked-dark hidden" aria-label="Parzenie V60">
       <div id="brewEmpty" class="empty-state hidden" style="margin:auto">
-        <div class="empty-icon">⏱</div>
+        <div class="empty-icon"><svg class="icon-svg" width="24" height="24" aria-hidden="true"><use href="#icoClock"/></svg></div>
         <h2 class="fs16 fw8">Brak aktywnej kawy do parzenia</h2>
         <p class="muted">Dodaj kawę na Półce lub wybierz ją z listy, aby uruchomić check-listę i stoper V60.</p>
         <div class="wrap jc-c w100">
@@ -1311,8 +1389,9 @@ input[type="range"].rng::-moz-range-thumb {
                 </div>
                 <p id="stTip" class="brew-tip-2l">Wlej wodę kolistym ruchem i równomiernie zwilż kawę.</p>
               </div>
-              <div id="brewStageDone" class="hidden ai-c jc-c ta-c" style="display:flex">
-                <strong id="doneGreeting" class="c-ai lh12" style="font-size:clamp(1.2rem,4.8vw,1.45rem)">Smacznej kawy! ☕</strong>
+              <div id="brewStageDone" class="hidden col-xs ai-c jc-c ta-c gap3" style="display:flex">
+                <strong id="doneGreeting" class="c-ai lh12" style="font-size:clamp(1.05rem,4.3vw,1.3rem)">Smacznej kawy! ☕</strong>
+                <span id="doneSummary" class="sub-xs mono c-txt fw7"></span>
               </div>
             </div>
 
@@ -1332,7 +1411,7 @@ input[type="range"].rng::-moz-range-thumb {
     <section id="tab-journal" class="tab hidden" aria-label="Dziennik i diagnostyka V60">
       <div id="journalDiagView" class="col">
         <div id="diagNoCoffee" class="empty-state hidden" style="padding:22px 16px">
-          <div class="empty-icon">🧪</div>
+          <div class="empty-icon"><svg class="icon-svg" width="24" height="24" aria-hidden="true"><use href="#icoFlask"/></svg></div>
           <h3 class="fs15 fw8">Brak wybranej kawy</h3>
           <p class="muted" style="max-width:320px">Dodaj kawę na <strong>Półce</strong>, aby diagnozować smak parzenia V60 i zapisywać wzorce ustawień.</p>
           <div class="wrap jc-c w100">
@@ -1357,7 +1436,7 @@ input[type="range"].rng::-moz-range-thumb {
               </div>
               <p id="fixPropReason" class="muted c-txt ta-l"></p>
               <div id="fixPropPreview" class="col-xs gap3"></div>
-              <button id="btnSaveSuggestedFix" type="button" class="btn btn-primary btn-sm w100 mt2">💡 Zapisz korektę na następne parzenie</button>
+              <button id="btnSaveSuggestedFix" type="button" class="btn btn-primary btn-sm w100 mt2"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoBulb"/></svg> Zapisz korektę na następne parzenie</button>
             </div>
           </div>
 
@@ -1388,7 +1467,7 @@ input[type="range"].rng::-moz-range-thumb {
               <div class="row ai-s gap8">
                 <div class="min0 f1">
                   <div class="wrap gap5">
-                    <span id="diagFixBadge" class="badge badge-fix">💡 Korekta</span>
+                    <span id="diagFixBadge" class="badge badge-fix"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoBulb"/></svg> Korekta</span>
                     <strong id="diagFixTitle" class="fs12 c-txt"></strong>
                   </div>
                   <p id="diagFixSteps" class="sub-xs mono c-fix fw7 mt2 lh14"></p>
@@ -1403,14 +1482,14 @@ input[type="range"].rng::-moz-range-thumb {
                 </div>
               </div>
               <div id="diagFixNotAppliedBox" class="hidden" style="padding-top:5px;border-top:1px solid var(--fix-bd)">
-                <span class="sub-xs c-txt lh14 db">W tym parzeniu nie użyto tych zmian — nadal czekają w <strong>Recepturze</strong> pod przyciskiem <strong>💡</strong> (lub możesz je odrzucić powyżej).</span>
+                <span class="sub-xs c-txt lh14 db">W tym parzeniu nie użyto tych zmian — nadal czekają w <strong>Recepturze</strong> pod ikoną korekty (lub możesz je odrzucić powyżej).</span>
               </div>
             </div>
 
             <div id="diagBrewFormHost" class="col-xs"></div>
             <textarea id="logNote" rows="2" placeholder="Notatki smakowe (np. czysta słodycz brzoskwini, lekko cytrusowy finisz)..." class="input fs12"></textarea>
             <div class="row gap8">
-              <button id="btnToggleSaveDialed" type="button" class="btn log-circle-btn diag-dialed-toggle" title="Zapisz jako najlepsze ustawienia (🎯 wzorzec)" aria-label="Zapisz jako najlepsze ustawienia" aria-pressed="false">🎯</button>
+              <button id="btnToggleSaveDialed" type="button" class="btn log-circle-btn diag-dialed-toggle" title="Zapisz jako najlepsze ustawienia (wzorzec)" aria-label="Zapisz jako najlepsze ustawienia" aria-pressed="false"><svg class="icon-svg" width="18" height="18" aria-hidden="true"><use href="#icoTarget"/></svg></button>
               <button id="btnSaveLog" type="button" class="btn btn-primary f1">Zapisz w Dzienniku</button>
             </div>
           </div>
@@ -1450,15 +1529,15 @@ input[type="range"].rng::-moz-range-thumb {
 
   <div id="brewBottomDock" class="brew-bottom-dock brew-locked-dark hidden">
     <div id="brewActualsBox" class="brew-actuals-box fold-box fold-up is-collapsed" aria-hidden="true">
-      <span class="sub-xs c-txt fw6">Zweryfikuj rzeczywistą ilość wody i mleka przed zapisem:</span>
+      <span class="sub-xs c-txt fw6">Rzeczywiste ilości przed zapisem:</span>
       <div class="wrap gap10">
         <label class="wrap gap5 fs12">
-          <span>💧 Woda:</span>
+          <span><svg class="icon-svg c-dl" width="13" height="13" aria-hidden="true"><use href="#icoDrop"/></svg> Woda:</span>
           <input id="swActualWater" type="number" inputmode="numeric" min="50" max="1200" step="1" class="mono in-mini c-acc" style="width:60px;height:28px;border:1px solid var(--accent-bd)" aria-label="Rzeczywista ilość wody w ml" />
           <span>ml</span>
         </label>
         <label id="swActualMilkWrap" class="wrap hidden sw-milk-label gap5 fs12">
-          <span>🥛 Mleko:</span>
+          <span><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoMilk"/></svg> Mleko:</span>
           <input id="swActualMilk" type="number" inputmode="numeric" min="0" max="300" step="5" class="mono in-mini sw-milk-input" style="width:54px;height:28px" aria-label="Rzeczywista ilość mleka w ml" />
           <span>ml</span>
         </label>
@@ -1466,10 +1545,10 @@ input[type="range"].rng::-moz-range-thumb {
     </div>
     <div id="brewSwControls" class="brew-bottom-controls hidden" role="group" aria-label="Sterowanie stoperem">
       <button id="btnFinishToJournal" type="button" class="btn btn-ai brew-save-journal-btn hidden">Zapisz w Dzienniku →</button>
-      <button id="btnSwStart" type="button" class="brew-circle-btn start" title="Start / Pauza" aria-label="Start / Pauza">▶</button>
-      <button id="btnSwPrev" type="button" class="brew-circle-btn next hidden" title="Poprzedni etap" aria-label="Poprzedni etap">⏮</button>
-      <button id="btnSwNext" type="button" class="brew-circle-btn next" title="Następny etap" aria-label="Następny etap">⏭</button>
-      <button id="btnSwReset" type="button" class="brew-circle-btn reset" title="Resetuj stoper" aria-label="Resetuj stoper">↺</button>
+      <button id="btnSwStart" type="button" class="brew-circle-btn start" title="Start / Pauza" aria-label="Start / Pauza"><svg class="icon-svg" width="21" height="21" aria-hidden="true"><use href="#icoPlay"/></svg></button>
+      <button id="btnSwPrev" type="button" class="brew-circle-btn next hidden" title="Poprzedni etap" aria-label="Poprzedni etap"><svg class="icon-svg" width="18" height="18" aria-hidden="true"><use href="#icoSkipPrev"/></svg></button>
+      <button id="btnSwNext" type="button" class="brew-circle-btn next" title="Następny etap" aria-label="Następny etap"><svg class="icon-svg" width="18" height="18" aria-hidden="true"><use href="#icoSkipNext"/></svg></button>
+      <button id="btnSwReset" type="button" class="brew-circle-btn reset" title="Resetuj stoper" aria-label="Resetuj stoper"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoReset"/></svg></button>
       <button id="btnSwModeToggle" type="button" class="brew-circle-btn mode" title="Tryb automatyczny (kliknij, aby przełączyć na ręczny)" aria-label="Tryb stopera: Automatyczny" aria-pressed="false"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoClock"/></svg></button>
     </div>
     <div class="seg" role="tablist">
@@ -1489,10 +1568,10 @@ input[type="range"].rng::-moz-range-thumb {
 
   <div id="recipeFabDock" class="recipe-fab-dock hidden">
     <div id="recipePresetMenu" class="recipe-fab-menu is-collapsed" aria-hidden="true" role="group" aria-label="Wybierz preset parametrów">
-      <button id="btnMatchProfile" type="button" class="fab-circle recipe-fab ai" title="Dopasuj do rekomendacji profilu" aria-label="Dopasuj do profilu">✦</button>
-      <button id="btnMatchDialed" type="button" class="fab-circle recipe-fab dialed" title="Wczytaj mój wzorzec z historii" aria-label="Wczytaj mój wzorzec">🎯</button>
-      <button id="btnMatchFix" type="button" class="fab-circle recipe-fab fix" title="Zastosuj sugerowaną korektę z ostatniego parzenia" aria-label="Zastosuj sugerowaną korektę">💡</button>
-      <button id="btnLockSliders" type="button" class="fab-circle recipe-fab lock" title="Zablokuj suwaki" aria-label="Zablokuj suwaki">🔓</button>
+      <button id="btnMatchProfile" type="button" class="fab-circle recipe-fab ai" title="Dopasuj do rekomendacji profilu" aria-label="Dopasuj do profilu"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoSparkle"/></svg></button>
+      <button id="btnMatchDialed" type="button" class="fab-circle recipe-fab dialed" title="Wczytaj mój wzorzec z historii" aria-label="Wczytaj mój wzorzec"><svg class="icon-svg" width="20" height="20" aria-hidden="true"><use href="#icoTarget"/></svg></button>
+      <button id="btnMatchFix" type="button" class="fab-circle recipe-fab fix" title="Zastosuj sugerowaną korektę z ostatniego parzenia" aria-label="Zastosuj sugerowaną korektę"><svg class="icon-svg" width="19" height="19" aria-hidden="true"><use href="#icoBulb"/></svg></button>
+      <button id="btnLockSliders" type="button" class="fab-circle recipe-fab lock" title="Zablokuj suwaki" aria-label="Zablokuj suwaki"><svg class="icon-svg" width="18" height="18" aria-hidden="true"><use href="#icoUnlock"/></svg></button>
     </div>
     <button id="btnTogglePresetMenu" type="button" class="fab-circle recipe-fab-trigger" title="Szybkie presety" aria-label="Szybkie presety" aria-expanded="false" aria-controls="recipePresetMenu">
       <svg id="presetMenuIcon" class="icon-svg" width="20" height="20" aria-hidden="true"><use href="#icoBolt"/></svg>
@@ -1526,23 +1605,23 @@ input[type="range"].rng::-moz-range-thumb {
         <h2 id="mAddT" class="fs16 fw8 trunc">+ Dodaj kawę pod V60</h2>
         <p id="mAddSub" class="sub-xs">Wklej profil kawy w formacie JSON lub uzupełnij ręcznie</p>
       </div>
-      <button type="button" data-close-modal="modalAdd" class="btn-icon" aria-label="Zamknij">✕</button>
+      <button type="button" data-close-modal="modalAdd" class="btn-icon" aria-label="Zamknij"><svg class="icon-svg" width="16" height="16" aria-hidden="true"><use href="#icoClose"/></svg></button>
     </div>
     <div class="modal-body">
       <div id="addModeSeg" class="seg" role="tablist">
-        <button id="addTabJson" type="button" role="tab" aria-selected="true" class="seg-btn active"><span>📋 Wklej JSON</span></button>
-        <button id="addTabManual" type="button" role="tab" aria-selected="false" class="seg-btn"><span>✏️ Ręcznie</span></button>
+        <button id="addTabJson" type="button" role="tab" aria-selected="true" class="seg-btn active"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoCopy"/></svg><span>Wklej JSON</span></button>
+        <button id="addTabManual" type="button" role="tab" aria-selected="false" class="seg-btn"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoEdit"/></svg><span>Ręcznie</span></button>
       </div>
 
       <div id="addPanelJson" class="col-xs">
-        <div class="row" style="flex-wrap:wrap">
+        <div class="row gap6">
           <label for="jsonPasteInput" class="lbl">Kod profilu JSON *</label>
-          <div class="wrap gap5" style="margin-left:auto;justify-content:flex-end">
-            <button id="btnCopyEditRecipe" type="button" class="btn btn-ghost btn-sm hidden" title="Kopiuj przepis V60 dla tej kawy">📋 Przepis</button>
-            <button id="btnCopyJsonTemplate" type="button" class="btn btn-ghost btn-sm" title="Kopiuj prompt i szablon JSON dla AI">✨ Szablon AI</button>
-            <button id="btnPasteClipboard" type="button" class="btn btn-sec btn-sm">📋 Wklej</button>
-            <button id="btnClearJson" type="button" class="btn btn-ghost btn-sm">Wyczyść</button>
-          </div>
+          <button id="btnCopyEditRecipe" type="button" class="btn btn-ghost btn-sm hidden" title="Kopiuj przepis V60 dla tej kawy"><svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoCopy"/></svg> Przepis</button>
+        </div>
+        <div class="g3 gap6">
+          <button id="btnCopyJsonTemplate" type="button" class="btn btn-ghost btn-sm" title="Kopiuj prompt i szablon JSON dla AI"><svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoSparkle"/></svg> Szablon AI</button>
+          <button id="btnPasteClipboard" type="button" class="btn btn-sec btn-sm"><svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoCopy"/></svg> Wklej</button>
+          <button id="btnClearJson" type="button" class="btn btn-ghost btn-sm">Wyczyść</button>
         </div>
         <textarea id="jsonPasteInput" rows="7" class="input mono fs11 lh14" placeholder='Wklej tutaj kod JSON z profilem kawy V60 (np. { "schemaVersion": 1, "name": "...", ... })'></textarea>
 
@@ -1553,7 +1632,7 @@ input[type="range"].rng::-moz-range-thumb {
 
         <div id="jsonDupBox" class="val-box warn fold-box is-collapsed gap6" aria-hidden="true">
           <div class="row gap6">
-            <strong class="fs13 c-warn">☕ Ta kawa jest już na Twojej półce</strong>
+            <strong class="fs13 c-warn"><svg class="icon-svg" width="14" height="14" aria-hidden="true"><use href="#icoCup"/></svg> Ta kawa jest już na Twojej półce</strong>
             <span id="jsonDupStatusBadge" class="badge badge-warn">Na półce</span>
           </div>
           <p id="jsonDupMsg" class="sub-xs c-txt lh14"></p>
@@ -1563,7 +1642,7 @@ input[type="range"].rng::-moz-range-thumb {
         <div id="jsonPreviewCard" class="val-box ok fold-box is-collapsed" aria-hidden="true">
           <div class="row">
             <strong id="prevName" class="fs13 trunc"></strong>
-            <span id="prevVerBadge" class="badge badge-ai">🌐 Sieć</span>
+            <span id="prevVerBadge" class="badge badge-ai"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoGlobe"/></svg> Sieć</span>
           </div>
           <p id="prevSub" class="sub-xs trunc"></p>
           <div id="prevExtras" class="wrap hidden"></div>
@@ -1577,7 +1656,7 @@ input[type="range"].rng::-moz-range-thumb {
         <label id="updateApplySlidersRow" class="row-item clickable hidden">
           <div>
             <strong class="fs12 db">Zastosuj nowe wartości startowe na suwakach</strong>
-            <span class="sub-xs">Twój zapisany wzorzec 🎯 oraz historia Dziennika pozostaną nienaruszone</span>
+            <span class="sub-xs">Twój zapisany wzorzec oraz historia Dziennika pozostaną nienaruszone</span>
           </div>
           <input id="tglUpdateApplySliders" type="checkbox" checked class="chk-box dialed" />
         </label>
@@ -1589,7 +1668,7 @@ input[type="range"].rng::-moz-range-thumb {
         <div id="manualFieldsHost" class="col-xs"></div>
         <div id="manErr" class="val-box err hidden"></div>
         <div id="manDupBox" class="val-box warn hidden gap6">
-          <strong class="fs13 c-warn">☕ Ta kawa jest już na Twojej półce</strong>
+          <strong class="fs13 c-warn"><svg class="icon-svg" width="14" height="14" aria-hidden="true"><use href="#icoCup"/></svg> Ta kawa jest już na Twojej półce</strong>
           <p id="manDupMsg" class="sub-xs c-txt lh14"></p>
           <button id="btnManGoExisting" type="button" class="btn btn-sec btn-sm w100 b-warn">Pokaż tę kawę na Półce →</button>
         </div>
@@ -1607,7 +1686,7 @@ input[type="range"].rng::-moz-range-thumb {
         <h2 id="mLogT" class="fs16 fw8 trunc">+ Dodaj wpis parzenia V60</h2>
         <p id="mLogSub" class="sub-xs">Zapisz wcześniejsze lub zewnętrzne parzenie bezpośrednio do historii</p>
       </div>
-      <button type="button" data-close-modal="modalAddLog" class="btn-icon" aria-label="Zamknij">✕</button>
+      <button type="button" data-close-modal="modalAddLog" class="btn-icon" aria-label="Zamknij"><svg class="icon-svg" width="16" height="16" aria-hidden="true"><use href="#icoClose"/></svg></button>
     </div>
     <div class="modal-body">
       <div class="col-xs">
@@ -1621,7 +1700,7 @@ input[type="range"].rng::-moz-range-thumb {
       <div class="row gap6" style="flex-wrap:wrap">
         <span class="sub-xs">Proporcja (Ratio):</span>
         <span id="mLogRealRatio" class="badge badge-acc mono">1:15.6</span>
-        <span id="mLogModeBadge" class="badge badge-acc mono hidden">✋ Tryb ręczny</span>
+        <span id="mLogModeBadge" class="badge badge-acc mono hidden"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoHand"/></svg> Tryb ręczny</span>
         <span id="mLogPlanBadge" class="badge badge-muted mono hidden"></span>
       </div>
 
@@ -1642,7 +1721,7 @@ input[type="range"].rng::-moz-range-thumb {
 
       <div id="mLogFixSection" class="row-item col-xs fold-box is-collapsed fix-banner" aria-hidden="true">
         <div class="row">
-          <span class="badge badge-fix">💡 Korekta smaku i efekt</span>
+          <span class="badge badge-fix"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoBulb"/></svg> Korekta smaku i efekt</span>
           <span id="mLogFixResultBadge" class="badge badge-muted hidden"></span>
         </div>
         <label class="col-xs gap3">
@@ -1660,7 +1739,7 @@ input[type="range"].rng::-moz-range-thumb {
       </div>
 
       <div id="mLogManualSplitsSection" class="row-item col-xs fold-box is-collapsed acc-banner" aria-hidden="true">
-        <div class="row"><span class="badge badge-acc">✋ Etapy w trybie ręcznym</span></div>
+        <div class="row"><span class="badge badge-acc"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoHand"/></svg> Etapy w trybie ręcznym</span></div>
         <label class="col-xs gap3">
           <span class="lbl fs9 c-acc">Zarejestrowane czasy etapów</span>
           <textarea id="mLogManualSplitsInput" rows="2" placeholder="np. Blooming: 0:40 (plan 0:35) · Zalanie 1: 0:45 (plan 0:40)..." class="input mono fs11" style="padding:6px 8px;border-color:var(--accent-bd)"></textarea>
@@ -1668,12 +1747,12 @@ input[type="range"].rng::-moz-range-thumb {
       </div>
 
       <div class="col-xs gap3">
-        <label for="mLogNote" class="lbl">📝 Notatki osobiste</label>
+        <label for="mLogNote" class="lbl"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoNote"/></svg> Notatki osobiste</label>
         <textarea id="mLogNote" rows="2" placeholder="Notatki smakowe (np. zbalansowana słodycz, nuty orzechowe)..." class="input fs12"></textarea>
       </div>
 
       <div class="row gap8">
-        <button id="btnModalToggleDialed" type="button" class="btn log-circle-btn diag-dialed-toggle" title="Zapisz jako najlepsze ustawienia (🎯 wzorzec)" aria-label="Zapisz jako najlepsze ustawienia" aria-pressed="false">🎯</button>
+        <button id="btnModalToggleDialed" type="button" class="btn log-circle-btn diag-dialed-toggle" title="Zapisz jako najlepsze ustawienia (wzorzec)" aria-label="Zapisz jako najlepsze ustawienia" aria-pressed="false"><svg class="icon-svg" width="18" height="18" aria-hidden="true"><use href="#icoTarget"/></svg></button>
         <button id="btnSaveModalLog" type="button" class="btn btn-primary btn-lg f1">✓ Dodaj wpis do historii</button>
       </div>
     </div>
@@ -1688,7 +1767,7 @@ input[type="range"].rng::-moz-range-thumb {
         <h2 id="mSetT" class="fs16 fw8">Ustawienia i Kopia Zapasowa</h2>
         <p class="sub-xs">Motyw aplikacji, preferencje stopera, chmura i eksport JSON</p>
       </div>
-      <button type="button" data-close-modal="modalSettings" class="btn-icon" aria-label="Zamknij">✕</button>
+      <button type="button" data-close-modal="modalSettings" class="btn-icon" aria-label="Zamknij"><svg class="icon-svg" width="16" height="16" aria-hidden="true"><use href="#icoClose"/></svg></button>
     </div>
     <div class="modal-body">
       <div class="col-xs">
@@ -1739,9 +1818,9 @@ input[type="range"].rng::-moz-range-thumb {
         <div class="row-item">
           <div class="min0 f1">
             <div class="wrap gap6"><span id="setCloudDot" class="dot busy"></span><strong id="setCloudTxt" class="fs13">Łączenie</strong></div>
-            <p id="setCloudDetail" class="sub-xs trunc mt2">Łączenie w tle...</p>
+            <p id="setCloudDetail" class="sub-xs mt2 lh12">Łączenie w tle...</p>
           </div>
-          <button id="btnManualSync" type="button" class="btn btn-sec btn-sm">↻ Synchronizuj</button>
+          <button id="btnManualSync" type="button" class="btn btn-sec btn-sm f0"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoReset"/></svg> Synchronizuj</button>
         </div>
         <div class="col-xs mt2 gap6">
           <div class="g2 gap6">
@@ -1754,7 +1833,7 @@ input[type="range"].rng::-moz-range-thumb {
           </div>
           <div class="row gap6">
             <span class="sub-xs f1">Token zapisywany jest wyłącznie lokalnie w przeglądarce telefonu.</span>
-            <button id="btnPullGhNow" type="button" class="btn btn-ghost btn-sm hidden">⬇ Pobierz z GitHub</button>
+            <button id="btnPullGhNow" type="button" class="btn btn-ghost btn-sm hidden"><svg class="icon-svg" width="12" height="12" aria-hidden="true"><use href="#icoDownload"/></svg> Pobierz z GitHub</button>
             <button id="btnClearGhSync" type="button" class="btn btn-ghost btn-sm hidden c-bad">Odłącz</button>
           </div>
         </div>
@@ -1764,15 +1843,15 @@ input[type="range"].rng::-moz-range-thumb {
 
       <div class="col-xs">
         <span class="lbl">Kopia zapasowa (Półka + Dziennik + Wzorce)</span>
-        <button id="btnShareBackup" type="button" class="btn btn-primary w100">📤 Udostępnij plik / Zapisz jako...</button>
+        <button id="btnShareBackup" type="button" class="btn btn-primary w100"><svg class="icon-svg" width="15" height="15" aria-hidden="true"><use href="#icoShare"/></svg> Udostępnij plik / Zapisz jako...</button>
         <div class="g2">
-          <button id="btnDownloadJson" type="button" class="btn btn-sec btn-sm">⬇ Pobierz .json</button>
-          <button id="btnImportTrigger" type="button" class="btn btn-sec btn-sm">⬆ Importuj plik (.json)</button>
+          <button id="btnDownloadJson" type="button" class="btn btn-sec btn-sm"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoDownload"/></svg> Pobierz .json</button>
+          <button id="btnImportTrigger" type="button" class="btn btn-sec btn-sm"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoUpload"/></svg> Importuj plik (.json)</button>
         </div>
         <input id="importJsonInput" type="file" accept=".json,application/json" class="hidden" />
         <div class="g2">
-          <button id="btnCopyJson" type="button" class="btn btn-ghost btn-sm">📋 Kopiuj kod JSON</button>
-          <button id="btnTogglePasteJson" type="button" class="btn btn-ghost btn-sm">📥 Wklej kod JSON</button>
+          <button id="btnCopyJson" type="button" class="btn btn-ghost btn-sm"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoCopy"/></svg> Kopiuj kod JSON</button>
+          <button id="btnTogglePasteJson" type="button" class="btn btn-ghost btn-sm"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoUpload"/></svg> Wklej kod JSON</button>
         </div>
         <div id="pasteJsonPanel" class="col-xs fold-box is-collapsed" aria-hidden="true">
           <textarea id="pasteJsonInput" rows="4" class="input mono fs11 lh14" placeholder="Wklej tutaj skopiowany kod kopii zapasowej JSON..."></textarea>
@@ -1797,16 +1876,16 @@ input[type="range"].rng::-moz-range-thumb {
         <div class="min0 f1">
           <div class="wrap gap6">
             <h2 id="mAboutT" class="fs16 fw8">DripLab V60</h2>
-            <span class="badge badge-acc mono">Wersja 1.3</span>
+            <span class="badge badge-acc mono">Wersja 1.4</span>
           </div>
           <p class="sub-xs mt2">Osobisty asystent parzenia przelewowego</p>
         </div>
       </div>
-      <button type="button" data-close-modal="modalAbout" class="btn-icon" aria-label="Zamknij">✕</button>
+      <button type="button" data-close-modal="modalAbout" class="btn-icon" aria-label="Zamknij"><svg class="icon-svg" width="16" height="16" aria-hidden="true"><use href="#icoClose"/></svg></button>
     </div>
     <div class="modal-body">
       <div class="card col-xs about-dedication">
-        <span class="badge badge-acc" style="align-self:center">☕ Z miłością • Dedykacja</span>
+        <span class="badge badge-acc" style="align-self:center"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoCup"/></svg> Z miłością • Dedykacja</span>
         <strong class="fs15 c-txt">Dla mojej ukochanej Małżonki Małgosi</strong>
         <p class="fs13 c-txt mt2" style="line-height:1.65;font-style:italic">
           „Każda kropla, co w ciszy przez filtr opada,<br/>
@@ -1817,14 +1896,14 @@ input[type="range"].rng::-moz-range-thumb {
       </div>
       <div class="row-item col-xs gap6 ai-s">
         <div class="row w100">
-          <span class="lbl c-acc">✨ Co nowego w wersji 1.3</span>
-          <span class="badge badge-acc mono fs9">v1.2 → v1.3</span>
+          <span class="lbl c-acc"><svg class="icon-svg" width="11" height="11" aria-hidden="true"><use href="#icoSparkle"/></svg> Co nowego w wersji 1.4</span>
+          <span class="badge badge-acc mono fs9">v1.3 → v1.4</span>
         </div>
         <ul class="val-list c-txt lh14" style="margin:0 0 0 16px;gap:4px">
-          <li><strong>Realistyczna wizualizacja filiżanki:</strong> powiększone naczynie ze szklanym dnem, pełniejszym uchem, dynamicznym meniskiem i objętością na środku z automatycznym kontrastem tekstu.</li>
-          <li><strong>Optyczna reakcja płynu:</strong> barwa oraz przejrzystość naparu zmieniają się zależnie od <em>ratio</em> i dodatku mleka (mleko natychmiast zmniejsza przezroczystość).</li>
-          <li><strong>Blokada ratio (🔒/🔓):</strong> przycisk w rogu karty <em>Parametry parzenia</em> pozwala powiązać dawkę kawy z wodą lub regulować je niezależnie.</li>
-          <li><strong>Wyrównane suwaki i czytelniejszy układ:</strong> równe osie suwaków dawki kawy i wody docelowej oraz przeniesienie przycisku kopiowania przepisu do okna edycji kawy.</li>
+          <li><strong>Gesty dotykowe:</strong> zmiana głównych zakładek przesunięciem palca w poziomie oraz zamykanie dolnych okien (<em>bottom sheet</em>) przesunięciem w dół.</li>
+          <li><strong>Spójny design i ikony SVG:</strong> jednolite wektorowe ikony w całej aplikacji (paski, karty, stoper, modale), efekt matowego szkła na paskach nawigacji i okrągłe checkboxy na check-liście.</li>
+          <li><strong>Czytelniejsza Receptura i Historia:</strong> rozdzielone skale suwaków <em>Ratio</em> i temperatury, równe wskaźniki profili zalewania, pasek statystyk oraz status korekty bezpośrednio na kartach historii.</li>
+          <li><strong>Odchudzony i szybszy kod:</strong> gruntowna optymalizacja wydajności (mniejszy plik i znacznie płynniejsze działanie list, ocen i przełączników).</li>
         </ul>
       </div>
       <div class="row-item col-xs gap4">
@@ -1852,18 +1931,52 @@ input[type="range"].rng::-moz-range-thumb {
   const DIAL_GEO = { W: 146, H: 228, CX: 142, CY: 114, R: 88, A_START: 112, A_END: 248 };
 
   const THEMES = [
-    { id: 'espresso', name: 'Espresso', desc: 'Ciemny klasyczny', color: '#120f0d', icon: '#icoMoon', sw: ['#120f0d', '#d99b52', '#38bdf8'] },
-    { id: 'cappuccino', name: 'Cappuccino', desc: 'Ciepły jasny', color: '#f6efe6', icon: '#icoSun', sw: ['#f6efe6', '#b66824', '#0284c7'] },
-    { id: 'coldbrew', name: 'Cold Brew', desc: 'Granatowy łupkowy', color: '#0e141b', icon: '#icoDrop', sw: ['#0e141b', '#e09c52', '#38bdf8'] },
+    { id: 'espresso', name: 'Espresso', desc: 'Ciemny klasyczny', color: '#120f0d', icon: '#icoMoon', sw: ['#120f0d', '#2b241f', '#d99b52'] },
+    { id: 'cappuccino', name: 'Cappuccino', desc: 'Ciepły jasny', color: '#f6efe6', icon: '#icoSun', sw: ['#f6efe6', '#eee4d6', '#b66824'] },
+    { id: 'coldbrew', name: 'Cold Brew', desc: 'Granatowy łupkowy', color: '#0e141b', icon: '#icoDrop', sw: ['#0e141b', '#2a384a', '#e09c52'] },
   ];
   const THEME_MAP = Object.fromEntries(THEMES.map((t) => [t.id, t]));
+
+  const svgIco = (id, sz = 12) => `<svg class="icon-svg" width="${sz}" height="${sz}" aria-hidden="true"><use href="#${id}"/></svg>`;
+  const ICONS = {
+    edit: svgIco('icoEdit', 14),
+    trash: svgIco('icoTrash', 15),
+    archive: svgIco('icoArchive', 14),
+    archiveSm: svgIco('icoArchive', 12),
+    note: svgIco('icoNote', 12),
+    gear: svgIco('icoGear', 12),
+    ruler: svgIco('icoRuler', 12),
+    clock: svgIco('icoClock', 12),
+    target: svgIco('icoTarget', 12),
+    targetLg: svgIco('icoTarget', 15),
+    bulb: svgIco('icoBulb', 12),
+    sparkle: svgIco('icoSparkle', 12),
+    milk: svgIco('icoMilk', 12),
+    leaf: svgIco('icoLeaf', 11),
+    globe: svgIco('icoGlobe', 11),
+    tag: svgIco('icoTag', 11),
+    alert: svgIco('icoAlert', 13),
+    shield: svgIco('icoShield', 12),
+    thermo: svgIco('icoThermo', 13),
+    hand: svgIco('icoHand', 12),
+    drop: svgIco('icoDrop', 12),
+    cup: svgIco('icoCup', 11),
+    bookLg: svgIco('icoBook', 24),
+    lockLg: svgIco('icoLock', 18),
+    unlockLg: svgIco('icoUnlock', 18),
+    play: svgIco('icoPlay', 21),
+    pause: svgIco('icoPause', 20),
+    skipNext: svgIco('icoSkipNext', 18),
+    checkLg: svgIco('icoCheck', 20),
+    resetSm: svgIco('icoReset', 13),
+  };
 
   const FILTER_CHIPS = [
     { id: 'all', label: 'Wszystkie' },
     { id: 'fav', label: '★ Ulubione' },
-    { id: 'dialed', label: '🎯 Ustalone', cls: 'chip-dialed' },
-    { id: 'archived', label: '🫙 Skończone' },
-    { id: 'fix', label: '💡 W trakcie korekty', cls: 'chip-fix-pill' },
+    { id: 'dialed', label: `${ICONS.target} Ustalone`, cls: 'chip-dialed' },
+    { id: 'archived', label: `${ICONS.archiveSm} Skończone` },
+    { id: 'fix', label: `${ICONS.bulb} W trakcie korekty`, cls: 'chip-fix-pill' },
     { id: 'light', label: 'Jasne' },
     { id: 'medium', label: 'Średnie' },
     { id: 'dark', label: 'Ciemne' },
@@ -1872,8 +1985,8 @@ input[type="range"].rng::-moz-range-thumb {
   const HIST_FILTER_CHIPS = [
     { id: 'all', label: 'Wszystkie' },
     { id: 'active', label: 'Aktywna kawa' },
-    { id: 'dialed', label: '🎯 Wzorce', cls: 'chip-dialed' },
-    { id: 'fix', label: '💡 W trakcie korekty', cls: 'chip-fix-pill' },
+    { id: 'dialed', label: `${ICONS.target} Wzorce`, cls: 'chip-dialed' },
+    { id: 'fix', label: `${ICONS.bulb} W trakcie korekty`, cls: 'chip-fix-pill' },
     { id: 'top5', label: '★★★★★ (5)' },
     { id: 'light', label: 'Jasne' },
     { id: 'medium', label: 'Średnie' },
@@ -1962,10 +2075,23 @@ input[type="range"].rng::-moz-range-thumb {
     'grindMaxUm', 'pourProfile', 'checklistExtras',
   ];
 
-  const ICONS = {
-    edit: '<svg class="icon-svg" width="14" height="14" aria-hidden="true"><use href="#icoEdit"/></svg>',
-    trash: '<svg class="icon-svg" width="15" height="15" aria-hidden="true"><use href="#icoTrash"/></svg>',
-  };
+  function formatLogDate(raw) {
+    const s = String(raw || '').trim();
+    if (!s) return '';
+    if (/^\d{4}-\d{2}-\d{2}T/.test(s)) {
+      const d = new Date(s);
+      if (!Number.isNaN(d.getTime())) {
+        const now = new Date();
+        const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+        const yest = new Date(now); yest.setDate(now.getDate() - 1);
+        const hm = d.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+        if (sameDay(d, now)) return `Dzisiaj, ${hm}`;
+        if (sameDay(d, yest)) return `Wczoraj, ${hm}`;
+        return `${d.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' })}, ${hm}`;
+      }
+    }
+    return s;
+  }
 
   /* 2. STAN APLIKACJI I SZYBKIE HELPERY (Z CACHE DOM) */
   const state = {
@@ -2576,10 +2702,10 @@ input[type="range"].rng::-moz-range-thumb {
     if (Number.isNaN(roasted.getTime())) return null;
     const now = new Date();
     const days = Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - roasted) / 86400000);
-    if (days < 0) return { days: 0, label: '🌱 Świeżo palona', cls: 'badge-warn', warn: true };
-    if (days < 6) return { days, label: `🌱 ${days} d (odgazuj dłużej)`, cls: 'badge-warn', warn: true };
-    if (days <= 42) return { days, label: `🌱 ${days} dni od palenia`, cls: 'badge-ai', warn: false };
-    return { days, label: `🍂 ${days} dni od palenia`, cls: 'badge-muted', warn: false };
+    if (days < 0) return { days: 0, label: 'Świeżo palona', html: `${ICONS.leaf} Świeżo palona`, cls: 'badge-warn', warn: true };
+    if (days < 6) return { days, label: `${days} d (odgazuj dłużej)`, html: `${ICONS.leaf} ${days} d (odgazuj dłużej)`, cls: 'badge-warn', warn: true };
+    if (days <= 42) return { days, label: `${days} dni od palenia`, html: `${ICONS.leaf} ${days} dni od palenia`, cls: 'badge-ai', warn: false };
+    return { days, label: `${days} dni od palenia`, html: `${ICONS.leaf} ${days} dni od palenia`, cls: 'badge-muted', warn: false };
   }
 
   function sanitizeSources(list) {
@@ -2868,8 +2994,17 @@ input[type="range"].rng::-moz-range-thumb {
     toastTimer = setTimeout(() => el.classList.remove('show'), ms);
   }
 
-  function openModal(id) { setCtxDrawer(false); show(id, true); }
-  function closeModal(id) { show(id, false); }
+  function openModal(id) {
+    setCtxDrawer(false);
+    const box = $(id)?.querySelector('.modal-box');
+    if (box) { box.style.transform = ''; box.style.opacity = ''; box.style.transition = ''; }
+    show(id, true);
+  }
+  function closeModal(id) {
+    const box = $(id)?.querySelector('.modal-box');
+    if (box) { box.style.transform = ''; box.style.opacity = ''; box.style.transition = ''; }
+    show(id, false);
+  }
 
   let audioCtx = null;
   const SOUND_NOTES = {
@@ -3248,9 +3383,9 @@ input[type="range"].rng::-moz-range-thumb {
         <div class="row w100 gap4">
           <strong class="fs12">${pr.name}</strong>
           <span class="wrap gap3">
-            <span class="badge badge-ai rec-ai hidden fs9" style="padding:1px 5px">✦</span>
-            <span class="badge badge-dialed rec-dialed hidden fs9" style="padding:1px 5px">🎯</span>
-            <span class="badge badge-fix rec-fix hidden fs9" style="padding:1px 5px">💡</span>
+            <span class="badge badge-ai rec-ai prof-dot hidden">${ICONS.sparkle}</span>
+            <span class="badge badge-dialed rec-dialed prof-dot hidden">${ICONS.target}</span>
+            <span class="badge badge-fix rec-fix prof-dot hidden">${ICONS.bulb}</span>
           </span>
         </div>
         <span class="sub-xs">${pr.sub}</span>
@@ -3262,23 +3397,23 @@ input[type="range"].rng::-moz-range-thumb {
 
     const renderBrewGrid = (p, o = {}) => `
       <div class="g3">
-        <label class="row-item col-xs diag-cell"><span class="lbl fs9">Kawa (g)</span><input id="${p}DoseInput" type="number" inputmode="decimal" min="5" max="60" step="0.1"${o.defVals ? ' value="18"' : ''} class="mono in-bare" /></label>
-        <label class="row-item col-xs diag-cell"><span class="lbl fs9">Wlana woda (ml)</span><input id="${p}WaterInput" type="number" inputmode="numeric" min="50" max="1200" step="1"${o.defVals ? ' value="280"' : ''} class="mono in-bare acc" /></label>
-        <label class="row-item col-xs diag-cell"><span class="lbl fs9">${o.timeLbl || 'Czas (mm:ss)'}</span><input id="${p}TimeInput" type="text" placeholder="${o.timePh || '02:35'}" maxlength="5" class="mono in-bare" /></label>
+        <label class="row-item col-xs diag-cell"><span class="lbl fs9 nw">Kawa (g)</span><input id="${p}DoseInput" type="number" inputmode="decimal" min="5" max="60" step="0.1"${o.defVals ? ' value="18"' : ''} class="mono in-bare" /></label>
+        <label class="row-item col-xs diag-cell"><span class="lbl fs9 nw">Woda (ml)</span><input id="${p}WaterInput" type="number" inputmode="numeric" min="50" max="1200" step="1"${o.defVals ? ' value="280"' : ''} class="mono in-bare acc" /></label>
+        <label class="row-item col-xs diag-cell"><span class="lbl fs9 nw">${o.timeLbl || 'Czas'}</span><input id="${p}TimeInput" type="text" placeholder="${o.timePh || '02:35'}" maxlength="5" class="mono in-bare" /></label>
       </div>
       <div class="g3">
-        <label class="row-item col-xs diag-cell"><span class="lbl fs9">Temp. (°C)</span><input id="${p}TempInput" type="number" inputmode="numeric" min="84" max="99" step="1"${o.defVals ? ' value="92"' : ''} class="mono in-bare" /></label>
+        <label class="row-item col-xs diag-cell"><span class="lbl fs9 nw">Temp. (°C)</span><input id="${p}TempInput" type="number" inputmode="numeric" min="84" max="99" step="1"${o.defVals ? ' value="92"' : ''} class="mono in-bare" /></label>
         <label class="row-item col-xs diag-cell">
-          <span id="${p}GrindLabel" class="lbl fs9">${o.grindLbl || 'Mielenie (µm)'}</span>
+          <span id="${p}GrindLabel" class="lbl fs9 nw">${o.grindLbl || 'Mielenie'}</span>
           <input id="${p}GrindUmInput" type="number" inputmode="numeric" min="450" max="1050" step="10"${o.defVals ? ' value="700"' : ''} class="mono in-bare${o.umHidden ? ' hidden' : ''}" />
           <select id="${p}Kg79Select" aria-label="Kliki KG79" class="mono in-bare fs12 fw8${o.kgHidden ? ' hidden' : ''}"></select>
         </label>
-        <label class="row-item col-xs diag-cell"><span class="lbl fs9">Profil V60</span><select id="${p}ProfileSelect" aria-label="Profil zalewania V60" class="in-bare fs12 fw8"></select></label>
+        <label class="row-item col-xs diag-cell"><span class="lbl fs9 nw">Profil</span><select id="${p}ProfileSelect" aria-label="Profil zalewania V60" class="in-bare fs12 fw8"></select></label>
       </div>`;
 
     const renderMilkRow = (p, w = 52) => `
       <div class="row-item p-compact" style="gap:${w === 52 ? 8 : 6}px">
-        <span class="lbl" style="white-space:nowrap">🥛 Mleko</span>
+        <span class="lbl" style="white-space:nowrap">${ICONS.milk} Mleko</span>
         <select id="${p}MilkType" aria-label="Rodzaj mleka" class="in-bare f1 fs12 fw8"></select>
         <div id="${p}MilkMlWrap" class="wrap fold-h is-collapsed f0" style="gap:${w === 52 ? 3 : 2}px" aria-hidden="true">
           <input id="${p}MilkMl" type="number" inputmode="numeric" min="0" max="300" step="5" value="0" class="mono in-mini c-txt" style="width:${w}px;height:26px;border:1px solid var(--border)" aria-label="Ilość mleka w ml" />
@@ -3288,12 +3423,12 @@ input[type="range"].rng::-moz-range-thumb {
 
     $('diagBrewFormHost').innerHTML = `${renderBrewGrid('diag', { kgHidden: true })}
       <div id="diagClogAlert" class="row-item col-xs fold-box is-collapsed warn-banner" aria-hidden="true">
-        <div class="row"><strong class="fs12 c-warn">⚠️ Wykryto wydłużony spływ (zatkanie pyłem)</strong><span id="diagClogDeltaBadge" class="badge badge-warn mono">+25s</span></div>
+        <div class="row"><strong class="fs12 c-warn">${ICONS.alert} Wykryto wydłużony spływ (zatkanie pyłem)</strong><span id="diagClogDeltaBadge" class="badge badge-warn mono">+25s</span></div>
         <p id="diagClogMsg" class="sub-xs c-txt lh14"></p>
-        <button id="btnDiagCoarsenKg79" type="button" class="btn btn-sec btn-sm w100 b-warn">⚙️ Zmień o 1 klik w stronę COARSE</button>
+        <button id="btnDiagCoarsenKg79" type="button" class="btn btn-sec btn-sm w100 b-warn">${ICONS.gear} Zmień o 1 klik w stronę COARSE</button>
       </div>
       ${renderMilkRow('diag', 52)}`;
-    $('mLogBrewGridHost').innerHTML = renderBrewGrid('mLog', { defVals: true, timeLbl: 'Czas (opc.)', timePh: 'np. 02:35', grindLbl: 'KG79 (COARSE)', umHidden: true });
+    $('mLogBrewGridHost').innerHTML = renderBrewGrid('mLog', { defVals: true, timeLbl: 'Czas', timePh: 'np. 02:35', grindLbl: 'KG79', umHidden: true });
     $('mLogMilkHost').innerHTML = renderMilkRow('mLog', 46);
 
     const milkOpts = MILK_TYPES.map((m) => `<option value="${m.id}">${m.label}</option>`).join('');
@@ -3351,14 +3486,14 @@ input[type="range"].rng::-moz-range-thumb {
           </div>
           <input id="rng-${w.key}" data-ai-key="${w.key}" type="range" min="${w.min}" max="${w.max}" step="${w.step}" class="rng" />
         </div>
-        <div class="row sub-xs mono gap4">
+        <div class="row sub-xs mono" style="margin-top:-6px">
           <span id="min-${w.key}">${w.fmt(w.min)}</span>
-          <div class="wrap jc-c gap5">
-            <button id="snap-ai-${w.key}" type="button" data-snap-ai="${w.key}" class="snap-link ai" title="Ustaw rekomendację profilu"></button>
-            <button id="snap-dl-${w.key}" type="button" data-snap-dialed="${w.key}" class="snap-link dialed hidden" title="Ustaw wartość z Twojego wzorca"></button>
-            <button id="snap-fx-${w.key}" type="button" data-snap-fix="${w.key}" class="snap-link fix hidden" title="Ustaw sugerowaną korektę"></button>
-          </div>
           <span id="max-${w.key}">${w.fmt(w.max)}</span>
+        </div>
+        <div class="wrap gap5 mt2">
+          <button id="snap-ai-${w.key}" type="button" data-snap-ai="${w.key}" class="snap-link ai" title="Ustaw rekomendację profilu"></button>
+          <button id="snap-dl-${w.key}" type="button" data-snap-dialed="${w.key}" class="snap-link dialed hidden" title="Ustaw wartość z Twojego wzorca"></button>
+          <button id="snap-fx-${w.key}" type="button" data-snap-fix="${w.key}" class="snap-link fix hidden" title="Ustaw sugerowaną korektę"></button>
         </div>
       </div>`).join('');
 
@@ -3381,7 +3516,7 @@ input[type="range"].rng::-moz-range-thumb {
       <div class="col-xs">
         <label for="${f.id}" class="lbl">${f.label}</label>
         ${f.type === 'select'
-          ? `<select id="${f.id}" class="input fw7">${f.opts.map(([v, t]) => `<option value="${v}"${v === 'medium' ? ' selected' : ''}>${t}</option>`).join('')}</select>`
+          ? `<select id="${f.id}" class="input">${f.opts.map(([v, t]) => `<option value="${v}"${v === 'medium' ? ' selected' : ''}>${t}</option>`).join('')}</select>`
           : `<input id="${f.id}" type="${f.type || 'text'}"${f.max ? ` maxlength="${f.max}"` : ''}${f.ph ? ` placeholder="${f.ph}"` : ''} class="input${f.mono ? ' mono' : ''}${f.sm ? ' fs12' : ''}" />`}
       </div>`;
     $('manualFieldsHost').innerHTML = MANUAL_ROWS.map((r) =>
@@ -3460,9 +3595,9 @@ input[type="range"].rng::-moz-range-thumb {
       const cap = clamp(total / (total + p.milkMl * 2.2), 0.48, 0.66);
       list.forEach((s) => { s.c0 = +(s.c0 * cap).toFixed(3); s.c1 = +(s.c1 * cap).toFixed(3); });
       const ddStage = list[list.length - 1];
-      ddStage.tip = `Pozwól wodzie swobodnie spłynąć z V60 (bez zakręcania dripperem). 🥛 Podgrzej lub spień ${p.milkMl} ml mleka (${milkShort}).`;
+      ddStage.tip = `Pozwól wodzie swobodnie spłynąć z V60 (bez zakręcania dripperem). Podgrzej lub spień ${p.milkMl} ml mleka (${milkShort}).`;
       list.push({
-        ...mk('🥛 Dolej mleko', ddStage.end, ddStage.end + 15, total, p.milkMl, false, 0, cap, 0.98, `Zdejmij dripper V60, zakręć serwerem i wlej ${p.milkMl} ml mleka (${milkShort}) do gotowej kawy.`),
+        ...mk('Dolej mleko', ddStage.end, ddStage.end + 15, total, p.milkMl, false, 0, cap, 0.98, `Zdejmij dripper V60, zakręć serwerem i wlej ${p.milkMl} ml mleka (${milkShort}) do gotowej kawy.`),
         isMilk: true, milkMl: p.milkMl, milkShort, cone0: 0, conePeak: 0, cone1: 0,
       });
     }
@@ -3530,8 +3665,8 @@ input[type="range"].rng::-moz-range-thumb {
       if (navLbl.textContent !== nextNavTxt) navLbl.textContent = nextNavTxt;
       navLbl.classList.toggle('is-timer', showNavTimer);
     }
-    const planStr = `Plan: ${fmtMMSS(extPlanSec)}${milkOn ? ' + 🥛' : ''}`;
-    if (swPrev.plan !== planStr) { $('swPlan').textContent = planStr; swPrev.plan = planStr; }
+    const planStr = `Plan: ${fmtMMSS(extPlanSec)}${milkOn ? ` + ${ICONS.milk}` : ''}`;
+    if (swPrev.plan !== planStr) { $('swPlan').innerHTML = planStr; swPrev.plan = planStr; }
 
     const nextEl = $('swNextLabel');
     let nextKey;
@@ -3564,7 +3699,7 @@ input[type="range"].rng::-moz-range-thumb {
         wCard.classList.toggle('milk-stage', isMilkCard);
         const lblEl = $('stWeightLbl');
         if (cur.isMilk) {
-          lblEl.classList.remove('hidden'); lblEl.textContent = `🥛 ${cur.milkShort.toUpperCase()}`;
+          lblEl.classList.remove('hidden'); lblEl.innerHTML = `${ICONS.milk} ${esc(cur.milkShort.toUpperCase())}`;
           $('stWeightNum').textContent = `+${cur.milkMl}`; $('stWeightUnit').textContent = 'ml';
           $('stWeightDelta').textContent = 'Po spływie';
         } else {
@@ -3587,11 +3722,14 @@ input[type="range"].rng::-moz-range-thumb {
       }
       if (isFinished) {
         $('doneGreeting').textContent = state.swFinishGreeting || 'Smacznej kawy! ☕';
-        if (document.activeElement !== $('swActualWater')) $('swActualWater').value = String(state.capturedWater ?? getWater(c));
+        const finWater = state.capturedWater ?? getWater(c), finMilk = state.capturedMilkMl ?? p.milkMl;
+        const sumEl = $('doneSummary');
+        if (sumEl) sumEl.innerHTML = `${fmtMMSS(sec)} · ${finWater} ml · 1:${p.ratio.toFixed(1)}${milkOn ? ` · +${finMilk} ml ${ICONS.milk}` : ''}`;
+        if (document.activeElement !== $('swActualWater')) $('swActualWater').value = String(finWater);
         show('swActualMilkWrap', milkOn);
-        if (milkOn && document.activeElement !== $('swActualMilk')) $('swActualMilk').value = String(state.capturedMilkMl ?? p.milkMl);
+        if (milkOn && document.activeElement !== $('swActualMilk')) $('swActualMilk').value = String(finMilk);
       } else {
-        $('stTitle').textContent = `${activeIdx + 1}. ${cur.name}`;
+        $('stTitle').innerHTML = `${activeIdx + 1}. ${cur.isMilk ? `${ICONS.milk} ` : ''}${esc(cur.name)}`;
         show('stStepCounter', isManual);
         $('stStepCounter').textContent = `${activeIdx + 1}/${stages.length}`;
         $('stRange').textContent = cur.isMilk ? 'Po spływie' : `${fmtMin(cur.start)}–${fmtMin(cur.end)}`;
@@ -3600,8 +3738,8 @@ input[type="range"].rng::-moz-range-thumb {
 
       const startBtn = $('btnSwStart'), nextBtn = $('btnSwNext');
       show(startBtn, !isFinished);
-      startBtn.textContent = state.swRun ? '⏸' : '▶';
-      startBtn.style.paddingLeft = state.swRun ? '0' : '3px';
+      startBtn.innerHTML = state.swRun ? ICONS.pause : ICONS.play;
+      startBtn.style.paddingLeft = '0';
       startBtn.title = state.swRun ? 'Pauza' : (sec > 0 ? 'Wznów' : 'Start');
       startBtn.setAttribute('aria-label', startBtn.title);
       startBtn.classList.toggle('running', state.swRun);
@@ -3609,7 +3747,7 @@ input[type="range"].rng::-moz-range-thumb {
       show(nextBtn, !isFinished);
       nextBtn.classList.toggle('ready', isManualStepReady);
       const isLast = started && !isFinished && idx >= stages.length - 1;
-      nextBtn.textContent = isLast ? '✓' : '⏭';
+      nextBtn.innerHTML = isLast ? ICONS.checkLg : ICONS.skipNext;
       nextBtn.title = isLast ? 'Zakończ parzenie' : 'Następny etap';
       nextBtn.setAttribute('aria-label', nextBtn.title);
 
@@ -3665,7 +3803,7 @@ input[type="range"].rng::-moz-range-thumb {
         const cls = isFinished ? 'done' : !started ? (i === activeIdx ? 'cur' : '') : (i === idx ? 'cur' : (i < idx ? 'done' : ''));
         const canTap = !isFinished && (!started || isManual);
         return `<div class="stage-tile ${s.isMilk ? 'milk' : ''} ${cls} ${canTap ? 'tappable' : ''}" data-stage-idx="${i}"${canTap ? ' role="button" tabindex="0"' : ''}>
-          <div class="st-name trunc">${cls === 'done' ? '✓ ' : `${i + 1}. `}${esc(s.name)}</div>
+          <div class="st-name trunc">${cls === 'done' ? '✓ ' : `${i + 1}. `}${s.isMilk ? `${ICONS.milk} ` : ''}${esc(s.name)}</div>
           <div class="st-sub mono"><span>${s.isMilk ? 'Po spływie' : fmtMin(s.start)}</span><span class="st-w">${s.isMilk ? `+${s.milkMl} ml` : `${s.target} g`}</span></div>
         </div>`;
       }).join('');
@@ -3737,11 +3875,11 @@ input[type="range"].rng::-moz-range-thumb {
   function getVerBadgeInfo(c) {
     if (c.verificationStatus === 'web_verified') {
       const n = c.sources.length;
-      return { cls: 'badge-ai', text: `🌐 Sieć${n ? ` (${n})` : ''}`, long: `🌐 Zweryfikowano w sieci${n ? ` (${n} źr.)` : ''}` };
+      return { cls: 'badge-ai', text: `Sieć${n ? ` (${n})` : ''}`, html: `${ICONS.globe} Sieć${n ? ` (${n})` : ''}`, long: `Zweryfikowano w sieci${n ? ` (${n} źr.)` : ''}` };
     }
     return c.verificationStatus === 'label_only'
-      ? { cls: 'badge-muted', text: '🏷️ Etykieta', long: '🏷️ Odczytano z etykiety' }
-      : { cls: 'badge-warn', text: '📝 Szacowane', long: '📝 Parametry szacowane' };
+      ? { cls: 'badge-muted', text: 'Etykieta', html: `${ICONS.tag} Etykieta`, long: 'Odczytano z etykiety' }
+      : { cls: 'badge-warn', text: 'Szacowane', html: `${ICONS.note} Szacowane`, long: 'Parametry szacowane' };
   }
 
   function formatSourceLabel(src) {
@@ -3764,13 +3902,13 @@ input[type="range"].rng::-moz-range-thumb {
     show('ctxDialedIcon', Boolean(c.dialedIn));
     show('ctxChev', true); show('ctxStats', true);
     $('ctxName').textContent = c.name;
-    $('ctxStats').textContent = `${fmtDose(p.dose)}g/${w}ml · ${p.tempC}°C · 1:${p.ratio.toFixed(1)}${milkOn ? ` · +${p.milkMl}ml🥛` : ''}`;
+    $('ctxStats').innerHTML = `${fmtDose(p.dose)}g/${w}ml · ${p.tempC}°C · 1:${p.ratio.toFixed(1)}${milkOn ? ` · +${p.milkMl}ml ${ICONS.milk}` : ''}`;
 
     const fresh = getFreshnessInfo(c.roastDate);
     $('ctxDrawerRoast').className = `badge ${rm.badge}`;
     $('ctxDrawerRoast').textContent = c.roastLabel || rm.label;
     show('ctxDrawerFresh', Boolean(fresh));
-    if (fresh) { $('ctxDrawerFresh').className = `badge ${fresh.cls} mono`; $('ctxDrawerFresh').textContent = fresh.label; }
+    if (fresh) { $('ctxDrawerFresh').className = `badge ${fresh.cls} mono`; $('ctxDrawerFresh').innerHTML = fresh.html; }
     show('ctxDrawerDialed', Boolean(c.dialedIn));
     show('ctxDrawerSca', c.scaScore !== null);
     if (c.scaScore !== null) $('ctxDrawerSca').textContent = `SCA ${c.scaScore}`;
@@ -3780,8 +3918,8 @@ input[type="range"].rng::-moz-range-thumb {
       ? c.tastingNotes.map((n) => `<span class="badge badge-muted">${esc(n)}</span>`).join('')
       : '<span class="sub-xs">Brak zapisanych nut smakowych</span>';
     const effGrinder = getEffectiveGrinderDisplay(c);
-    $('ctxDrawerParams').textContent =
-      `${fmtDose(p.dose)} g / ${w} ml (1:${p.ratio.toFixed(1)}) · ${p.tempC}°C · ${p.grindUm} µm${effGrinder ? ` (${effGrinder})` : ''} · ${getProfileName(p.profile)}${milkOn ? ` · +${p.milkMl} ml 🥛` : ''}`;
+    $('ctxDrawerParams').innerHTML =
+      `${fmtDose(p.dose)} g / ${w} ml (1:${p.ratio.toFixed(1)}) · ${p.tempC}°C · ${p.grindUm} µm${effGrinder ? ` (${esc(effGrinder)})` : ''} · ${esc(getProfileName(p.profile))}${milkOn ? ` · +${p.milkMl} ml ${ICONS.milk}` : ''}`;
   }
 
   function getFilteredShelf() {
@@ -3819,7 +3957,7 @@ input[type="range"].rng::-moz-range-thumb {
 
     document.querySelectorAll('#shelfFilterChips .chip').forEach((el) => {
       el.classList.toggle('active', el.dataset.filter === state.filter);
-      if (el.dataset.filter === 'archived') el.textContent = finishedTotal > 0 ? `🫙 Skończone (${finishedTotal})` : '🫙 Skończone';
+      if (el.dataset.filter === 'archived') el.innerHTML = finishedTotal > 0 ? `${ICONS.archiveSm} Skończone (${finishedTotal})` : `${ICONS.archiveSm} Skończone`;
     });
     $('shelfSort').value = state.sort;
 
@@ -3829,7 +3967,7 @@ input[type="range"].rng::-moz-range-thumb {
         title: 'Twoja półka V60 jest pusta',
         desc: 'Wklej profil kawy w formacie <strong>JSON</strong>, dodaj ziarno ręcznie albo przywróć swoją kopię zapasową.',
         primaryHtml: '<button type="button" data-act="open-add" class="btn btn-primary btn-lg w100">+ Dodaj pierwszą kawę</button>',
-        secHtml: '<button type="button" data-act="import-json" class="btn btn-ghost btn-sm">⬆ Importuj kopię (.json)</button>',
+        secHtml: '<button type="button" data-act="import-json" class="btn btn-ghost btn-sm"><svg class="icon-svg" width="13" height="13" aria-hidden="true"><use href="#icoUpload"/></svg> Importuj kopię (.json)</button>',
       });
       return;
     }
@@ -3855,21 +3993,21 @@ input[type="range"].rng::-moz-range-thumb {
       const avg = st && st.rated ? (st.sum / st.rated).toFixed(1) : null;
       const src = dl || { dose: p.dose, water: getWater(c), temp: p.tempC, grinderClicks: getEffectiveGrinderDisplay(c), grindUm: p.grindUm, milkType: p.milkType, milkMl: p.milkMl };
       const grindTxt = src.grinderClicks ? esc(compactClicksText(src.grinderClicks)) : `${src.grindUm}µm`;
-      const paramLine = `${dl ? '🎯 ' : ''}${fmtDose(src.dose)}g/${src.water}ml · ${src.temp}°C · ${grindTxt}${hasMilk(src) ? ` · +${src.milkMl}ml 🥛` : ''}`;
+      const paramLine = `${dl ? `${ICONS.target} ` : ''}${fmtDose(src.dose)}g/${src.water}ml · ${src.temp}°C · ${grindTxt}${hasMilk(src) ? ` · +${src.milkMl}ml ${ICONS.milk}` : ''}`;
 
       return `<article class="card coffee-card ${active ? 'active' : ''} ${c.isArchived ? 'is-finished' : ''}" data-id="${esc(c.id)}">
         <div class="coffee-card-body" data-act="activate" title="${c.isArchived ? '' : (active ? 'Kliknij, aby otworzyć recepturę aktywnej kawy' : 'Kliknij, aby ustawić jako aktywną kawę')}">
           <div class="card-head ai-s">
             <div class="min0 f1">
-              <h3 class="fs15 fw8 lh12 trunc">${dl ? '🎯 ' : ''}${esc(c.name)}</h3>
+              <h3 class="fs15 fw8 lh12 trunc">${dl ? `<span class="c-dl">${ICONS.target}</span> ` : ''}${esc(c.name)}</h3>
               <p class="sub-xs trunc mt1">${esc(c.roaster)} · ${esc(c.origin)}</p>
               ${c.tastingNotes?.length ? `<p class="sub-xs trunc mt2 c-acc2 fw6">✦ ${c.tastingNotes.map(esc).join(' · ')}</p>` : ''}
               <div class="wrap gap4 mt4">
                 <span class="badge ${rm.badge}">${esc(rm.short)}</span>
-                ${fresh ? `<span class="badge ${fresh.cls} mono">${esc(fresh.label)}</span>` : ''}
-                ${c.suggestedFix ? '<span class="badge badge-fix">💡 Korekta</span>' : ''}
+                ${fresh ? `<span class="badge ${fresh.cls} mono">${fresh.html}</span>` : ''}
+                ${c.suggestedFix ? `<span class="badge badge-fix">${ICONS.bulb} Korekta</span>` : ''}
                 ${c.scaScore !== null ? `<span class="badge badge-acc mono">SCA ${esc(c.scaScore)}</span>` : ''}
-                ${st ? `<button type="button" data-act="logs" class="badge badge-muted badge-link mono" title="Pokaż parzenia tej kawy w Dzienniku">☕ ${st.count}${avg ? ` · ★ ${avg}` : ''}</button>` : ''}
+                ${st ? `<button type="button" data-act="logs" class="badge badge-muted badge-link mono" title="Pokaż parzenia tej kawy w Dzienniku">${ICONS.cup} ${st.count}${avg ? ` · ★ ${avg}` : ''}</button>` : ''}
               </div>
             </div>
             <button type="button" data-act="fav" class="btn-icon fav-btn ${c.isFavorite ? 'on' : ''}" title="Ulubiona" aria-label="Ulubiona">${c.isFavorite ? '★' : '☆'}</button>
@@ -3877,9 +4015,11 @@ input[type="range"].rng::-moz-range-thumb {
           <div class="row-item sub-xs mono coffee-param-row${dl ? ' is-dl' : ''}"><span class="trunc">${paramLine}</span></div>
         </div>
         <div class="coffee-card-actions">
-          <button type="button" data-act="brew" class="btn btn-primary btn-sm f1" style="min-width:68px;padding:5px 9px"${c.isArchived ? ' disabled aria-disabled="true" title="Przywróć paczkę, aby parzyć"' : ''}>Parz →</button>
+          ${c.isArchived
+            ? `<button type="button" data-act="archive" class="btn btn-sec btn-sm f1" style="min-width:96px;padding:5px 9px" title="Przywróć paczkę do aktywnych">${ICONS.resetSm} Przywróć</button>`
+            : '<button type="button" data-act="brew" class="btn btn-primary btn-sm f1" style="min-width:68px;padding:5px 9px">Parz →</button>'}
           <button type="button" data-act="recipe" class="btn btn-ghost btn-sm f1" style="min-width:74px;padding:5px 9px">Receptura</button>
-          <button type="button" data-act="archive" class="btn ${c.isArchived ? 'finish-btn-on' : 'btn-ghost'} log-circle-btn btn-circle-xs" title="${c.isArchived ? 'Przywróć paczkę do aktywnych' : 'Oznacz paczkę jako skończoną'}" aria-label="${c.isArchived ? 'Przywróć paczkę' : 'Oznacz paczkę jako skończoną'}" aria-pressed="${Boolean(c.isArchived)}">🫙</button>
+          ${c.isArchived ? '' : `<button type="button" data-act="archive" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Oznacz paczkę jako skończoną" aria-label="Oznacz paczkę jako skończoną" aria-pressed="false">${ICONS.archive}</button>`}
           <button type="button" data-act="edit" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Edytuj / aktualizuj profil" aria-label="Edytuj profil kawy">${ICONS.edit}</button>
           ${delAsk
             ? '<button type="button" data-act="del-yes" class="btn btn-del log-circle-btn btn-circle-xs" title="Potwierdź usunięcie" aria-label="Potwierdź usunięcie">✓</button><button type="button" data-act="del-no" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Anuluj" aria-label="Anuluj">✕</button>'
@@ -3966,7 +4106,7 @@ input[type="range"].rng::-moz-range-thumb {
     const setActiveBtn = $('btnRecipeSetActive');
     if (c.isArchived) {
       setActiveBtn.disabled = true; setActiveBtn.className = 'btn btn-ghost btn-sm';
-      setActiveBtn.textContent = '🫙 Skończona'; setActiveBtn.title = 'Paczka oznaczona jako skończona';
+      setActiveBtn.innerHTML = `${ICONS.archiveSm} Skończona`; setActiveBtn.title = 'Paczka oznaczona jako skończona';
     } else if (isDiff) {
       setActiveBtn.disabled = false; setActiveBtn.className = 'btn btn-primary btn-sm';
       setActiveBtn.textContent = '☆ Aktywuj'; setActiveBtn.title = 'Ustaw tę kawę jako aktywną do parzenia';
@@ -3976,7 +4116,7 @@ input[type="range"].rng::-moz-range-thumb {
     }
     show('btnRecipeToBrew', !c.isArchived);
     show('recFreshBadge', Boolean(fresh));
-    if (fresh) { $('recFreshBadge').className = `badge ${fresh.cls} mono`; $('recFreshBadge').textContent = fresh.label; }
+    if (fresh) { $('recFreshBadge').className = `badge ${fresh.cls} mono`; $('recFreshBadge').innerHTML = fresh.html; }
     show('recDialedBadge', Boolean(c.dialedIn));
     show('recFixBadge', Boolean(c.suggestedFix));
     show('legendDialedTop', Boolean(c.dialedIn)); show('legendFixTop', Boolean(c.suggestedFix));
@@ -4003,7 +4143,7 @@ input[type="range"].rng::-moz-range-thumb {
     $('stratChev').textContent = state.stratOpen ? 'Zwiń ▴' : 'Rozwiń ▾';
 
     $('recVerBadge').className = `badge ${vb.cls}`;
-    $('recVerBadge').textContent = vb.text;
+    $('recVerBadge').innerHTML = vb.html;
     setFoldOpen('recVerBody', state.verOpen);
     $('verChev').textContent = state.verOpen ? 'Zwiń ▴' : 'Rozwiń ▾';
     $('recVerNote').textContent = c.verificationNote || 'Brak dodatkowych uwag weryfikacyjnych dla tego profilu.';
@@ -4144,17 +4284,17 @@ input[type="range"].rng::-moz-range-thumb {
         show(dSnap, Boolean(dl));
         if (dl) {
           const m = parseManualKg79Clicks(dl.grinderClicks);
-          dSnap.textContent = kgOn ? `🎯 ${compactClicksText(formatKg79Short(m !== null ? m : mapUmToKg79(dl[w.dKey], off).clicks))}` : `🎯 Wzorzec: ${w.fmt(dl[w.dKey])}`;
+          dSnap.innerHTML = kgOn ? `${ICONS.target} ${esc(compactClicksText(formatKg79Short(m !== null ? m : mapUmToKg79(dl[w.dKey], off).clicks)))}` : `${ICONS.target} Wzorzec: ${w.fmt(dl[w.dKey])}`;
         }
         const fSnap = $(`snap-fx-${w.key}`), hasGFix = Boolean(fix && (fix.grindUm !== null || fix.grinder));
         show(fSnap, hasGFix);
         const fxG = hasGFix ? resolveGrindState(c, fix.grindUm, fix.grinder) : null;
-        if (fxG) fSnap.textContent = kgOn ? `💡 ${compactClicksText(fxG.label)}` : `💡 Korekta: ${w.fmt(fxG.um)}`;
+        if (fxG) fSnap.innerHTML = kgOn ? `${ICONS.bulb} ${esc(compactClicksText(fxG.label))}` : `${ICONS.bulb} Korekta: ${w.fmt(fxG.um)}`;
 
         const stEl = $(`st-${w.key}`);
         const isGFixMatch = fxG && ((kgOn && kg.clicks === fxG.clicks) || (!kgOn && fix.grindUm !== null && Math.abs(val - fix.grindUm) < 1));
-        if (isGFixMatch) { stEl.className = 'badge badge-fix'; stEl.textContent = '💡 Zastosowano korektę'; }
-        else if (dl && Math.abs(val - dl[w.dKey]) < 0.01) { stEl.className = 'badge badge-dialed'; stEl.textContent = '🎯 Twój wzorzec'; }
+        if (isGFixMatch) { stEl.className = 'badge badge-fix'; stEl.innerHTML = `${ICONS.bulb} Zastosowano korektę`; }
+        else if (dl && Math.abs(val - dl[w.dKey]) < 0.01) { stEl.className = 'badge badge-dialed'; stEl.innerHTML = `${ICONS.target} Twój wzorzec`; }
         else if (val >= loW - 0.001 && val <= hiW + 0.001) { stEl.className = 'badge badge-ai'; stEl.textContent = '✓ W oknie'; }
         else if (val < loW) { stEl.className = 'badge badge-warn'; stEl.textContent = w.lowMsg; }
         else { stEl.className = 'badge badge-bad'; stEl.textContent = w.highMsg; }
@@ -4184,16 +4324,16 @@ input[type="range"].rng::-moz-range-thumb {
       const dSnap = $(`snap-dl-${w.key}`);
       updatePin($(`dpin-${w.key}`), dl ? dl[w.dKey] : 0, bMin, bMax, Boolean(dl));
       show(dSnap, Boolean(dl));
-      if (dl) dSnap.textContent = `🎯 Wzorzec: ${w.fmt(dl[w.dKey])}`;
+      if (dl) dSnap.innerHTML = `${ICONS.target} Wzorzec: ${w.fmt(dl[w.dKey])}`;
 
       const fSnap = $(`snap-fx-${w.key}`), fVal = fix && Number.isFinite(fix[w.key]) ? fix[w.key] : null;
       updatePin($(`fpin-${w.key}`), fVal ?? 0, bMin, bMax, fVal !== null);
       show(fSnap, fVal !== null);
-      if (fVal !== null) fSnap.textContent = `💡 Korekta: ${w.fmt(fVal)}`;
+      if (fVal !== null) fSnap.innerHTML = `${ICONS.bulb} Korekta: ${w.fmt(fVal)}`;
 
       const stEl = $(`st-${w.key}`);
-      if (fVal !== null && Math.abs(val - fVal) < 0.01) { stEl.className = 'badge badge-fix'; stEl.textContent = '💡 Zastosowano korektę'; }
-      else if (dl && Math.abs(val - dl[w.dKey]) < 0.01) { stEl.className = 'badge badge-dialed'; stEl.textContent = '🎯 Twój wzorzec'; }
+      if (fVal !== null && Math.abs(val - fVal) < 0.01) { stEl.className = 'badge badge-fix'; stEl.innerHTML = `${ICONS.bulb} Zastosowano korektę`; }
+      else if (dl && Math.abs(val - dl[w.dKey]) < 0.01) { stEl.className = 'badge badge-dialed'; stEl.innerHTML = `${ICONS.target} Twój wzorzec`; }
       else if (val >= loW - 0.001 && val <= hiW + 0.001) { stEl.className = 'badge hidden'; stEl.textContent = ''; }
       else if (val < loW) { stEl.className = 'badge badge-warn'; stEl.textContent = w.lowMsg; }
       else { stEl.className = 'badge badge-bad'; stEl.textContent = w.highMsg; }
@@ -4210,7 +4350,7 @@ input[type="range"].rng::-moz-range-thumb {
       show('btnKg79BoostTemp', showBoost);
       if (showBoost) {
         const targetClicks = clamp(3 + off, 1, 4);
-        $('btnKg79BoostTemp').textContent = `🌡️ Ustaw ${formatKg79Short(targetClicks)} (${kg79ClicksToUm(targetClicks, off)} µm) + podbij temp. na ${clamp(p.tempC + 2, 84, 99)}°C`;
+        $('btnKg79BoostTemp').innerHTML = `${ICONS.thermo} Ustaw ${esc(formatKg79Short(targetClicks))} (${kg79ClicksToUm(targetClicks, off)} µm) + podbij temp. na ${clamp(p.tempC + 2, 84, 99)}°C`;
       }
     } else setFoldOpen('kg79WarnBox', false);
 
@@ -4252,7 +4392,7 @@ input[type="range"].rng::-moz-range-thumb {
     const p = c.params, water = getWater(c), milkOn = hasMilk(p);
     const effGrinder = getEffectiveGrinderDisplay(c);
     const clk = effGrinder ? ` · <strong class="mono c-acc2">${esc(effGrinder)}</strong>` : '';
-    const kgSafety = state.settings.kg79Enabled ? ' <span class="sub-xs db mt2">🛡️ Reguluj pokrętło przy wyłączonym silniku i pustych żarnach.</span>' : '';
+    const kgSafety = state.settings.kg79Enabled ? ` <span class="sub-xs db mt2">${ICONS.shield} Reguluj pokrętło przy wyłączonym silniku i pustych żarnach.</span>` : '';
 
     const fresh = getFreshnessInfo(c.roastDate);
     const tipsList = [...c.checklistExtras];
@@ -4282,7 +4422,7 @@ input[type="range"].rng::-moz-range-thumb {
       const on = Boolean(state.chk[it.id]); if (on) done++;
       return `<li><label class="row-item chk-row ${on ? 'done' : (it.milk ? 'milk-step' : '')}">
         <input type="checkbox" data-chk="${it.id}"${on ? ' checked' : ''} />
-        <div class="f1 min0 fs13 lh14">${it.milk ? '<span class="badge badge-milk">🥛 Przygotuj mleko</span><br>' : ''}<span class="chk-txt">${it.html}</span></div>
+        <div class="f1 min0 fs13 lh14">${it.milk ? `<span class="badge badge-milk">${ICONS.milk} Przygotuj mleko</span><br>` : ''}<span class="chk-txt">${it.html}</span></div>
       </label></li>`;
     }).join('');
 
@@ -4308,7 +4448,7 @@ input[type="range"].rng::-moz-range-thumb {
     if (btn) {
       const lbl = locked ? 'Odblokuj suwaki' : 'Zablokuj suwaki';
       btn.classList.toggle('locked', locked);
-      btn.textContent = locked ? '🔒' : '🔓';
+      btn.innerHTML = locked ? ICONS.lockLg : ICONS.unlockLg;
       btn.title = lbl; btn.setAttribute('aria-label', lbl);
     }
   }
@@ -4448,7 +4588,7 @@ input[type="range"].rng::-moz-range-thumb {
       show('btnDiagGoShelf', !c && state.coffees.length > 0);
       show('diagActiveControls', Boolean(c));
       setFoldOpen('diagManualOpenBar', Boolean(c && !state.diagSaveOpen));
-      $('diagModeBadge').textContent = state.settings.kg79Enabled ? '⚙️ KG79' : '📏 µm';
+      $('diagModeBadge').innerHTML = state.settings.kg79Enabled ? `${ICONS.gear} KG79` : `${ICONS.ruler} µm`;
       show('journalFabDock', false);
       setJournalMenu(false);
       syncToolbarLayout('hist');
@@ -4500,7 +4640,7 @@ input[type="range"].rng::-moz-range-thumb {
 
     if (!totalLogs) {
       $('historyList').innerHTML = renderEmptyState({
-        icon: '📖', title: 'Brak zapisanych parzeń V60',
+        icon: ICONS.bookLg, title: 'Brak zapisanych parzeń V60',
         desc: 'Po kawie zapisz wynik w zakładce <strong>Zapisz i Diagnozuj</strong> albo dodaj wcześniejsze parzenie ręcznie.',
         primaryHtml: '<button type="button" data-hist-add="1" class="btn btn-primary btn-sm">+ Dodaj pierwszy wpis</button>',
         pad: '22px 16px',
@@ -4512,7 +4652,19 @@ input[type="range"].rng::-moz-range-thumb {
       return;
     }
 
-    $('historyList').innerHTML = shownLogs.map((e) => {
+    let ratedSum = 0, ratedCnt = 0, timeSum = 0, timeCnt = 0;
+    for (const l of shownLogs) {
+      if ((l.rating || 0) > 0) { ratedSum += l.rating; ratedCnt++; }
+      if ((l.brewTimeSec || 0) > 0) { timeSum += l.brewTimeSec; timeCnt++; }
+    }
+    const brewWord = (n) => (n === 1 ? 'parzenie' : (n % 10 >= 2 && n % 10 <= 4 && !(n % 100 >= 12 && n % 100 <= 14) ? 'parzenia' : 'parzeń'));
+    const statsBarHtml = `<div class="hist-stats-bar mono" aria-label="Podsumowanie historii">
+      <span class="hist-stats-item fw7 c-txt">${ICONS.cup} ${shownLogs.length} ${brewWord(shownLogs.length)}</span>
+      ${ratedCnt ? `<span class="hist-stats-item"><span class="c-acc">★</span> <strong class="c-txt">${(ratedSum / ratedCnt).toFixed(1)}</strong></span>` : ''}
+      ${timeCnt ? `<span class="hist-stats-item">${ICONS.clock} śr. <strong class="c-txt">${fmtMMSS(Math.round(timeSum / timeCnt))}</strong></span>` : ''}
+    </div>`;
+
+    $('historyList').innerHTML = statsBarHtml + shownLogs.map((e) => {
       const st = clamp(Number(e.rating) || 0, 0, 5), delAsk = state.delLogId === String(e.id);
       const coffee = coffeeMap.get(e.coffeeId);
       const isDialed = Boolean(coffee?.dialedIn && String(coffee.dialedIn.logId) === String(e.id));
@@ -4520,46 +4672,52 @@ input[type="range"].rng::-moz-range-thumb {
       const waterDiff = (e.plannedWater && e.plannedWater !== e.water) ? Math.round(e.water - e.plannedWater) : 0;
       const starsHtml = st > 0 ? `<span class="c-acc fs12" style="letter-spacing:-.5px">${'★'.repeat(st)}<span style="color:var(--border-2)">${'★'.repeat(5 - st)}</span></span>` : '<span class="sub-xs">Brak oceny</span>';
       const compactClicks = e.grinderClicks ? esc(compactClicksText(e.grinderClicks)) : '';
-      const line1 = `${fmtDose(e.dose)}g/${e.water}ml (1:${e.ratio.toFixed(1)}) · ⏱ ${timeVal} · ${e.temp}°C`;
-      const line2 = `${compactClicks ? `⚙️ ${compactClicks} (${e.grindUm}µm)` : `${e.grindUm} µm`} · ${esc(getProfileName(e.pourProfile))}${hasMilk(e) ? ` · +${e.milkMl}ml 🥛 (${esc(getMilkShort(e.milkType))})` : ''}`;
+      const line1 = `${fmtDose(e.dose)}g/${e.water}ml (1:${e.ratio.toFixed(1)}) · ${ICONS.clock} ${timeVal} · ${e.temp}°C`;
+      const line2 = `${compactClicks ? `${ICONS.gear} ${compactClicks} (${e.grindUm}µm)` : `${e.grindUm} µm`} · ${esc(getProfileName(e.pourProfile))}${hasMilk(e) ? ` · +${e.milkMl}ml ${ICONS.milk} (${esc(getMilkShort(e.milkType))})` : ''}`;
 
       const { fixLines, personalLines, manualSplitsText } = extractEntryNotes(e);
       const isManualEntry = Boolean(e.manualMode || manualSplitsText);
       const hasFixNote = Boolean(fixLines.length || e.suggestedFixSummary || e.fixResult);
       const hasPersonalNote = personalLines.length > 0;
+      const fixOutcome = e.fixResult || (fixLines.some((l) => /pomogła\s*✓|✓\s*Korekta pomogła/i.test(l)) ? 'helped' : (fixLines.some((l) => /nie pomogła/i.test(l)) ? 'not_helped' : null));
+      const fixOutcomeBadge = fixOutcome === 'helped'
+        ? '<span class="badge badge-ai">✓ Pomogła</span>'
+        : fixOutcome === 'not_helped' ? '<span class="badge badge-fix">✕ Nie pomogła</span>' : '';
       const noteBadgesHtml = [
-        isManualEntry ? (manualSplitsText ? '<button type="button" data-log-act="toggle-note" class="badge badge-acc note-pill-btn" title="Tryb ręczny — kliknij, aby rozwinąć czasy etapów" aria-label="Pokaż etapy trybu ręcznego" aria-expanded="false">✋</button>' : '<span class="badge badge-acc note-pill-btn" style="cursor:default" title="Tryb ręczny" aria-label="Tryb ręczny">✋</span>') : '',
-        hasPersonalNote ? '<button type="button" data-log-act="toggle-note" class="badge badge-acc note-pill-btn" title="Notatka osobista — kliknij, aby rozwinąć" aria-label="Pokaż notatkę osobistą" aria-expanded="false">📝</button>' : '',
-        hasFixNote ? '<button type="button" data-log-act="toggle-note" class="badge badge-fix note-pill-btn" title="Notatka z korekty — kliknij, aby rozwinąć" aria-label="Pokaż notatkę z korekty" aria-expanded="false">💡</button>' : '',
+        isManualEntry ? (manualSplitsText ? `<button type="button" data-log-act="toggle-note" class="badge badge-acc note-pill-btn" title="Tryb ręczny — kliknij, aby rozwinąć czasy etapów" aria-label="Pokaż etapy trybu ręcznego" aria-expanded="false">${ICONS.hand}</button>` : `<span class="badge badge-acc note-pill-btn" style="cursor:default" title="Tryb ręczny" aria-label="Tryb ręczny">${ICONS.hand}</span>`) : '',
+        hasPersonalNote ? `<button type="button" data-log-act="toggle-note" class="badge badge-acc note-pill-btn" title="Notatka osobista — kliknij, aby rozwinąć" aria-label="Pokaż notatkę osobistą" aria-expanded="false">${ICONS.note}</button>` : '',
+        hasFixNote ? `<button type="button" data-log-act="toggle-note" class="badge badge-fix note-pill-btn" title="Notatka z korekty — kliknij, aby rozwinąć" aria-label="Pokaż notatkę z korekty" aria-expanded="false">${ICONS.bulb}</button>` : '',
       ].filter(Boolean).join('');
 
       const drawerBlocks = [];
-      if (manualSplitsText) drawerBlocks.push(`<p class="log-note mono fs11" data-log-act="toggle-note" style="font-style:normal" title="Kliknij, aby zwinąć">✋ Etapy (tryb ręczny): ${esc(manualSplitsText)}</p>`);
-      if (hasPersonalNote) drawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" title="Kliknij, aby zwinąć">📝 „${esc(personalLines.join(' '))}”</p>`);
-      if (fixLines.length) drawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" style="border-left-color:var(--fix)" title="Kliknij, aby zwinąć">💡 ${esc(fixLines.join(' · '))}</p>`);
+      if (manualSplitsText) drawerBlocks.push(`<p class="log-note mono fs11" data-log-act="toggle-note" style="font-style:normal" title="Kliknij, aby zwinąć">${ICONS.hand} Etapy (tryb ręczny): ${esc(manualSplitsText)}</p>`);
+      if (hasPersonalNote) drawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" title="Kliknij, aby zwinąć">„${esc(personalLines.join(' '))}”</p>`);
+      if (fixLines.length) drawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" style="border-left-color:var(--fix)" title="Kliknij, aby zwinąć">${ICONS.bulb} ${esc(fixLines.join(' · '))}</p>`);
       else if (e.suggestedFixSummary || e.fixResult) {
         const resTxt = e.fixResult === 'helped' ? '✓ Korekta pomogła' : e.fixResult === 'not_helped' ? '✕ Korekta nie pomogła' : 'Zastosowano korektę';
-        drawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" style="border-left-color:var(--fix)" title="Kliknij, aby zwinąć">💡 ${e.suggestedFixSummary ? `${resTxt}: ${esc(e.suggestedFixSummary)}` : resTxt}</p>`);
+        drawerBlocks.push(`<p class="log-note" data-log-act="toggle-note" style="border-left-color:var(--fix)" title="Kliknij, aby zwinąć">${ICONS.bulb} ${e.suggestedFixSummary ? `${resTxt}: ${esc(e.suggestedFixSummary)}` : resTxt}</p>`);
       }
 
       const overSec = (e.plannedTimeSec && e.brewTimeSec > 0) ? (e.brewTimeSec - e.plannedTimeSec) : 0;
       const clogBanner = (state.settings.kg79Enabled && overSec >= 20 && coffee)
-        ? `<div class="row-item col-xs warn-banner gap4" style="padding:6px 8px"><span class="sub-xs c-warn fw7 lh12">⚠️ Czas (${fmtMMSS(e.brewTimeSec)}) dłuższy o +${overSec}s od planu (${fmtMMSS(e.plannedTimeSec)}) — możliwy pył.</span><button type="button" data-log-act="coarsen-kg79" class="btn btn-sec btn-sm w100 fs11" style="padding:4px 8px">⚙️ Zmień o 1 klik → COARSE</button></div>`
+        ? `<div class="row-item col-xs warn-banner gap4" style="padding:6px 8px"><span class="sub-xs c-warn fw7 lh12">${ICONS.alert} Czas (${fmtMMSS(e.brewTimeSec)}) dłuższy o +${overSec}s od planu (${fmtMMSS(e.plannedTimeSec)}) — możliwy pył.</span><button type="button" data-log-act="coarsen-kg79" class="btn btn-sec btn-sm w100 fs11" style="padding:4px 8px">${ICONS.gear} Zmień o 1 klik → COARSE</button></div>`
         : '';
+      const dateStr = formatLogDate(e.date);
 
       return `<article class="card col-xs log-card ${isDialed ? 'is-dialed' : ''}" data-log-id="${esc(e.id)}">
         <div class="row gap6">
-          <div class="wrap gap5 min0 f1">${e.date ? `<span class="sub-xs mono">${esc(e.date)}</span>` : ''}${starsHtml}</div>
-          <div class="wrap gap4 f0">${noteBadgesHtml}<span class="badge badge-dialed dialed-pill-badge ${isDialed ? '' : 'is-off'}" aria-hidden="${!isDialed}">🎯 Wzorzec</span></div>
+          <div class="wrap gap5 min0 f1">${dateStr ? `<span class="sub-xs mono">${esc(dateStr)}</span>` : ''}${starsHtml}</div>
+          <div class="wrap gap4 f0">${fixOutcomeBadge}${noteBadgesHtml}<span class="badge badge-dialed dialed-pill-badge ${isDialed ? '' : 'is-off'}" aria-hidden="${!isDialed}">${ICONS.target} Wzorzec</span></div>
         </div>
         <strong class="fs14 lh12 trunc">${esc(e.coffeeName)}</strong>
         <div class="log-params-box mono"><span class="trunc fw7 c-txt">${line1}</span><span class="trunc c-mut">${line2}</span></div>
-        ${waterDiff ? `<div class="wrap gap4"><span class="badge badge-wrap badge-muted mono">💧 Plan: ${e.plannedWater} ml (${waterDiff > 0 ? '+' : ''}${waterDiff} ml)</span></div>` : ''}
+        ${hasPersonalNote ? `<p class="log-note-preview" data-log-act="toggle-note" title="Kliknij, aby rozwinąć szczegóły">„${esc(personalLines.join(' '))}”</p>` : ''}
+        ${waterDiff ? `<div class="wrap gap4"><span class="badge badge-wrap badge-muted mono">${ICONS.drop} Plan: ${e.plannedWater} ml (${waterDiff > 0 ? '+' : ''}${waterDiff} ml)</span></div>` : ''}
         ${clogBanner}
         ${drawerBlocks.length ? `<div class="col-xs fold-box log-note-drawer is-collapsed" aria-hidden="true">${drawerBlocks.join('')}</div>` : ''}
         <div class="row gap5 mt1">
-          <button type="button" data-log-act="load" class="btn btn-sec btn-sm f1 c-acc" style="padding:5px 10px">↻ Wczytaj</button>
-          ${coffee ? `<button type="button" data-log-act="toggle-dialed" class="btn log-circle-btn btn-circle-xs ${isDialed ? 'btn-dialed' : 'btn-ghost'}" title="${isDialed ? 'Najlepsze ustawienia (usuń wzorzec)' : 'Ustaw jako wzorzec'}" aria-label="${isDialed ? 'Najlepsze ustawienia' : 'Ustaw jako wzorzec'}">🎯</button>` : ''}
+          <button type="button" data-log-act="load" class="btn btn-sec btn-sm f1 c-acc" style="padding:5px 10px">${ICONS.resetSm} Wczytaj</button>
+          ${coffee ? `<button type="button" data-log-act="toggle-dialed" class="btn log-circle-btn btn-circle-xs ${isDialed ? 'btn-dialed' : 'btn-ghost'}" title="${isDialed ? 'Najlepsze ustawienia (usuń wzorzec)' : 'Ustaw jako wzorzec'}" aria-label="${isDialed ? 'Najlepsze ustawienia' : 'Ustaw jako wzorzec'}">${ICONS.targetLg}</button>` : ''}
           <button type="button" data-log-act="edit" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Edytuj wpis" aria-label="Edytuj wpis">${ICONS.edit}</button>
           ${delAsk
             ? '<button type="button" data-log-act="del-yes" class="btn btn-del log-circle-btn btn-circle-xs" title="Potwierdź usunięcie" aria-label="Potwierdź usunięcie">✓</button><button type="button" data-log-act="del-no" class="btn btn-ghost log-circle-btn btn-circle-xs" title="Anuluj" aria-label="Anuluj">✕</button>'
@@ -4591,7 +4749,7 @@ input[type="range"].rng::-moz-range-thumb {
   /* 8B. WSKAŹNIKI PRZEWINIĘCIA (BEZ LAYOUT THRASHING) */
   function updateScrollCue(el) {
     if (!el || el.closest('.ctx-pill')) return;
-    if (el.classList.contains('trunc')) {
+    if (el.classList.contains('trunc') || el.classList.contains('chips-scroll')) {
       const maxX = el.scrollWidth - el.clientWidth;
       if (maxX <= 3) { el.classList.remove('has-more-l', 'has-more-r'); return; }
       el.classList.toggle('has-more-l', el.scrollLeft > 4);
@@ -4608,13 +4766,15 @@ input[type="range"].rng::-moz-range-thumb {
     overflowRaf = requestAnimationFrame(() => {
       overflowRaf = null;
       const roots = [$(`tab-${state.tab}`)];
+      if (state.tab === 'shelf') roots.push($('shelfToolbar'));
+      if (state.tab === 'journal' && state.journalSub === 'hist') roots.push($('histToolbar'));
       if (state.ctxOpen) roots.push($('ctxDrawer'));
       const reads = [];
       for (const root of roots) {
         if (!root) continue;
-        root.querySelectorAll('.trunc, .brew-tip-2l').forEach((el) => {
+        root.querySelectorAll('.trunc, .chips-scroll, .brew-tip-2l').forEach((el) => {
           if (el.closest('.ctx-pill')) return;
-          if (el.classList.contains('trunc')) {
+          if (el.classList.contains('trunc') || el.classList.contains('chips-scroll')) {
             const maxX = el.scrollWidth - el.clientWidth;
             reads.push([el, 1, maxX > 3 && el.scrollLeft > 4, maxX > 3 && el.scrollLeft < maxX - 4]);
           } else {
@@ -4677,6 +4837,8 @@ input[type="range"].rng::-moz-range-thumb {
   function setCtxDrawer(open) {
     state.ctxOpen = Boolean(open && getActive());
     setFoldOpen('ctxDrawer', state.ctxOpen);
+    $('ctxBackdrop')?.classList.toggle('open', state.ctxOpen);
+    $('ctxBackdrop')?.setAttribute('aria-hidden', String(!state.ctxOpen));
     $('btnCtxPill').classList.toggle('open', state.ctxOpen);
     $('btnCtxPill').setAttribute('aria-expanded', String(state.ctxOpen));
   }
@@ -4832,7 +4994,7 @@ input[type="range"].rng::-moz-range-thumb {
   }
 
   function syncGrindFormFields(prefix, kgOn, clicks, grindUm) {
-    $(`${prefix}GrindLabel`).textContent = kgOn ? 'KG79 (COARSE)' : 'Mielenie (µm)';
+    $(`${prefix}GrindLabel`).textContent = kgOn ? 'KG79' : 'Mielenie';
     show(`${prefix}Kg79Select`, kgOn); show(`${prefix}GrindUmInput`, !kgOn);
     const target = $(`${prefix}${kgOn ? 'Kg79Select' : 'GrindUmInput'}`);
     if (document.activeElement !== target) target.value = String(kgOn ? clicks : Math.round(grindUm));
@@ -4998,11 +5160,11 @@ input[type="range"].rng::-moz-range-thumb {
 
     const vb = getVerBadgeInfo(c);
     $('prevName').textContent = c.name;
-    $('prevVerBadge').className = `badge ${vb.cls}`; $('prevVerBadge').textContent = vb.text;
+    $('prevVerBadge').className = `badge ${vb.cls}`; $('prevVerBadge').innerHTML = vb.html;
     $('prevSub').textContent = `${c.roaster} • ${c.origin} • ${c.process} • ${c.roastLabel}`;
 
-    const extras = [c.variety && `🌱 ${c.variety}`, c.altitude && `⛰️ ${c.altitude}`, c.scaScore !== null && `⭐ SCA ${c.scaScore}`].filter(Boolean);
-    $('prevExtras').innerHTML = extras.map((t) => `<span class="badge badge-acc">${esc(t)}</span>`).join('');
+    const extras = [c.variety && `${ICONS.leaf} ${esc(c.variety)}`, c.altitude && esc(c.altitude), c.scaScore !== null && `★ SCA ${esc(c.scaScore)}`].filter(Boolean);
+    $('prevExtras').innerHTML = extras.map((h) => `<span class="badge badge-acc">${h}</span>`).join('');
     show('prevExtras', extras.length > 0);
     $('prevNotes').innerHTML = c.tastingNotes.map((n) => `<span class="badge badge-muted">${esc(n)}</span>`).join('');
     $('prevWindows').textContent = `1:${c.ratioMin.toFixed(1)}–${c.ratioMax.toFixed(1)} · ${c.tempMin}–${c.tempMax}°C · ${c.grindMinUm}–${c.grindMaxUm}µm · ${getProfileName(c.pourProfile)}`;
@@ -5012,7 +5174,7 @@ input[type="range"].rng::-moz-range-thumb {
     const dup = findDuplicateCoffee(c, state.editingCoffeeId);
     if (dup) {
       state.duplicateCoffeeId = dup.id;
-      $('jsonDupStatusBadge').textContent = dup.isArchived ? '🫙 Skończona' : 'Na półce';
+      $('jsonDupStatusBadge').innerHTML = dup.isArchived ? `${ICONS.archiveSm} Skończona` : 'Na półce';
       $('jsonDupMsg').textContent = `Profil JSON jest poprawny, ale identyczne ziarno „${dup.name}” (${dup.roaster} · ${dup.origin}) już znajduje się na Twojej półce — nie można dodać duplikatu.`;
       setFoldOpen('jsonDupBox', true); $('btnSaveJsonCoffee').disabled = true;
       return;
@@ -5238,6 +5400,7 @@ input[type="range"].rng::-moz-range-thumb {
 
     onClick([
       ['btnCtxPill', () => (!getActive() ? openAddCoffeeModal(null) : setCtxDrawer(!state.ctxOpen))],
+      ['ctxBackdrop', () => setCtxDrawer(false)],
       ['btnCtxGoShelf', () => { setCtxDrawer(false); setTab('shelf'); }],
       ['btnCtxGoRecipe', () => { const ac = getActive(); if (ac) { state.recipeCoffeeId = ac.id; state.dirty.recipe = true; } setCtxDrawer(false); setTab('recipe'); }],
       ['btnCtxCopyRecipe', () => { copyRecipeToClipboard(getActive()); setCtxDrawer(false); }],
@@ -5625,6 +5788,7 @@ input[type="range"].rng::-moz-range-thumb {
         const dr = card.querySelector('.log-note-drawer'); if (!dr) return;
         const willOpen = dr.classList.contains('is-collapsed');
         dr.classList.toggle('is-collapsed', !willOpen); dr.setAttribute('aria-hidden', String(!willOpen));
+        card.querySelector('.log-note-preview')?.classList.toggle('is-open', willOpen);
         card.querySelectorAll('[data-log-act="toggle-note"].note-pill-btn').forEach((b) => { b.classList.toggle('is-open', willOpen); b.setAttribute('aria-expanded', String(willOpen)); });
         return;
       }
@@ -5756,6 +5920,52 @@ input[type="range"].rng::-moz-range-thumb {
     shell.addEventListener('touchcancel', () => { active = false; axis = null; }, { passive: true });
   }
 
+  function bindModalSheetSwipe() {
+    document.querySelectorAll('.modal-bg').forEach((bg) => {
+      const box = bg.querySelector('.modal-box'), head = bg.querySelector('.modal-head'), body = bg.querySelector('.modal-body');
+      if (!box || !head) return;
+      let dragging = false, sy = 0, st = 0, dy = 0;
+
+      const onStart = (e) => {
+        if (window.innerWidth >= 520 || e.touches.length !== 1) return;
+        if (e.target.closest('button, input, select, textarea, a')) return;
+        const inHead = Boolean(e.target.closest('.modal-head')) || (e.touches[0].clientY - box.getBoundingClientRect().top <= 28);
+        if (!inHead && body && body.scrollTop > 2) return;
+        dragging = true; sy = e.touches[0].clientY; st = Date.now(); dy = 0;
+        box.style.transition = 'none';
+      };
+      const onMove = (e) => {
+        if (!dragging || e.touches.length !== 1) return;
+        const d = e.touches[0].clientY - sy;
+        if (d <= 0) { dy = 0; box.style.transform = ''; return; }
+        dy = d;
+        if (e.cancelable) e.preventDefault();
+        box.style.transform = `translateY(${dy}px)`;
+      };
+      const onEnd = () => {
+        if (!dragging) return;
+        dragging = false;
+        const dt = Date.now() - st;
+        if (dy > 85 || (dy > 42 && dt < 240)) {
+          box.style.transition = 'transform 160ms var(--ease-out), opacity 140ms var(--ease-out)';
+          box.style.transform = 'translateY(100%)';
+          box.style.opacity = '0';
+          haptic(6);
+          setTimeout(() => closeModal(bg.id), 155);
+        } else {
+          box.style.transition = 'transform 180ms var(--ease-spring)';
+          box.style.transform = '';
+        }
+      };
+
+      head.addEventListener('touchstart', onStart, { passive: true });
+      box.addEventListener('touchstart', (e) => { if (!e.target.closest('.modal-head') && e.touches[0].clientY - box.getBoundingClientRect().top <= 28) onStart(e); }, { passive: true });
+      box.addEventListener('touchmove', onMove, { passive: false });
+      box.addEventListener('touchend', onEnd, { passive: true });
+      box.addEventListener('touchcancel', () => { dragging = false; box.style.transition = ''; box.style.transform = ''; }, { passive: true });
+    });
+  }
+
   function init() {
     loadGhConfig();
     loadLocal();
@@ -5763,10 +5973,11 @@ input[type="range"].rng::-moz-range-thumb {
     buildStaticControls();
     bindGrindDialEvents();
     bindTabSwipe();
+    bindModalSheetSwipe();
     bindEvents();
 
     document.addEventListener('scroll', (e) => {
-      if (e.target?.classList && (e.target.classList.contains('trunc') || e.target.classList.contains('brew-tip-2l'))) updateScrollCue(e.target);
+      if (e.target?.classList && (e.target.classList.contains('trunc') || e.target.classList.contains('chips-scroll') || e.target.classList.contains('brew-tip-2l'))) updateScrollCue(e.target);
     }, true);
 
     let lastY = window.scrollY || 0, scrollRaf = 0;
