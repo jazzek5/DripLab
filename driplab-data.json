@@ -153,9 +153,9 @@
         "ratio": 15.8,
         "exactWater": null,
         "tempC": 88,
-        "grindUm": 920,
+        "grindUm": 810,
         "profile": "two_pours",
-        "grinder": "2 kliki od COARSE",
+        "grinder": "3 kliki od COARSE",
         "milkType": "cow",
         "milkMl": 100
       }
@@ -570,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795812636874
+  "updatedAt": 1795812653523
 }
