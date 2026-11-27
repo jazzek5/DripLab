@@ -56,21 +56,7 @@
         "Nie mieszaj agresywnie i ogranicz kręcenie dripperem, ponieważ ziarna wypalone pod espresso produkują więcej drobnego pyłu (fines).",
         "Celuj w krótszy czas parzenia (ok. 2:15–2:35), aby ograniczyć ekstrakcję ciężkich, gorzkich związków w końcówce przelewu."
       ],
-      "dialedIn": {
-        "logId": "1795606275513",
-        "dose": 18,
-        "water": 270,
-        "ratio": 15,
-        "temp": 88,
-        "grindUm": 710,
-        "grinderClicks": "2 kliki od COARSE",
-        "pourProfile": "three_pours",
-        "milkType": "none",
-        "milkMl": 0,
-        "brewTimeSec": 2,
-        "rating": 5,
-        "updatedAt": 1795775432562
-      },
+      "dialedIn": null,
       "suggestedFix": null,
       "params": {
         "dose": 18,
@@ -534,5 +520,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795775432562
+  "updatedAt": 1795775436731
 }
