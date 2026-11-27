@@ -133,19 +133,19 @@
         "Jeśli parzysz wersję fabrycznie mieloną widoczną na zdjęciu zamiast świeżo mielonych ziaren, zejdź z temperaturą do 86 °C i zastosuj jedno spokojne zalanie."
       ],
       "dialedIn": {
-        "logId": "1795635395662",
+        "logId": "1795808875603",
         "dose": 19,
         "water": 300,
         "ratio": 15.8,
         "temp": 88,
-        "grindUm": 820,
-        "grinderClicks": "3 kliki od COARSE",
+        "grindUm": 920,
+        "grinderClicks": "2 kliki od COARSE",
         "pourProfile": "two_pours",
         "milkType": "cow",
         "milkMl": 100,
-        "brewTimeSec": 244,
+        "brewTimeSec": 219,
         "rating": 4,
-        "updatedAt": 1795800255156
+        "updatedAt": 1795808875604
       },
       "suggestedFix": null,
       "params": {
@@ -244,6 +244,31 @@
     }
   ],
   "logs": [
+    {
+      "id": "1795808875603",
+      "createdAt": 1795808875603,
+      "coffeeId": "c-1795442811163",
+      "coffeeName": "Single Origin Kolumbia",
+      "date": "27.11, 20:47",
+      "dose": 19,
+      "water": 300,
+      "ratio": 15.8,
+      "plannedWater": 300,
+      "temp": 88,
+      "grindUm": 920,
+      "grinderClicks": "2 kliki od COARSE",
+      "pourProfile": "two_pours",
+      "milkType": "cow",
+      "milkMl": 100,
+      "brewTimeSec": 219,
+      "plannedTimeSec": 150,
+      "rating": 4,
+      "notes": "",
+      "suggestedFixSummary": null,
+      "fixResult": null,
+      "manualMode": true,
+      "manualSplitsSummary": "Blooming: 0:38 (plan 0:35) · Zalanie 1: 0:45 (plan 0:40) · Zalanie 2: 0:40 (plan 0:35) · Przelanie: 1:37 (plan 0:40) · 🥛 Dolej mleko: 0:17 (plan 0:15)"
+    },
     {
       "id": "1795807452541",
       "createdAt": 1795807452541,
@@ -545,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795808605515
+  "updatedAt": 1795808875605
 }
