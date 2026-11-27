@@ -9,7 +9,7 @@
     "toasts": false,
     "brewAlwaysDark": true,
     "slidersLocked": false,
-    "ratioLocked": false,
+    "ratioLocked": true,
     "kg79Enabled": true,
     "kg79Offset": 2,
     "swManualMode": true
@@ -150,8 +150,8 @@
       "suggestedFix": null,
       "params": {
         "dose": 19,
-        "ratio": 19.2,
-        "exactWater": 365,
+        "ratio": 18.9,
+        "exactWater": 360,
         "tempC": 88,
         "grindUm": 810,
         "profile": "two_pours",
@@ -545,5 +545,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795807467159
+  "updatedAt": 1795807470350
 }
