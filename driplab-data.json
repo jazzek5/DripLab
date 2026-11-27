@@ -229,7 +229,23 @@
         "rating": 0,
         "updatedAt": 1795633784156
       },
-      "suggestedFix": null,
+      "suggestedFix": {
+        "fixId": "sour",
+        "title": "Kwaśna / ostra",
+        "reason": "Niedoparzenie — ekstrakcja zatrzymała się zbyt wcześnie na kwasowości. Gorętsza woda i większa energia parzenia podbiją słodycz.",
+        "summary": "Temperatura: 87°C → 89°C · KG79: 1 klik od COARSE → 2 kliki od COARSE",
+        "steps": [
+          "Temperatura: 87°C → 89°C",
+          "KG79: 1 klik od COARSE → 2 kliki od COARSE"
+        ],
+        "ratio": null,
+        "tempC": 89,
+        "grindUm": 920,
+        "grinder": "2 kliki od COARSE",
+        "profile": null,
+        "createdAt": 1795812342789,
+        "forNextBrew": true
+      },
       "params": {
         "dose": 10,
         "ratio": 14.5,
@@ -570,5 +586,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795812316879
+  "updatedAt": 1795812342790
 }
