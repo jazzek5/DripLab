@@ -3,7 +3,7 @@
   "version": 11,
   "method": "V60",
   "theme": "cappuccino",
-  "activeCoffeeId": "c-1795442811163",
+  "activeCoffeeId": "c-1795813191375",
   "settings": {
     "sound": true,
     "toasts": false,
@@ -15,6 +15,62 @@
     "swManualMode": true
   },
   "coffees": [
+    {
+      "schemaVersion": 1,
+      "id": "c-1795813191375",
+      "isFavorite": false,
+      "isArchived": false,
+      "roastDate": null,
+      "createdAt": 1795813191375,
+      "name": "Brazylia Black Rainforest",
+      "roaster": "Zacisze Anioła",
+      "origin": "Brazylia (Cerrado / Mogiana)",
+      "process": "Natural",
+      "variety": null,
+      "altitude": "800-1200 m n.p.m.",
+      "scaScore": 82.5,
+      "roastLevel": "medium",
+      "roastLabel": "Średnie (pod espresso)",
+      "tastingNotes": [
+        "słodkie pomarańcze",
+        "cytrusy",
+        "kakao",
+        "gorzka czekolada",
+        "orzech laskowy"
+      ],
+      "strategySummary": "Brazylijski natural wypalony pod espresso cechuje się wysoką porowatością i rozpuszczalnością. Niższa temperatura, grubsze mielenie, krótsze ratio oraz dwa spokojne zalania pozwolą uzyskać słodki, czekoladowo-orzechowy napar z akcentem pomarańczy bez nadmiernej goryczy.",
+      "verificationStatus": "label_only",
+      "verificationNote": "Wyszukiwano frazy: 'Zacisze Anioła Brazylia Black Rainforest', 'site:kawaspeciality.com.pl Black Rainforest', 'Brazylia Black Rainforest kawa', 'Brazil Black Rainforest Cerrado Mogiana' oraz oferty na Allegro i forach. Potwierdzono istnienie palarni Zacisze Anioła z Łańcuta (kawaspeciality.com.pl), jednak nie znaleziono w sieci karty tego konkretnego wypału ani opinii o nim; profil opracowano wyłącznie na podstawie etykiety.",
+      "sources": [],
+      "ratioMin": 14.8,
+      "ratioMax": 15.8,
+      "ratioRecommended": 15.2,
+      "tempMin": 86,
+      "tempMax": 90,
+      "tempRecommended": 88,
+      "grindMinUm": 760,
+      "grindMaxUm": 900,
+      "grindRecommendedUm": 820,
+      "pourProfile": "two_pours",
+      "checklistExtras": [
+        "Ogranicz agitację (nie mieszaj łyżeczką i nie kręć mocno dripperem), ponieważ brazylijski natural palony pod espresso produkuje więcej pyłu i łatwiej spowalnia przepływ.",
+        "Lej wodę spokojnym, niskim strumieniem bliżej środka złoża, aby zachować czystą słodycz cytrusów i orzecha laskowego.",
+        "Jeśli w posmaku dominuje cierpkie kakao lub gorycz, obniż temperaturę parzenia do 86-87 °C albo zmiel ziarno o jeden stopień grubiej."
+      ],
+      "dialedIn": null,
+      "suggestedFix": null,
+      "params": {
+        "dose": 18,
+        "ratio": 15.2,
+        "exactWater": null,
+        "tempC": 88,
+        "grindUm": 820,
+        "profile": "two_pours",
+        "grinder": "",
+        "milkType": "none",
+        "milkMl": 0
+      }
+    },
     {
       "schemaVersion": 1,
       "id": "c-1795601761792",
@@ -570,5 +626,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795812754779
+  "updatedAt": 1795813191376
 }
