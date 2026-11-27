@@ -6,7 +6,7 @@
   "activeCoffeeId": "c-1795442811163",
   "settings": {
     "sound": true,
-    "toasts": false,
+    "toasts": true,
     "brewAlwaysDark": true,
     "slidersLocked": false,
     "ratioLocked": false,
@@ -570,5 +570,5 @@
       "manualSplitsSummary": null
     }
   ],
-  "updatedAt": 1795811884089
+  "updatedAt": 1795811889603
 }
