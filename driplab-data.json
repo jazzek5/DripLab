@@ -2,7 +2,7 @@
   "app": "DripLab V60",
   "version": 11,
   "method": "V60",
-  "theme": "cappuccino",
+  "theme": "espresso",
   "activeCoffeeId": "c-1795813191375",
   "settings": {
     "sound": true,
@@ -648,5 +648,5 @@
     }
   ],
   "lastBrew": null,
-  "updatedAt": 1795865945571
+  "updatedAt": 1795866077680
 }
