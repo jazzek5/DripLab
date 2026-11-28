@@ -66,9 +66,9 @@
         "ratio": 15.8,
         "exactWater": null,
         "tempC": 88,
-        "grindUm": 450,
+        "grindUm": 810,
         "profile": "two_pours",
-        "grinder": "9 klików od COARSE",
+        "grinder": "3 kliki od COARSE",
         "milkType": "none",
         "milkMl": 0
       }
@@ -648,5 +648,5 @@
     }
   ],
   "lastBrew": null,
-  "updatedAt": 1795865917902
+  "updatedAt": 1795865923087
 }
