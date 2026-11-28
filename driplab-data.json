@@ -63,7 +63,7 @@
       "suggestedFix": null,
       "params": {
         "dose": 18,
-        "ratio": 15.2,
+        "ratio": 15.3,
         "exactWater": null,
         "tempC": 88,
         "grindUm": 450,
@@ -648,5 +648,5 @@
     }
   ],
   "lastBrew": null,
-  "updatedAt": 1795865252086
+  "updatedAt": 1795865257091
 }
