@@ -647,6 +647,28 @@
       "manualSplitsSummary": null
     }
   ],
-  "lastBrew": null,
-  "updatedAt": 1795866077680
+  "lastBrew": {
+    "id": "1795866515194",
+    "finishedAt": 1795866515194,
+    "coffeeId": "c-1795813191375",
+    "coffeeName": "Brazylia Black Rainforest",
+    "roaster": "Zacisze Anioła",
+    "dose": 19,
+    "water": 300,
+    "ratio": 15.8,
+    "plannedWater": 300,
+    "temp": 88,
+    "grindUm": 810,
+    "grinderClicks": "3 kliki od COARSE",
+    "kg79Clicks": 3,
+    "pourProfile": "two_pours",
+    "milkType": "cow",
+    "milkMl": 100,
+    "brewTimeSec": 237,
+    "plannedTimeSec": 150,
+    "manualMode": true,
+    "manualSplitsSummary": "Blooming: 0:45 (plan 0:35) · Zalanie 1: 0:46 (plan 0:40) · Zalanie 2: 0:39 (plan 0:35) · Przelanie: 1:47 (plan 0:40) · Dolej mleko: 0:29 (plan 0:15)",
+    "savedLogId": null
+  },
+  "updatedAt": 1795866515196
 }
