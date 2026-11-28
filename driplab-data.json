@@ -69,8 +69,8 @@
         "grindUm": 810,
         "profile": "two_pours",
         "grinder": "3 kliki od COARSE",
-        "milkType": "none",
-        "milkMl": 0
+        "milkType": "cow",
+        "milkMl": 100
       }
     },
     {
@@ -648,5 +648,5 @@
     }
   ],
   "lastBrew": null,
-  "updatedAt": 1795865941056
+  "updatedAt": 1795865945571
 }
